@@ -173,8 +173,6 @@ set cmdheight=2
 set showcmd
 " タイトルを表示
 set title
-" 画面を黒地に白にする (次行の先頭の " を削除すれば有効になる)
-"colorscheme evening " (Windows用gvim使用時はgvimrcを編集すること)
 
 "---------------------------------------------------------------------------
 " ファイル操作に関する設定:
@@ -292,15 +290,7 @@ endif
 
 "---------------------------------------------------------------------------
 " カラー設定:
-"colorscheme zmrok
-"colorscheme leo
-"colorscheme desertEx
-"colorscheme jellybeans
-"colorscheme Chocolateliquor
-"colorscheme darkZ
-"colorscheme RailsCasts
 colorscheme desert
-"colorscheme dw_orange
 if has('win32')
   set backupdir=c:\tmp\
   set backup
@@ -357,9 +347,6 @@ set columns=120
 set lines=45
 " コマンドラインの高さ(GUI使用時)
 set cmdheight=2
-" 画面を黒地に白にする (次行の先頭の " を削除すれば有効になる)
-"colorscheme jellybeans" (GUI使用時)
-"colorscheme desertEx" (GUI使用時)
 
 "---------------------------------------------------------------------------
 " 日本語入力に関する設定:
@@ -613,3 +600,38 @@ autocmd FileType markdown hi! def link markdownItalic LineNr
 
 autocmd FileType *.bl setl filetype=xml
 
+colorscheme jellybeans
+
+
+" linux/windows であれば_vimrcが読まれるが、macでは読み込まれないので_vimrcは設けない。
+" http://teppeis.hatenablog.com/entry/20080705/1215262928
+if has("vim_starting")
+  set nocompatible
+  set runtimepath+=~/.vim/bundle/neobundle.vim
+endif
+
+call neobundle#rc(expand('~/.vim/bundle/'))
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+NeoBundle 'Shougo/neocomplete.vim' 
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/vimproc.vim'
+NeoBundle 'Shougo/vimshell.vim'
+NeoBundle 'Shougo/vimfiler.vim'
+NeoBundle 'itchyny/lightline.vim'
+NeoBundle 't9md/vim-textmanip'
+
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'ujihisa/unite-colorscheme'
+NeoBundle 'tomasr/molokai'
+
+NeoBundle 'gmarik/vundle'
+NeoBundle 'Blackrush/vim-gocode'
+
+NeoBundle 'fatih/vim-go'
+
+" Installation check.
+NeoBundleCheck
+
+filetype on
+filetype plugin indent on
