@@ -18,7 +18,7 @@ NeoBundle 'Shougo/unite.vim'
 NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'tomasr/molokai'
 
-" NeoBundle 'fatih/vim-go'
+NeoBundle 'fatih/vim-go'
 
 " Installation check.
 NeoBundleCheck
