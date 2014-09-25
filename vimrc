@@ -290,7 +290,7 @@ endif
 
 "---------------------------------------------------------------------------
 " カラー設定:
-colorscheme desert
+colorscheme industry 
 if has('win32')
   set backupdir=c:\tmp\
   set backup
@@ -599,9 +599,6 @@ autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
 autocmd FileType markdown hi! def link markdownItalic LineNr
 
 autocmd FileType *.bl setl filetype=xml
-
-colorscheme jellybeans
-
 
 " linux/windows であれば_vimrcが読まれるが、macでは読み込まれないので_vimrcは設けない。
 " http://teppeis.hatenablog.com/entry/20080705/1215262928
