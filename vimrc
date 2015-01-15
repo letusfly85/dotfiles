@@ -466,7 +466,7 @@ autocmd FileType ruby setl fenc=utf-8
 autocmd FileType ruby setl enc=utf-8
 autocmd FileType ruby setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 autocmd FileType ruby setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
-autocmd BufNewFile *.rb 0r $VIM_HOME/template/ruby.tpl
+" autocmd BufNewFile *.rb 0r $VIM_HOME/template/ruby.tpl
 
 autocmd FileType d setl autoindent
 autocmd FileType d setl fenc=utf-8
@@ -555,15 +555,12 @@ autocmd InsertEnter * let &iminsert = g:IMState
 autocmd InsertEnter * let g:IMState = &iminsert|set iminsert=0 imsearch=0
 
 set number
-
 set nocompatible
 
 
-" gocode
-set rtp+=$GOROOT/misc/vim
 "golint
-exe "set rtp+=" . globpath($GOPATH, "src/github.com/golang/lint/misc/vim")
-"auto BufWritePre *.go Fmt
+" exe "set rtp+=" . globpath($GOPATH, "src/github.com/golang/lint/misc/vim")
+" auto BufWritePre *.go Fmt
 
 
 "" unite.vim {{{
@@ -607,7 +604,7 @@ if has("vim_starting")
   set runtimepath+=~/.vim/bundle/neobundle.vim
 endif
 
-call neobundle#rc(expand('~/.vim/bundle/'))
+call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'Shougo/neocomplete.vim' 
@@ -626,9 +623,6 @@ NeoBundle 'gmarik/vundle'
 NeoBundle 'Blackrush/vim-gocode'
 
 NeoBundle 'fatih/vim-go'
+call neobundle#end()
 
-" Installation check.
-NeoBundleCheck
-
-filetype on
-filetype plugin indent on
+syntax on
