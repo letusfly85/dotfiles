@@ -160,7 +160,11 @@ set nonumber
 " ルーラーを表示 (noruler:非表示)
 set ruler
 " タブや改行を表示 (list:表示)
-set nolist
+"set nolist
+set list
+" set listchars=tab:▸\ ,eol:↲,extends:❯,precedes:❮
+set ts=2
+set listchars=tab:▸\ ,eol:↲,extends:❯,precedes:❮
 " どの文字でタブや改行を表示するかを設定
 "set listchars=tab:>-,extends:<,trail:-,eol:<
 " 長い行を折り返して表示 (nowrap:折り返さない)
@@ -342,9 +346,9 @@ endif
 " ウインドウに関する設定:
 "
 " ウインドウの幅
-set columns=120
+"set columns=120
 " ウインドウの高さ
-set lines=45
+"set lines=45
 " コマンドラインの高さ(GUI使用時)
 set cmdheight=2
 
@@ -626,3 +630,13 @@ NeoBundle 'fatih/vim-go'
 call neobundle#end()
 
 syntax on
+
+set cursorline
+set cursorcolumn
+set cmdheight=2
+set helpheight=999
+set backspace=indent,eol,start " Backspaceキーの影響範囲に制限を設けない
+set whichwrap=b,s,h,l,<,>,[,]  " 行頭行末の左右移動で行をまたぐ
+set hlsearch
+set incsearch
+set clipboard=unnamed,unnamedplus
