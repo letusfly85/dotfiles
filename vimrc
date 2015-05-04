@@ -160,11 +160,11 @@ set nonumber
 " ルーラーを表示 (noruler:非表示)
 set ruler
 " タブや改行を表示 (list:表示)
-"set nolist
-set list
+set nolist
+"set list
 " set listchars=tab:▸\ ,eol:↲,extends:❯,precedes:❮
-set ts=2
-set listchars=tab:▸\ ,eol:↲,extends:❯,precedes:❮
+"set ts=2
+"set listchars=eol:↲,extends:❯,precedes:❮
 " どの文字でタブや改行を表示するかを設定
 "set listchars=tab:>-,extends:<,trail:-,eol:<
 " 長い行を折り返して表示 (nowrap:折り返さない)
@@ -465,10 +465,10 @@ autocmd FileType c setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
 autocmd FileType html setl enc=utf-8 fenc=utf-8
 autocmd FileType java setl enc=utf-8
 
-autocmd FileType ruby setl autoindent
+"autocmd FileType ruby setl autoindent
 autocmd FileType ruby setl fenc=utf-8
 autocmd FileType ruby setl enc=utf-8
-autocmd FileType ruby setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+"autocmd FileType ruby setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 autocmd FileType ruby setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
 " autocmd BufNewFile *.rb 0r $VIM_HOME/template/ruby.tpl
 
@@ -590,7 +590,7 @@ nnoremap <silent> ,vcb :Unite build:!<CR>
 nnoremap <silent> ,vch :UniteBuildClearHighlight<CR>
 "" }}}
 
-let g:copypath_copy_to_unnamed_register = 1
+" let g:copypath_copy_to_unnamed_register = 1
 
 "http://rcmdnk.github.io/blog/2013/11/17/computer-vim/
 " md as markdown, instead of modula2
@@ -627,6 +627,13 @@ NeoBundle 'gmarik/vundle'
 NeoBundle 'Blackrush/vim-gocode'
 
 NeoBundle 'fatih/vim-go'
+NeoBundle 'elixir-lang/vim-elixir'
+NeoBundle 'alpaca-tc/alpaca_tags'
+NeoBundle 'AndrewRadev/switch.vim'
+NeoBundle 'bbatsov/rubocop'
+NeoBundle 'tpope/vim-endwise'
+NeoBundle 'thinca/vim-ref'
+NeoBundle 'mattn/emmet-vim'
 call neobundle#end()
 
 syntax on
