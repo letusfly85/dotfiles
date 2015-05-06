@@ -634,7 +634,7 @@ NeoBundle 'bbatsov/rubocop'
 NeoBundle 'tpope/vim-endwise'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'mattn/emmet-vim'
-NeoBundle 'mxw/vim-jsx'
+" NeoBundle 'mxw/vim-jsx'
 call neobundle#end()
 
 syntax on
