@@ -203,7 +203,7 @@ if has('unix') && !has('gui_running')
   elseif s:uname =~? "freebsd"
     set term=builtin_cons25
   elseif s:uname =~? "Darwin"
-    set term=beos-ansi
+    set term=builtin_xterm
   else
     set term=builtin_xterm
   endif
@@ -293,8 +293,6 @@ if 1 && (!exists('g:no_gvimrc_example') || g:no_gvimrc_example == 0)
 endif
 
 "---------------------------------------------------------------------------
-" カラー設定:
-colorscheme industry 
 if has('win32')
   set backupdir=c:\tmp\
   set backup
@@ -635,7 +633,33 @@ NeoBundle 'tpope/vim-endwise'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'mattn/emmet-vim'
 " NeoBundle 'mxw/vim-jsx'
+
+" colors
+" solarized カラースキーム
+NeoBundle 'altercation/vim-colors-solarized'
+" mustang カラースキーム
+NeoBundle 'croaker/mustang-vim'
+" wombat カラースキーム
+NeoBundle 'jeffreyiacono/vim-colors-wombat'
+" jellybeans カラースキーム
+NeoBundle 'nanotech/jellybeans.vim'
+" lucius カラースキーム
+NeoBundle 'vim-scripts/Lucius'
+" zenburn カラースキーム
+NeoBundle 'vim-scripts/Zenburn'
+" mrkn256 カラースキーム
+NeoBundle 'mrkn/mrkn256.vim'
+" railscasts カラースキーム
+NeoBundle 'jpo/vim-railscasts-theme'
+" pyte カラースキーム
+NeoBundle 'therubymug/vim-pyte'
+" molokai カラースキーム
+NeoBundle 'tomasr/molokai'
+
 call neobundle#end()
+
+" カラー設定:
+colorscheme murphy
 
 syntax on
 
