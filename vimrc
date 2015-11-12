@@ -304,12 +304,12 @@ else
   set swapfile
   set backupdir=$HOME/.vim/backup
   set directory=$HOME/.vim/swap
+  set undofile
+  set undodir=$HOME/.vim/undo
 endif
 
 "--- Vimを終了してもUndo
 if has('persistent_undo')
-  set undofile
-  set undodir=$HOME/.vim/undo
 endif
 
 
@@ -659,7 +659,8 @@ NeoBundle 'tomasr/molokai'
 call neobundle#end()
 
 " カラー設定:
-colorscheme solarized
+colorscheme jellybeans
+autocmd ColorScheme * highlight LineNr ctermfg=239
 
 syntax on
 
