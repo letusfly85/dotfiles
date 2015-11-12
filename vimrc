@@ -659,7 +659,7 @@ NeoBundle 'tomasr/molokai'
 call neobundle#end()
 
 " カラー設定:
-colorscheme murphy
+colorscheme solarized
 
 syntax on
 
