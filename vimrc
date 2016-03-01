@@ -601,62 +601,82 @@ autocmd FileType *.bl setl filetype=xml
 
 " linux/windows であれば_vimrcが読まれるが、macでは読み込まれないので_vimrcは設けない。
 " http://teppeis.hatenablog.com/entry/20080705/1215262928
-if has("vim_starting")
+
+if &compatible
   set nocompatible
-  set runtimepath+=~/.vim/bundle/neobundle.vim
 endif
+set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
 
-call neobundle#begin(expand('~/.vim/bundle/'))
-NeoBundleFetch 'Shougo/neobundle.vim'
+call dein#begin(expand('~/.vim/dein'))
 
-NeoBundle 'Shougo/neocomplete.vim' 
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/vimproc.vim'
-NeoBundle 'Shougo/vimshell.vim'
-NeoBundle 'Shougo/vimfiler.vim'
-NeoBundle 'itchyny/lightline.vim'
-NeoBundle 't9md/vim-textmanip'
+call dein#add('Shougo/dein.vim')
+call dein#add('Shougo/vimproc.vim', {
+    \ 'build': {
+    \     'windows': 'tools\\update-dll-mingw',
+    \     'cygwin': 'make -f make_cygwin.mak',
+    \     'mac': 'make -f make_mac.mak',
+    \     'linux': 'make',
+    \     'unix': 'gmake',
+    \    },
+    \ })
 
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'ujihisa/unite-colorscheme'
-NeoBundle 'tomasr/molokai'
+call dein#add('Shougo/neocomplete.vim')
+call dein#add('Shougo/neomru.vim')
+call dein#add('Shougo/neosnippet')
 
-NeoBundle 'gmarik/vundle'
-NeoBundle 'Blackrush/vim-gocode'
+call dein#add('Shougo/neocomplete.vim' )
+call dein#add('Shougo/unite.vim')
+call dein#add('Shougo/vimproc.vim')
+call dein#add('Shougo/vimshell.vim')
+call dein#add('Shougo/vimfiler.vim')
+call dein#add('itchyny/lightline.vim')
+call dein#add('t9md/vim-textmanip')
 
-NeoBundle 'fatih/vim-go'
-NeoBundle 'elixir-lang/vim-elixir'
-NeoBundle 'alpaca-tc/alpaca_tags'
-NeoBundle 'AndrewRadev/switch.vim'
-NeoBundle 'bbatsov/rubocop'
-NeoBundle 'tpope/vim-endwise'
-NeoBundle 'thinca/vim-ref'
-NeoBundle 'mattn/emmet-vim'
-" NeoBundle 'mxw/vim-jsx'
+call dein#add('Shougo/unite.vim')
+call dein#add('ujihisa/unite-colorscheme')
+call dein#add('tomasr/molokai')
+
+call dein#add('gmarik/vundle')
+
+call dein#add('fatih/vim-go')
+call dein#add('Blackrush/vim-gocode')
+call dein#add('dgryski/vim-godef')
+call dein#add('vim-jp/vim-go-extra')
+
+call dein#add('elixir-lang/vim-elixir')
+
+call dein#add('alpaca-tc/alpaca_tags')
+call dein#add('AndrewRadev/switch.vim')
+call dein#add('bbatsov/rubocop')
+call dein#add('tpope/vim-endwise')
+call dein#add('thinca/vim-ref')
+call dein#add('mattn/emmet-vim')
+" call dein#add('mxw/vim-jsx')
 
 " colors
 " solarized カラースキーム
-NeoBundle 'altercation/vim-colors-solarized'
+call dein#add('altercation/vim-colors-solarized')
 " mustang カラースキーム
-NeoBundle 'croaker/mustang-vim'
+call dein#add('croaker/mustang-vim')
 " wombat カラースキーム
-NeoBundle 'jeffreyiacono/vim-colors-wombat'
+call dein#add('jeffreyiacono/vim-colors-wombat')
 " jellybeans カラースキーム
-NeoBundle 'nanotech/jellybeans.vim'
+call dein#add('nanotech/jellybeans.vim')
 " lucius カラースキーム
-NeoBundle 'vim-scripts/Lucius'
+call dein#add('vim-scripts/Lucius')
 " zenburn カラースキーム
-NeoBundle 'vim-scripts/Zenburn'
+call dein#add('vim-scripts/Zenburn')
 " mrkn256 カラースキーム
-NeoBundle 'mrkn/mrkn256.vim'
+call dein#add('mrkn/mrkn256.vim')
 " railscasts カラースキーム
-NeoBundle 'jpo/vim-railscasts-theme'
+call dein#add('jpo/vim-railscasts-theme')
 " pyte カラースキーム
-NeoBundle 'therubymug/vim-pyte'
+call dein#add('therubymug/vim-pyte')
 " molokai カラースキーム
-NeoBundle 'tomasr/molokai'
+call dein#add('tomasr/molokai')
 
-call neobundle#end()
+call dein#end()
+
 
 " カラー設定:
 colorscheme jellybeans
