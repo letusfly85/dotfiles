@@ -338,6 +338,8 @@ elseif has('mac')
 elseif has('xfontset')
   " UNIX用 (xfontsetを使用)
   set guifontset=a14,r14,k14
+else
+  set guifontset=Ricty
 endif
 
 "---------------------------------------------------------------------------
@@ -634,6 +636,7 @@ call dein#add('t9md/vim-textmanip')
 
 call dein#add('Shougo/unite.vim')
 call dein#add('ujihisa/unite-colorscheme')
+call dein#add('flazz/vim-colorschemes')
 call dein#add('tomasr/molokai')
 
 call dein#add('gmarik/vundle')
@@ -679,8 +682,16 @@ call dein#end()
 
 
 " カラー設定:
-colorscheme jellybeans
-autocmd ColorScheme * highlight LineNr ctermfg=239
+if has('mac')
+  colorscheme jellybeans
+  autocmd ColorScheme * highlight LineNr ctermfg=239
+else
+  colorscheme jellybeans
+  colorscheme solarized
+  autocmd ColorScheme * highlight LineNr    ctermfg=193 ctermbg=16
+  autocmd ColorScheme * highlight IncSearch ctermfg=193 ctermbg=16
+  autocmd ColorScheme * highlight Search    ctermfg=42  ctermbg=42
+endif
 
 syntax on
 
