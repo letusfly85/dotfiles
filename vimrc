@@ -707,3 +707,6 @@ set clipboard=unnamed,unnamedplus
 
 "emmet bind key
 let g:user_emmet_leader_key='<C-i>'
+
+"http://qiita.com/shotat/items/da0f42ea90610ca0dadb
+set synmaxcol=200
