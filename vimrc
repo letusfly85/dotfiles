@@ -644,7 +644,7 @@ call dein#add('gmarik/vundle')
 call dein#add('fatih/vim-go')
 call dein#add('Blackrush/vim-gocode')
 call dein#add('dgryski/vim-godef')
-call dein#add('vim-jp/vim-go-extra')
+"call dein#add('vim-jp/vim-go-extra')
 
 call dein#add('elixir-lang/vim-elixir')
 
@@ -677,6 +677,7 @@ call dein#add('jpo/vim-railscasts-theme')
 call dein#add('therubymug/vim-pyte')
 " molokai カラースキーム
 call dein#add('tomasr/molokai')
+
 
 call dein#end()
 
