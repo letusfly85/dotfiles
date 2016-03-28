@@ -678,6 +678,7 @@ call dein#add('therubymug/vim-pyte')
 " molokai カラースキーム
 call dein#add('tomasr/molokai')
 
+
 call dein#end()
 
 
