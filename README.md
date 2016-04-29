@@ -1,1 +1,4 @@
 # dotfiles
+
+* vimrc
+* tmux.conf
