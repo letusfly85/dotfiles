@@ -465,12 +465,9 @@ autocmd FileType c setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
 autocmd FileType html setl enc=utf-8 fenc=utf-8
 autocmd FileType java setl enc=utf-8
 
-"autocmd FileType ruby setl autoindent
 autocmd FileType ruby setl fenc=utf-8
 autocmd FileType ruby setl enc=utf-8
-"autocmd FileType ruby setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 autocmd FileType ruby setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
-" autocmd BufNewFile *.rb 0r $VIM_HOME/template/ruby.tpl
 
 autocmd FileType d setl autoindent
 autocmd FileType d setl fenc=utf-8
@@ -490,22 +487,16 @@ autocmd FileType Rakefile setl enc=utf-8
 autocmd FileType Rakefile setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 autocmd FileType Rakefile setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
 
-autocmd FileType tpl setl autoindent
-autocmd FileType tpl setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
-autocmd FileType tpl setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
-
 autocmd FileType sql setl autoindent
 autocmd FileType sql setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 autocmd FileType sql setl tabstop=2 expandtab shiftwidth=2 softtabstop=2
 
 autocmd FileType scala setl autoindent
 autocmd FileType scala set guifont=VL_Gothic:h12
-"Inconsolata:h12
 autocmd FileType scala setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 autocmd FileType scala setl tabstop=4 expandtab shiftwidth=4 softtabstop=4
 
 autocmd FileType sh setl autoindent
-"autocmd FileType sh set guifont=Inconsolata:h12
 autocmd FileType sh set guifont=VL_Gothic:h12
 autocmd FileType sh setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 autocmd FileType sh setl tabstop=4 expandtab shiftwidth=4 softtabstop=4
@@ -514,6 +505,7 @@ autocmd FileType sh setl tabstop=4 expandtab shiftwidth=4 softtabstop=4
 "autocmd FileType haskell setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 autocmd FileType haskell setl tabstop=4 expandtab shiftwidth=4 softtabstop=4
 
+
 :abbreviate #b /**********************************************
 :abbreviate #e <Space> **********************************************/
 :abbreviate #t #################################################
@@ -521,7 +513,6 @@ autocmd FileType haskell setl tabstop=4 expandtab shiftwidth=4 softtabstop=4
 let g:rsenseUseOmniFunc = 1
 
 autocmd FocusGained * set transparency=220
-"autocmd FocusLost * set tsransparency=100
 
 " ファイルが選択されたら、ウィンドウを閉じる
 :let g:proj_flags = "imstc"
@@ -654,7 +645,10 @@ call dein#add('bbatsov/rubocop')
 call dein#add('tpope/vim-endwise')
 call dein#add('thinca/vim-ref')
 call dein#add('mattn/emmet-vim')
-" call dein#add('mxw/vim-jsx')
+call dein#add('othree/html5.vim')
+call dein#add('othree/html5-syntax.vim')
+"call dein#add('chiel92/vim-autoformat')
+call dein#add('maksimr/vim-jsbeautify')
 
 " colors
 " solarized カラースキーム
@@ -688,7 +682,7 @@ if has('mac')
   autocmd ColorScheme * highlight LineNr ctermfg=239
 else
   colorscheme jellybeans
-  colorscheme solarized
+  "colorscheme solarized
   autocmd ColorScheme * highlight LineNr    ctermfg=193 ctermbg=16
   autocmd ColorScheme * highlight IncSearch ctermfg=193 ctermbg=16
   autocmd ColorScheme * highlight Search    ctermfg=42  ctermbg=42
@@ -719,3 +713,10 @@ set laststatus=2
 if !has('gui_running')
     set t_Co=256
 endif
+autocmd FileType html setl tabstop=2 expandtab shiftwidth=2 softtabstop=2
+autocmd FileType js   setl tabstop=2 expandtab shiftwidth=2 softtabstop=2
+
+autocmd BufWritePre *.js call JsBeautify()
+autocmd BufWritePre *.html call HtmlBeautify()
+autocmd BufWritePre *.css call CSSBeautify()
+
