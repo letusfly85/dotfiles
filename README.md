@@ -2,4 +2,3 @@
 
 * vimrc
 * tmux.conf
-* zshrc
