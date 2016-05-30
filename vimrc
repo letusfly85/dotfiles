@@ -685,7 +685,7 @@ else
   "colorscheme solarized
   autocmd ColorScheme * highlight LineNr    ctermfg=193 ctermbg=16
   autocmd ColorScheme * highlight IncSearch ctermfg=193 ctermbg=16
-  autocmd ColorScheme * highlight Search    ctermfg=42  ctermbg=42
+  autocmd ColorScheme * highlight Search    ctermfg=157  ctermbg=248
 endif
 
 syntax on
