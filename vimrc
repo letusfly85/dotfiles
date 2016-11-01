@@ -676,6 +676,11 @@ call dein#add('tomasr/molokai')
 call dein#add('davidhalter/jedi-vim')
 call dein#add('scrooloose/syntastic')
 
+call dein#add('rust-lang/rust.vim')
+call dein#add('racer-rust/vim-racer')
+
+call dein#add('cespare/vim-toml')
+
 call dein#end()
 
 
