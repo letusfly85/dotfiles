@@ -757,3 +757,11 @@ endfunction
 
 " Shift + F でautopep自動修正
 nnoremap <S-f> :call Autopep8()<CR>
+
+" export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+" cargo install racer
+" cargo install rustfmt
+set hidden
+let g:racer_cmd = '$HOME/.cargo/bin/racer'
+let g:racer_experimental_completer = 1
+let g:rustfmt_autosave = 1
