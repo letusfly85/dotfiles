@@ -685,6 +685,9 @@ call dein#add('derekwyatt/vim-scala')
 
 call dein#add('trevordmiller/nova-vim')
 
+call dein#add('vim-airline/vim-airline')
+call dein#add('vim-airline/vim-airline-themes')
+
 call dein#end()
 
 au BufNewFile,BufRead *.scala setf scala
@@ -695,8 +698,9 @@ if has('mac')
   colorscheme jellybeans
   autocmd ColorScheme * highlight LineNr ctermfg=239
 else
-  colorscheme jellybeans
+  "colorscheme jellybeans
   "colorscheme solarized
+  colorscheme darkocean
   autocmd ColorScheme * highlight LineNr    ctermfg=193 ctermbg=16
   autocmd ColorScheme * highlight IncSearch ctermfg=193 ctermbg=16
   autocmd ColorScheme * highlight Search    ctermfg=157  ctermbg=248
@@ -705,7 +709,7 @@ endif
 syntax on
 
 set cursorline
-set cursorcolumn
+"set cursorcolumn
 set cmdheight=2
 set helpheight=999
 set backspace=indent,eol,start " Backspaceキーの影響範囲に制限を設けない
@@ -771,3 +775,5 @@ set hidden
 let g:racer_cmd = '$HOME/.cargo/bin/racer'
 let g:racer_experimental_completer = 1
 let g:rustfmt_autosave = 1
+
+set history=10000
