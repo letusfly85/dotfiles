@@ -683,6 +683,8 @@ call dein#add('cespare/vim-toml')
 
 call dein#add('derekwyatt/vim-scala')
 
+call dein#add('trevordmiller/nova-vim')
+
 call dein#end()
 
 au BufNewFile,BufRead *.scala setf scala
