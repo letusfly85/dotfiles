@@ -681,7 +681,11 @@ call dein#add('racer-rust/vim-racer')
 
 call dein#add('cespare/vim-toml')
 
+call dein#add('derekwyatt/vim-scala')
+
 call dein#end()
+
+au BufNewFile,BufRead *.scala setf scala
 
 
 " カラー設定:
