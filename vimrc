@@ -634,6 +634,7 @@ call dein#add('gmarik/vundle')
 
 call dein#add('fatih/vim-go')
 "call dein#add('Blackrush/vim-gocode')
+call dein#add('nsf/gocode', {'rtp': 'vim/'})
 call dein#add('dgryski/vim-godef')
 call dein#add('vim-jp/vim-go-extra')
 
@@ -777,3 +778,5 @@ let g:racer_experimental_completer = 1
 let g:rustfmt_autosave = 1
 
 set history=10000
+
+filetype plugin on
