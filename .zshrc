@@ -239,6 +239,12 @@ prompt_agnoster_setup "$@"
 
 source ~/.zplug/init.zsh
 
+# Vanilla shell
+zplug "yous/vanilli.sh"
+
+# Additional completion definitions for Zsh
+zplug "zsh-users/zsh-completions"
+
 # Make sure to use double quotes
 zplug "zsh-users/zsh-history-substring-search"
 
@@ -330,16 +336,24 @@ if ! zplug check --verbose; then
     fi
 fi
 
-# Then, source plugins and add commands to $PATH
 zplug load --verbose
+
+source ~/.zsh/zsh-git-prompt/zshrc.sh
+PROMPT='%B%m%~%b$(git_super_status) %# '
+
+# Then, source plugins and add commands story searching with arrow keys
+bindkey '\eOA' history-substring-search-up
+bindkey '\eOB' history-substring-search-down
+
 export GOENV_ROOT="$HOME/.goenv"
 export PATH="$GOENV_ROOT/bin:$PATH"
 
 export PATH="$HOME/.goenv/bin:$PATH"
 eval "$(goenv init -)"
 
-source ~/.zsh/zsh-git-prompt/zshrc.sh
-PROMPT='%B%m%~%b$(git_super_status) %# '
+# For glide install, https://github.com/Masterminds/glide/issues/734
+export GOBIN=$GOROOT/bin
+export PATH="$PATH:$GOBIN"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
