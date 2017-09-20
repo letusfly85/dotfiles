@@ -642,9 +642,15 @@ call dein#add('elixir-lang/vim-elixir')
 
 call dein#add('alpaca-tc/alpaca_tags')
 call dein#add('AndrewRadev/switch.vim')
+
+" ruby
 call dein#add('bbatsov/rubocop')
 call dein#add('tpope/vim-endwise')
 call dein#add('thinca/vim-ref')
+call dein#add('yuku-t/vim-ref-ri')
+call dein#add('szw/vim-tags')
+call dein#add('osyo-manga/vim-monster')
+
 call dein#add('mattn/emmet-vim')
 call dein#add('othree/html5.vim')
 call dein#add('othree/html5-syntax.vim')
@@ -780,3 +786,10 @@ let g:rustfmt_autosave = 1
 set history=10000
 
 filetype plugin on
+
+let g:neocomplete#enable_at_startup = 1
+
+" Use neocomplete.vim
+let g:neocomplete#sources#omni#input_patterns = {
+\   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
+\}
