@@ -626,6 +626,7 @@ call dein#add('itchyny/lightline.vim')
 call dein#add('t9md/vim-textmanip')
 
 call dein#add('Shougo/unite.vim')
+call dein#add('Shougo/deoplete.nvim')
 call dein#add('ujihisa/unite-colorscheme')
 call dein#add('flazz/vim-colorschemes')
 call dein#add('tomasr/molokai')
@@ -646,6 +647,7 @@ call dein#add('AndrewRadev/switch.vim')
 " ruby
 call dein#add('bbatsov/rubocop')
 call dein#add('tpope/vim-endwise')
+call dein#add('tpope/vim-rails')
 call dein#add('thinca/vim-ref')
 call dein#add('yuku-t/vim-ref-ri')
 call dein#add('szw/vim-tags')
@@ -741,9 +743,9 @@ endif
 autocmd FileType html setl tabstop=2 expandtab shiftwidth=2 softtabstop=2
 autocmd FileType js   setl tabstop=2 expandtab shiftwidth=2 softtabstop=2
 
-autocmd BufWritePre *.js call JsBeautify()
-autocmd BufWritePre *.html call HtmlBeautify()
-autocmd BufWritePre *.css call CSSBeautify()
+" autocmd BufWritePre *.js call JsBeautify()
+" autocmd BufWritePre *.html call HtmlBeautify()
+" autocmd BufWritePre *.css call CSSBeautify()
 
 " autopep 
 " original http://stackoverflow.com/questions/12374200/using-uncrustify-with-vim/15513829#15513829
@@ -775,6 +777,40 @@ endfunction
 " Shift + F でautopep自動修正
 nnoremap <S-f> :call Autopep8()<CR>
 
+set history=10000
+
+filetype plugin on
+
+let g:neocomplete#enable_at_startup = 1
+
+" Set async completion.
+let g:monster#completion#rcodetools#backend = "async_rct_complete"
+
+" Use neocomplete.vim
+let g:neocomplete#sources#omni#input_patterns = {
+\   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
+\}
+
+" With deoplete.nvim
+let g:monster#completion#rcodetools#backend = "async_rct_complete"
+let g:deoplete#sources#omni#input_patterns = {
+\   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
+\}
+
+
+function! CPPCodeCleanup()
+  " echo "Cleanup cpp code"
+  let l:lines="all"
+  let g:clang_format_fallback_style = 'Google'
+  :pyf /usr/local/share/clang/clang-format.py
+endfunction
+command! CPPCodeCleanup call CPPCodeCleanup()
+
+autocmd BufWrite *.{cpp} :CPPCodeCleanup
+autocmd BufWrite *.{hpp} :CPPCodeCleanup
+autocmd BufWrite *.{c} :CPPCodeCleanup
+autocmd BufWrite *.{h} :CPPCodeCleanup
+
 " export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 " cargo install racer
 " cargo install rustfmt
@@ -783,13 +819,3 @@ let g:racer_cmd = '$HOME/.cargo/bin/racer'
 let g:racer_experimental_completer = 1
 let g:rustfmt_autosave = 1
 
-set history=10000
-
-filetype plugin on
-
-let g:neocomplete#enable_at_startup = 1
-
-" Use neocomplete.vim
-let g:neocomplete#sources#omni#input_patterns = {
-\   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
-\}
