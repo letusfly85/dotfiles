@@ -645,13 +645,13 @@ call dein#add('alpaca-tc/alpaca_tags')
 call dein#add('AndrewRadev/switch.vim')
 
 " ruby
-call dein#add('bbatsov/rubocop')
-call dein#add('tpope/vim-endwise')
-call dein#add('tpope/vim-rails')
-call dein#add('thinca/vim-ref')
-call dein#add('yuku-t/vim-ref-ri')
-call dein#add('szw/vim-tags')
-call dein#add('osyo-manga/vim-monster')
+" call dein#add('bbatsov/rubocop')
+" call dein#add('tpope/vim-endwise')
+" call dein#add('tpope/vim-rails')
+" call dein#add('thinca/vim-ref')
+" call dein#add('yuku-t/vim-ref-ri')
+" call dein#add('szw/vim-tags')
+" call dein#add('osyo-manga/vim-monster')
 
 call dein#add('mattn/emmet-vim')
 call dein#add('othree/html5.vim')
@@ -697,10 +697,15 @@ call dein#add('trevordmiller/nova-vim')
 call dein#add('vim-airline/vim-airline')
 call dein#add('vim-airline/vim-airline-themes')
 
+call dein#add('posva/vim-vue')
+
+call dein#add('hashivim/vim-terraform')
+
 call dein#end()
 
 au BufNewFile,BufRead *.scala setf scala
 
+let g:terraform_align=1
 
 " カラー設定:
 if has('mac')
@@ -784,7 +789,7 @@ filetype plugin on
 let g:neocomplete#enable_at_startup = 1
 
 " Set async completion.
-let g:monster#completion#rcodetools#backend = "async_rct_complete"
+" let g:monster#completion#rcodetools#backend = "async_rct_complete"
 
 " Use neocomplete.vim
 let g:neocomplete#sources#omni#input_patterns = {
@@ -792,10 +797,10 @@ let g:neocomplete#sources#omni#input_patterns = {
 \}
 
 " With deoplete.nvim
-let g:monster#completion#rcodetools#backend = "async_rct_complete"
-let g:deoplete#sources#omni#input_patterns = {
-\   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
-\}
+" let g:monster#completion#rcodetools#backend = "async_rct_complete"
+" let g:deoplete#sources#omni#input_patterns = {
+" \   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
+" \}
 
 
 function! CPPCodeCleanup()
@@ -819,3 +824,6 @@ let g:racer_cmd = '$HOME/.cargo/bin/racer'
 let g:racer_experimental_completer = 1
 let g:rustfmt_autosave = 1
 
+let g:jedi#auto_initialization = 0
+
+let g:python3_host_prog = $HOME/'.pyenv/shims/python3'
