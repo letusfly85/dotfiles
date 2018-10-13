@@ -683,7 +683,8 @@ call dein#add('tomasr/molokai')
 
 " python vim plugins
 call dein#add('davidhalter/jedi-vim')
-call dein#add('scrooloose/syntastic')
+" call dein#add('scrooloose/syntastic')
+call dein#add('osyo-manga/vim-watchdogs')
 
 call dein#add('rust-lang/rust.vim')
 call dein#add('racer-rust/vim-racer')
