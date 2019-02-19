@@ -454,3 +454,10 @@ _bq_completer() {
 
 complete -F _bq_completer bq
 complete -o nospace -F _python_argcomplete gsutil
+
+eval "$(direnv hook zsh)"
+export EDITOR=vim
+
+function _ssh {
+  compadd `fgrep 'Host ' ~/.ssh/*.config | awk '{print $2}' | sort`;
+}
