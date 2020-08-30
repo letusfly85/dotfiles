@@ -337,36 +337,23 @@ PROMPT='%B%m%~%b$(git_super_status) %# '
 bindkey '\eOA' history-substring-search-up
 bindkey '\eOB' history-substring-search-down
 
-export GOENV_ROOT="$HOME/.goenv"
-export PATH="$GOENV_ROOT/bin:$PATH"
+#export GOENV_ROOT="$HOME/.goenv"
+#export PATH="$GOENV_ROOT/bin:$PATH"
 
-export PATH="$HOME/.goenv/bin:$PATH"
-eval "$(goenv init -)"
+#export PATH="$HOME/.goenv/bin:$PATH"
+#eval "$(goenv init -)"
 
 # For glide install, https://github.com/Masterminds/glide/issues/734
-export GOBIN=$GOROOT/bin
-export PATH="$PATH:$GOBIN"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-export PATH="/usr/local/sbt/bin:/usr/local/Homebrew/bin:/usr/local/bin:$PATH"
+#export GOBIN=$GOROOT/bin
+#export PATH="$PATH:$GOBIN"
 
 source $HOME/.cargo/env
-
-eval "$(rbenv init -)"
-
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/
-export PATH=$JAVA_HOME/bin:$PATH
 
 if [ -f $HOME/.aliases ]; then
 	. $HOME/.aliases
 fi
 
 #If you need to have this software first in your PATH run:
-
-export PATH=$HOME/go/bin:$PATH
 
 export PATH="$HOME/.pyenv/shims:$PATH"
 
@@ -427,6 +414,10 @@ _python_argcomplete() {
         COMPREPLY[0]=${COMPREPLY[0]%' '}
     fi
 }
+
+export GCLOUD_PATH=/usr/local/share/google-cloud-sdk
+export PATH=$PATH:$GCLOUD_PATH/bin
+source $GCLOUD_PATH/completion.zsh.inc
 complete -o nospace -F _python_argcomplete "gcloud"
 
 _completer() {
