@@ -594,11 +594,34 @@ autocmd FileType *.bl setl filetype=xml
 
 " linux/windows であれば_vimrcが読まれるが、macでは読み込まれないので_vimrcは設けない。
 " http://teppeis.hatenablog.com/entry/20080705/1215262928
-
+"
 if &compatible
-  set nocompatible
+  set nocompatible               " Be iMproved
 endif
-set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
+
+" Required:
+set runtimepath+=$HOME/.cache/dein/repos/github.com/Shougo/dein.vim
+
+" Required:
+if dein#load_state('$HOME/.cache/dein')
+  call dein#begin('$HOME/.cache/dein')
+
+  " Let dein manage dein
+  " Required:
+  call dein#add('$HOME/.cache/dein/repos/github.com/Shougo/dein.vim')
+
+  " Add or remove your plugins here like this:
+  "call dein#add('Shougo/neosnippet.vim')
+  "call dein#add('Shougo/neosnippet-snippets')
+
+  " Required:
+  call dein#end()
+  call dein#save_state()
+endif
+
+" Required:
+filetype plugin indent on
+syntax enable
 
 call dein#begin(expand('~/.vim/dein'))
 
@@ -633,41 +656,23 @@ call dein#add('tomasr/molokai')
 
 call dein#add('gmarik/vundle')
 
-call dein#add('fatih/vim-go')
-"call dein#add('Blackrush/vim-gocode')
 call dein#add('nsf/gocode', {'rtp': 'vim/'})
-call dein#add('dgryski/vim-godef')
-call dein#add('vim-jp/vim-go-extra')
 
 call dein#add('elixir-lang/vim-elixir')
 
 call dein#add('alpaca-tc/alpaca_tags')
 call dein#add('AndrewRadev/switch.vim')
 
-" ruby
-" call dein#add('bbatsov/rubocop')
-" call dein#add('tpope/vim-endwise')
-" call dein#add('tpope/vim-rails')
-" call dein#add('thinca/vim-ref')
-" call dein#add('yuku-t/vim-ref-ri')
-" call dein#add('szw/vim-tags')
-" call dein#add('osyo-manga/vim-monster')
-
 call dein#add('mattn/emmet-vim')
 call dein#add('othree/html5.vim')
 call dein#add('othree/html5-syntax.vim')
-"call dein#add('chiel92/vim-autoformat')
 call dein#add('maksimr/vim-jsbeautify')
 
 " colors
-" solarized カラースキーム
-call dein#add('altercation/vim-colors-solarized')
 " mustang カラースキーム
 call dein#add('croaker/mustang-vim')
 " wombat カラースキーム
 call dein#add('jeffreyiacono/vim-colors-wombat')
-" jellybeans カラースキーム
-call dein#add('nanotech/jellybeans.vim')
 " lucius カラースキーム
 call dein#add('vim-scripts/Lucius')
 " zenburn カラースキーム
@@ -683,7 +688,6 @@ call dein#add('tomasr/molokai')
 
 " python vim plugins
 call dein#add('davidhalter/jedi-vim')
-" call dein#add('scrooloose/syntastic')
 call dein#add('osyo-manga/vim-watchdogs')
 
 call dein#add('rust-lang/rust.vim')
@@ -702,6 +706,13 @@ call dein#add('posva/vim-vue')
 
 call dein#add('hashivim/vim-terraform')
 
+call dein#add('altercation/vim-colors-solarized')
+
+let g:solarized_termcolors=256
+syntax enable
+set background=dark
+colorscheme solarized
+
 call dein#end()
 
 au BufNewFile,BufRead *.scala setf scala
@@ -710,12 +721,8 @@ let g:terraform_align=1
 
 " カラー設定:
 if has('mac')
-  colorscheme jellybeans
   autocmd ColorScheme * highlight LineNr ctermfg=239
 else
-  "colorscheme jellybeans
-  "colorscheme solarized
-  colorscheme darkocean
   autocmd ColorScheme * highlight LineNr    ctermfg=193 ctermbg=16
   autocmd ColorScheme * highlight IncSearch ctermfg=193 ctermbg=16
   autocmd ColorScheme * highlight Search    ctermfg=157  ctermbg=248
