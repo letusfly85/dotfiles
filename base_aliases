@@ -1,0 +1,4 @@
+# utils
+alias cat='bat --paging=never'
+alias ll='exa -laFb -s time'
+alias tf='terraform'
