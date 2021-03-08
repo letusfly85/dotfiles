@@ -1,0 +1,8 @@
+# Jupyter
+jupyterlab
+
+# Dataframe
+pandas
+
+# Visualization
+matplotlib
