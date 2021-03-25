@@ -30,3 +30,7 @@ end
 # direnv
 eval (direnv hook fish)
 export EDITOR=vim
+
+set fish_color_command brpurple
+
+eval (gh completion -s fish| source)
