@@ -7,3 +7,7 @@
 ## Fonts
 
 - [Cica](https://github.com/miiton/Cica)
+
+## Crates
+
+- [gitui](https://github.com/extrawurst/gitui)
