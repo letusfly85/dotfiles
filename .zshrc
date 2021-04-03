@@ -452,3 +452,6 @@ export EDITOR=vim
 function _ssh {
   compadd `fgrep 'Host ' ~/.ssh/*.config | awk '{print $2}' | sort`;
 }
+
+# poetry
+export PATH="$HOME/.local/bin:$PATH
