@@ -330,8 +330,26 @@ fi
 
 zplug load --verbose
 
+function powerline_precmd() {
+    PS1="$(powerline-shell --shell zsh $?)
+    $ "
+}
+
+function install_powerline_precmd() {
+  for s in "${precmd_functions[@]}"; do
+    if [ "$s" = "powerline_precmd" ]; then
+      return
+    fi
+  done
+  precmd_functions+=(powerline_precmd)
+}
+
+if [ "$TERM" != "linux" ]; then
+    install_powerline_precmd
+fi
+
 source ~/.zsh/zsh-git-prompt/zshrc.sh
-PROMPT='%B%m%~%b$(git_super_status) %# '
+PROMPT='%b$(git_super_status) %# '
 
 # Then, source plugins and add commands story searching with arrow keys
 bindkey '\eOA' history-substring-search-up
@@ -455,3 +473,20 @@ function _ssh {
 
 # poetry
 export PATH="$HOME/.local/bin:$PATH"
+
+
+# Default values for the appearance of the prompt. Configure at will.
+ZSH_THEME_GIT_PROMPT_PREFIX="("
+ZSH_THEME_GIT_PROMPT_SUFFIX=")"
+ZSH_THEME_GIT_PROMPT_SEPARATOR="|"
+ZSH_THEME_GIT_PROMPT_BRANCH="%{%F{203}"
+ZSH_THEME_GIT_PROMPT_STAGED="%{%F{197}%{●%G%}"
+ZSH_THEME_GIT_PROMPT_CONFLICTS="%{$fg[red]%}%{✖ %G%}"
+ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg[yellow]%} %{✚ %G%}"
+ZSH_THEME_GIT_PROMPT_BEHIND="%{↓ %G%}"
+ZSH_THEME_GIT_PROMPT_AHEAD="%{↑ %G%}"
+ZSH_THEME_GIT_PROMPT_UNTRACKED="%{… %G%}"
+ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}%{✔ %G%}"
+
+for c in {000..255}; do echo -n "\e[38;5;${c}m $c" ; [ $(($c%16)) -eq 15 ] && echo;done;echo
+

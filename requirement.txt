@@ -6,3 +6,6 @@ pandas
 
 # Visualization
 matplotlib
+
+# shell
+powerline-shell

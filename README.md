@@ -12,6 +12,9 @@ sudo ln -s $PWD/.zshrc $HOME/.zshrc
 
 # tmux
 sudo ln -s $PWD/.tmux.conf $HOME/.tmux.conf
+
+# powerline
+sudo ln -s $PWD/.powerline-shell.json $HOME/.powerline-shell.json
 ```
 
 ## Fonts
@@ -22,3 +25,9 @@ sudo ln -s $PWD/.tmux.conf $HOME/.tmux.conf
 
 - [gitui](https://github.com/extrawurst/gitui)
 
+
+## Config
+
+```bash
+powerline-shell --generate-config > ~/.powerline-shell.json
+```
