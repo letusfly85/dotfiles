@@ -24,6 +24,7 @@ sudo ln -s $PWD/.powerline-shell.json $HOME/.powerline-shell.json
 ## Crates
 
 - [gitui](https://github.com/extrawurst/gitui)
+- [delta](https://github.com/dandavison/delta)
 
 
 ## Config
