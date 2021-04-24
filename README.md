@@ -25,6 +25,7 @@ sudo ln -s $PWD/.powerline-shell.json $HOME/.powerline-shell.json
 
 - [gitui](https://github.com/extrawurst/gitui)
 - [delta](https://github.com/dandavison/delta)
+- [cargo-make](https://github.com/sagiegurari/cargo-make)
 
 
 ## Config
