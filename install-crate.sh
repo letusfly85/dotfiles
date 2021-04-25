@@ -1,3 +1,11 @@
 #/usr/bin/env bash
 
-cargo install exa bat pueue gitui git-delta cargo-make
+cargo install \
+    exa \
+    bat \
+    pueue \
+    gitui \
+    git-delta \
+    cargo-make
+
+cargo install diesel_cli --no-default-features --features mysql

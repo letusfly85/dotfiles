@@ -21,6 +21,10 @@ sudo ln -s $PWD/.powerline-shell.json $HOME/.powerline-shell.json
 
 - [Cica](https://github.com/miiton/Cica)
 
+## Tools
+
+- [starship](https://github.com/starship/starship)
+
 ## Crates
 
 - [gitui](https://github.com/extrawurst/gitui)
