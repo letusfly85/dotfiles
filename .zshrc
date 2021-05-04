@@ -365,15 +365,20 @@ bindkey '\eOB' history-substring-search-down
 #export GOBIN=$GOROOT/bin
 #export PATH="$PATH:$GOBIN"
 
-source $HOME/.cargo/env
+# Rust
+if [ -d $HOME/.cargo ]; then
+  source $HOME/.cargo/env
+fi
 
+# Aliases
 if [ -f $HOME/.aliases ]; then
 	. $HOME/.aliases
 fi
 
-#If you need to have this software first in your PATH run:
-
-export PATH="$HOME/.pyenv/shims:$PATH"
+# Python
+if [ -d $HOME/.pyenv ]; then
+  export PATH="$HOME/.pyenv/shims:$PATH"
+fi
 
 export PATH=${0:A:h}/bin:$PATH
 
@@ -499,3 +504,17 @@ if [ -d $HOME/.nodenv ]; then
   export PATH="$HOME/.nodenv/bin:$PATH"
   eval "$(nodenv init -)"
 fi
+
+# To Enable Ctrl+a, Ctrl+e
+bindkey -e
+
+autoload history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^p" history-beginning-search-backward-end
+bindkey "^n" history-beginning-search-forward-end
+
+bindkey '^[[A' up-line-or-search
+bindkey '^[[B' down-line-or-search
+
+export SAVEHIST=100000
