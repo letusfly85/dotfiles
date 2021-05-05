@@ -328,7 +328,8 @@ if ! zplug check --verbose; then
     fi
 fi
 
-zplug load --verbose
+# zplug load --verbose
+zplug load
 
 function powerline_precmd() {
     PS1="$(powerline-shell --shell zsh $?)
