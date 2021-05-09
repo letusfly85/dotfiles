@@ -28,6 +28,7 @@ sudo ln -s $PWD/.skhdrc $HOME/.skhdrc
 ## Tools
 
 - [starship](https://github.com/starship/starship)
+- [alacritty](https://github.com/alacritty/alacritty)
 
 ## Crates
 

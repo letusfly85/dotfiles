@@ -9,3 +9,5 @@ brew install koekeishiya/formulae/skhd
 
 brew services start skhd
 brew services start yabai
+
+brew cask install alacritty
