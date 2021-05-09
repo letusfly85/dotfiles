@@ -15,6 +15,10 @@ sudo ln -s $PWD/.tmux.conf $HOME/.tmux.conf
 
 # powerline
 sudo ln -s $PWD/.powerline-shell.json $HOME/.powerline-shell.json
+
+# yabai
+sudo ln -s $PWD/.yabairc $HOME/.yabairc
+sudo ln -s $PWD/.skhdrc $HOME/.skhdrc
 ```
 
 ## Fonts
