@@ -40,6 +40,7 @@ sudo ln -s $PWD/.skhdrc $HOME/.skhdrc
 ## NPM
 
 - [tldr](https://github.com/tldr-pages/tldr)
+- [terminalizer](https://github.com/faressoft/terminalizer)
 
 
 ## Config
