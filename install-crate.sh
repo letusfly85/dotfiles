@@ -5,6 +5,7 @@ cargo install \
     bat \
     pueue \
     gitui \
+    atuin \
     git-delta \
     just \
     cargo-make

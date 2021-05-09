@@ -31,6 +31,7 @@ sudo ln -s $PWD/.powerline-shell.json $HOME/.powerline-shell.json
 - [delta](https://github.com/dandavison/delta)
 - [cargo-make](https://github.com/sagiegurari/cargo-make)
 - [just](https://github.com/casey/just)
+- [atuin](https://github.com/ellie/atuin)
 
 ## NPM
 

@@ -506,6 +506,10 @@ if [ -d $HOME/.nodenv ]; then
   eval "$(nodenv init -)"
 fi
 
+if [ -f $HOME/.cargo/bin/atuin ]; then
+  eval "$(atuin init zsh)"
+fi
+
 # To Enable Ctrl+a, Ctrl+e
 bindkey -e
 
