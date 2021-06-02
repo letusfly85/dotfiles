@@ -16,3 +16,9 @@ brew cask install alacritty
 
 # AWS EKS
 brew install weaveworks/tap/eksctl
+
+# Helm
+brew install helm
+
+# kustomize
+curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
