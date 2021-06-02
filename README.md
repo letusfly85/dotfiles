@@ -37,6 +37,7 @@ sudo ln -s $PWD/.skhdrc $HOME/.skhdrc
 - [cargo-make](https://github.com/sagiegurari/cargo-make)
 - [just](https://github.com/casey/just)
 - [atuin](https://github.com/ellie/atuin)
+- [tokei](https://github.com/XAMPPRocky/tokei)
 
 ## NPM
 
