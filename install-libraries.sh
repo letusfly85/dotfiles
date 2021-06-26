@@ -22,3 +22,6 @@ brew install helm
 
 # kustomize
 curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
+
+# SASS
+brew install sass/sass/sass
