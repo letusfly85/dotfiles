@@ -25,3 +25,9 @@ curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack
 
 # SASS
 brew install sass/sass/sass
+
+# Stripe
+brew install stripe/stripe-cli/stripe
+
+# Nushell
+brew install nushell

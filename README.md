@@ -39,6 +39,7 @@ sudo ln -s $PWD/.skhdrc $HOME/.skhdrc
 - [atuin](https://github.com/ellie/atuin)
 - [tokei](https://github.com/XAMPPRocky/tokei)
 - [tui-rs](https://github.com/fdehau/tui-rs)
+- [nushell](https://github.com/nushell/nushell)
 
 ## NPM
 
