@@ -41,6 +41,11 @@ sudo ln -s $PWD/.skhdrc $HOME/.skhdrc
 - [tui-rs](https://github.com/fdehau/tui-rs)
 - [nushell](https://github.com/nushell/nushell)
 
+
+### Microsoft HF2 HID Flashing Format for UF2 Bootloaders
+
+- [hf2-rs](https://github.com/jacobrosenthal/hf2-rs)
+
 ## NPM
 
 - [tldr](https://github.com/tldr-pages/tldr)
