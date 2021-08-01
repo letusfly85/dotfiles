@@ -8,7 +8,9 @@ cargo install \
     atuin \
     git-delta \
     just \
-    cargo-make
+    cargo-make \
+    cargo-hf2 \
+    hf2-cli
 
 cargo install diesel_cli --no-default-features --features mysql
 
