@@ -46,6 +46,10 @@ sudo ln -s $PWD/.skhdrc $HOME/.skhdrc
 
 - [hf2-rs](https://github.com/jacobrosenthal/hf2-rs)
 
+### Sub command
+
+- [cargo-generate](https://github.com/cargo-generate/cargo-generate)
+
 ## NPM
 
 - [tldr](https://github.com/tldr-pages/tldr)
