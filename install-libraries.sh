@@ -31,3 +31,6 @@ brew install stripe/stripe-cli/stripe
 
 # Nushell
 brew install nushell
+
+# RustScan
+brew install rustscan
