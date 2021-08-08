@@ -10,7 +10,8 @@ cargo install \
     just \
     cargo-make \
     cargo-hf2 \
-    hf2-cli
+    hf2-cli \
+    cargo-generate
 
 cargo install diesel_cli --no-default-features --features mysql
 
