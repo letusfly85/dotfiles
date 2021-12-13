@@ -34,3 +34,10 @@ brew install nushell
 
 # RustScan
 brew install rustscan
+
+
+# GitHub extensions
+gh extension install dlvhdr/gh-prs
+
+# Node.js version manager
+brew install fnm
