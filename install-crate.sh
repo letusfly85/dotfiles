@@ -3,6 +3,7 @@
 cargo install \
     exa \
     bat \
+    jaq \
     pueue \
     gitui \
     atuin \

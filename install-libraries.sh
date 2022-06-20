@@ -41,3 +41,16 @@ gh extension install dlvhdr/gh-prs
 
 # Node.js version manager
 brew install fnm
+
+# wezterm
+brew tap wez/wezterm
+brew install --cask wez/wezterm/wezterm
+
+# PostgreSQL Client
+brew install libpq
+
+# zoxide
+brew install zoxide
+
+# LaTex
+brew install --cask mactex-no-gui 

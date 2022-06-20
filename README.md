@@ -41,6 +41,7 @@ sudo ln -s $PWD/.skhdrc $HOME/.skhdrc
 - [tui-rs](https://github.com/fdehau/tui-rs)
 - [nushell](https://github.com/nushell/nushell)
 - [fnm](https://github.com/Schniz/fnm) but brew
+- [zoxide](https://github.com/ajeetdsouza/zoxide) but brew
 
 
 ### Microsoft HF2 HID Flashing Format for UF2 Bootloaders
