@@ -54,3 +54,12 @@ brew install zoxide
 
 # LaTex
 brew install --cask mactex-no-gui 
+
+# tflint
+brew install tflint
+
+# kotlin
+brew install kotlin
+
+# Taskfile
+brew install go-task/tap/go-task
