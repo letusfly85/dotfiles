@@ -641,8 +641,6 @@ call dein#add('Shougo/neomru.vim')
 call dein#add('Shougo/neosnippet')
 call dein#add('Shougo/neosnippet-snippets')
 
-call dein#add('Shougo/unite.vim')
-call dein#add('Shougo/vimproc.vim')
 call dein#add('Shougo/vimshell.vim')
 call dein#add('Shougo/vimfiler.vim')
 call dein#add('itchyny/lightline.vim')
@@ -652,7 +650,6 @@ call dein#add('Shougo/unite.vim')
 call dein#add('Shougo/deoplete.nvim')
 call dein#add('ujihisa/unite-colorscheme')
 call dein#add('flazz/vim-colorschemes')
-call dein#add('tomasr/molokai')
 
 call dein#add('gmarik/vundle')
 
@@ -695,7 +692,7 @@ call dein#add('racer-rust/vim-racer')
 
 call dein#add('cespare/vim-toml')
 
-call dein#add('derekwyatt/vim-scala')
+call dein#add('scalameta/nvim-metals')
 
 call dein#add('trevordmiller/nova-vim')
 
