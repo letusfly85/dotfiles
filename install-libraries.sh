@@ -55,3 +55,10 @@ brew install kotlin
 
 # Taskfile
 brew install go-task/tap/go-task
+
+# Shell
+brew install shellcheck shfmt
+
+# Binary Search
+# https://github.com/wader/fq
+brew install wader/tap/fq
