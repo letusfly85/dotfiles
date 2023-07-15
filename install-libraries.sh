@@ -17,7 +17,7 @@ brew install weaveworks/tap/eksctl
 brew install helm
 
 # kustomize
-curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
+curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
 
 # SASS
 brew install sass/sass/sass
@@ -45,7 +45,7 @@ brew install libpq
 brew install zoxide
 
 # LaTex
-brew install --cask mactex-no-gui 
+brew install --cask mactex-no-gui
 
 # tflint
 brew install tflint
