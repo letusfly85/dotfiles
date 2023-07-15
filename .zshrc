@@ -146,7 +146,7 @@ prompt_end() {
 
 # Context: user@hostname (who am I and where am I)
 prompt_context() {
-  local user=`whoami`
+  local user=$(whoami)
 
   if [[ "$user" != "$DEFAULT_USER" || -n "$SSH_CONNECTION" ]]; then
     prompt_segment $PRIMARY_FG default " %(!.%{%F{yellow}%}.)$user@%m "
@@ -253,13 +253,13 @@ zplug "k4rthik/git-cal", as:command, frozen:1
 # Grab binaries from GitHub Releases
 # and rename with the "rename-to:" tag
 zplug "junegunn/fzf-bin", \
-    from:gh-r, \
-    as:command, \
-    rename-to:fzf, \
-    use:"*darwin*amd64*"
+  from:gh-r, \
+  as:command, \
+  rename-to:fzf, \
+  use:"*darwin*amd64*"
 
 # Supports oh-my-zsh plugins and the like
-zplug "plugins/git",   from:oh-my-zsh
+zplug "plugins/git", from:oh-my-zsh
 
 # Also prezto
 zplug "modules/prompt", from:prezto
@@ -271,9 +271,9 @@ zplug "lib/clipboard", from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
 # Provided, it requires to set the variable like the following:
 # ZPLUG_SUDO_PASSWORD="********"
 zplug "jhawthorn/fzy", \
-    as:command, \
-    rename-to:fzy, \
-    hook-build:"make && sudo make install"
+  as:command, \
+  rename-to:fzy, \
+  hook-build:"make && sudo make install"
 
 # Supports checking out a specific branch/tag/commit
 zplug "b4b4r07/enhancd", at:v1
@@ -281,30 +281,30 @@ zplug "mollifier/anyframe", at:4c23cb60
 
 # Can manage gist file just like other packages
 zplug "b4b4r07/79ee61f7c140c63d2786", \
-    from:gist, \
-    as:command, \
-    use:get_last_pane_path.sh
+  from:gist, \
+  as:command, \
+  use:get_last_pane_path.sh
 
 # Support bitbucket
 zplug "b4b4r07/hello_bitbucket", \
-    from:bitbucket, \
-    as:command, \
-    use:"*.sh"
+  from:bitbucket, \
+  as:command, \
+  use:"*.sh"
 
 # Rename a command with the string captured with `use` tag
 zplug "b4b4r07/httpstat", \
-    as:command, \
-    use:'(*).sh', \
-    rename-to:'$1'
+  as:command, \
+  use:'(*).sh', \
+  rename-to:'$1'
 
 # Group dependencies
 # Load "emoji-cli" if "jq" is installed in this example
 zplug "stedolan/jq", \
-    from:gh-r, \
-    as:command, \
-    rename-to:jq
+  from:gh-r, \
+  as:command, \
+  rename-to:jq
 zplug "b4b4r07/emoji-cli", \
-    on:"stedolan/jq"
+  on:"stedolan/jq"
 # Note: To specify the order in which packages should be loaded, use the defer
 #       tag described in the next section
 
@@ -322,17 +322,18 @@ zplug 'dracula/zsh', as:theme
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
+  printf "Install? [y/N]: "
+  if read -q; then
+    echo
+    zplug install
+  fi
 fi
 
 # zplug load --verbose
 zplug load
 
 function powerline_precmd() {
-    PS1="$(powerline-shell --shell zsh $?)
+  PS1="$(powerline-shell --shell zsh $?)
     $ "
 }
 
@@ -346,7 +347,7 @@ function install_powerline_precmd() {
 }
 
 if [ "$TERM" != "linux" ]; then
-    install_powerline_precmd
+  install_powerline_precmd
 fi
 
 source ~/.zsh/zsh-git-prompt/zshrc.sh
@@ -373,7 +374,7 @@ fi
 
 # Aliases
 if [ -f $HOME/.aliases ]; then
-	. $HOME/.aliases
+  . $HOME/.aliases
 fi
 
 # Python
@@ -384,59 +385,59 @@ fi
 export PATH=${0:A:h}/bin:$PATH
 
 _python_argcomplete() {
-    local IFS=''
-    local prefix=
-    typeset -i n
-    (( lastw=${#COMP_WORDS[@]} -1))
-    if [[ ${COMP_WORDS[lastw]} == --*=* ]]; then
-        # for bash version 3.2
-        flag=${COMP_WORDS[lastw]%%=*}
-        set -- "$1" "$2" '='
-    elif [[ $3 == '=' ]]; then
-      flag=${COMP_WORDS[-3]}
-    fi
-    if [[ $3 == ssh  && $2 == *@* ]] ;then
-        # handle ssh user@instance specially
-        prefix=${2%@*}@
-        COMP_LINE=${COMP_LINE%$2}"${2#*@}"
-    elif [[ $3 == '=' ]] ; then
-        # handle --flag=value
-        prefix=$flag=$2
-        line=${COMP_LINE%$prefix};
-        COMP_LINE=$line${prefix/=/ };
-        prefix=
-    fi
-    if [[ $2 == *,* ]]; then
-          # handle , separated list
-          prefix=${2%,*},
-          set -- "$1" "${2#$prefix}" "$3"
-          COMP_LINE==${COMP_LINE%$prefix*}$2
-    fi
-    # Treat --flag=<TAB> as --flag <TAB> to work around bash 4.x bug
-    if [[ ${COMP_LINE} == *=  && ${COMP_WORDS[-2]} == --* ]]; then
-        COMP_LINE=${COMP_LINE%=}' '
-    fi
-    COMPREPLY=( $(IFS="$IFS"                   COMP_LINE="$COMP_LINE"                   COMP_POINT="$COMP_POINT"                   _ARGCOMPLETE_COMP_WORDBREAKS="$COMP_WORDBREAKS"                   _ARGCOMPLETE=1                   "$1" 8>&1 9>&2 1>/dev/null 2>/dev/null) )
-    if [[ $? != 0 ]]; then
-        unset COMPREPLY
-        return
-    fi
-    if [[ $prefix != '' ]]; then
-        for ((n=0; n < ${#COMPREPLY[@]}; n++)); do
-            COMPREPLY[$n]=$prefix${COMPREPLY[$n]}
-        done
-    fi
-    for ((n=0; n < ${#COMPREPLY[@]}; n++)); do
-        match=${COMPREPLY[$n]%' '}
-        if [[ $match != '' ]]; then
-            COMPREPLY[$n]=${match//? /' '}' '
-        fi
+  local IFS=' '
+  local prefix=
+  typeset -i n
+  ((lastw = ${#COMP_WORDS[@]} - 1))
+  if [[ ${COMP_WORDS[lastw]} == --*=* ]]; then
+    # for bash version 3.2
+    flag=${COMP_WORDS[lastw]%%=*}
+    set -- "$1" "$2" '='
+  elif [[ $3 == '=' ]]; then
+    flag=${COMP_WORDS[-3]}
+  fi
+  if [[ $3 == ssh && $2 == *@* ]]; then
+    # handle ssh user@instance specially
+    prefix=${2%@*}@
+    COMP_LINE=${COMP_LINE%$2}"${2#*@}"
+  elif [[ $3 == '=' ]]; then
+    # handle --flag=value
+    prefix=$flag=$2
+    line=${COMP_LINE%$prefix}
+    COMP_LINE=$line${prefix/=/ }
+    prefix=
+  fi
+  if [[ $2 == *,* ]]; then
+    # handle , separated list
+    prefix=${2%,*},
+    set -- "$1" "${2#$prefix}" "$3"
+    COMP_LINE==${COMP_LINE%$prefix*}$2
+  fi
+  # Treat --flag=<TAB> as --flag <TAB> to work around bash 4.x bug
+  if [[ ${COMP_LINE} == *= && ${COMP_WORDS[-2]} == --* ]]; then
+    COMP_LINE=${COMP_LINE%=}' '
+  fi
+  COMPREPLY=($(IFS="$IFS" COMP_LINE="$COMP_LINE" COMP_POINT="$COMP_POINT" _ARGCOMPLETE_COMP_WORDBREAKS="$COMP_WORDBREAKS" _ARGCOMPLETE=1 "$1" 8>&1 9>&2 1>/dev/null 2>/dev/null))
+  if [[ $? != 0 ]]; then
+    unset COMPREPLY
+    return
+  fi
+  if [[ $prefix != '' ]]; then
+    for ((n = 0; n < ${#COMPREPLY[@]}; n++)); do
+      COMPREPLY[$n]=$prefix${COMPREPLY[$n]}
     done
-    # if flags argument has a single completion and ends in  '= ', delete ' '
-    if [[ ${#COMPREPLY[@]} == 1 && ${COMPREPLY[0]} == -* &&
-          ${COMPREPLY[0]} == *'= ' ]]; then
-        COMPREPLY[0]=${COMPREPLY[0]%' '}
+  fi
+  for ((n = 0; n < ${#COMPREPLY[@]}; n++)); do
+    match=${COMPREPLY[$n]%' '}
+    if [[ $match != '' ]]; then
+      COMPREPLY[$n]=${match//? /' '}' '
     fi
+  done
+  # if flags argument has a single completion and ends in  '= ', delete ' '
+  if [[ ${#COMPREPLY[@]} == 1 && ${COMPREPLY[0]} == -* &&
+    ${COMPREPLY[0]} == *'= ' ]]; then
+    COMPREPLY[0]=${COMPREPLY[0]%' '}
+  fi
 }
 
 export GCLOUD_PATH=/usr/local/share/google-cloud-sdk
@@ -445,26 +446,26 @@ source $GCLOUD_PATH/completion.zsh.inc
 complete -o nospace -F _python_argcomplete "gcloud"
 
 _completer() {
-    command=$1
-    name=$2
-    eval '[[ "$'"${name}"'_COMMANDS" ]] || '"${name}"'_COMMANDS="$('"${command}"')"'
-    set -- $COMP_LINE
+  command=$1
+  name=$2
+  eval '[[ "$'"${name}"'_COMMANDS" ]] || '"${name}"'_COMMANDS="$('"${command}"')"'
+  set -- $COMP_LINE
+  shift
+  while [[ $1 == -* ]]; do
     shift
-    while [[ $1 == -* ]]; do
-          shift
-    done
-    [[ $2 ]] && return
-    grep -q "${name}\s*$" <<< $COMP_LINE &&
-        eval 'COMPREPLY=($'"${name}"'_COMMANDS)' &&
-        return
-    [[ "$COMP_LINE" == *" " ]] && return
-    [[ $1 ]] &&
-        eval 'COMPREPLY=($(echo "$'"${name}"'_COMMANDS" | grep ^'"$1"'))'
+  done
+  [[ $2 ]] && return
+  grep -q "${name}\s*$" <<<$COMP_LINE &&
+    eval 'COMPREPLY=($'"${name}"'_COMMANDS)' &&
+    return
+  [[ "$COMP_LINE" == *" " ]] && return
+  [[ $1 ]] &&
+    eval 'COMPREPLY=($(echo "$'"${name}"'_COMMANDS" | grep ^'"$1"'))'
 }
 
 unset bq_COMMANDS
 _bq_completer() {
-    _completer "CLOUDSDK_COMPONENT_MANAGER_DISABLE_UPDATE_CHECK=1 bq help | grep '^[^ ][^ ]*  ' | sed 's/ .*//'" bq
+  _completer "CLOUDSDK_COMPONENT_MANAGER_DISABLE_UPDATE_CHECK=1 bq help | grep '^[^ ][^ ]*  ' | sed 's/ .*//'" bq
 }
 
 complete -F _bq_completer bq
@@ -474,12 +475,11 @@ eval "$(direnv hook zsh)"
 export EDITOR=vim
 
 function _ssh {
-  compadd `fgrep 'Host ' ~/.ssh/*.config | awk '{print $2}' | sort`;
+  compadd $(fgrep 'Host ' ~/.ssh/*.config | awk '{print $2}' | sort)
 }
 
 # poetry
 export PATH="$HOME/.local/bin:$PATH"
-
 
 # Default values for the appearance of the prompt. Configure at will.
 ZSH_THEME_GIT_PROMPT_PREFIX="("
@@ -494,12 +494,15 @@ ZSH_THEME_GIT_PROMPT_AHEAD="%{↑ %G%}"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="%{… %G%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}%{✔ %G%}"
 
-for c in {000..255}; do echo -n "\e[38;5;${c}m $c" ; [ $(($c%16)) -eq 15 ] && echo;done;echo
+for c in {000..255}; do
+  echo -n "\e[38;5;${c}m $c"
+  [ $(($c % 16)) -eq 15 ] && echo
+done
+echo
 
 # if [ -f /usr/local/bin/starship ]; then
 #  eval "$(starship init zsh)"
 # fi
-
 
 if [ -d $HOME/.nodenv ]; then
   export PATH="$HOME/.nodenv/bin:$PATH"
@@ -529,8 +532,3 @@ export PATH="/usr/local/opt/libpq/bin:$PATH"
 # eval "$(zoxide init zsh)"
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
-
-if [ -d $HOME/.nodenv ]; then
-  export PATH="$HOME/.rbenv/shims:$PATH"
-  eval "$(rbenv init -)"
-fi
