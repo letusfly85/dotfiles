@@ -537,3 +537,7 @@ if [ -f ~/.zsh/zsh-git-prompt/zshrc.sh ]; then
   source ~/.zsh/zsh-git-prompt/zshrc.sh
 fi
 PROMPT='%b$(git_super_status) %# '
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
