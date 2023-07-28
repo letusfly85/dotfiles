@@ -116,3 +116,22 @@ brew upgrade nodenv node-build
 ```bash
 brew install direnv
 ```
+
+## Scala
+
+### SDK
+
+- https://sdkman.io/
+
+```bash
+curl -s "https://get.sdkman.io" | bash
+```
+
+### 
+
+```bash
+source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+sdk install java $(sdk list java | grep -o "\b8\.[0-9]*\.[0-9]*\-tem" | head -1)
+sdk install sbt
+```
