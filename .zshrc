@@ -252,7 +252,7 @@ zplug "k4rthik/git-cal", as:command, frozen:1
 
 # Grab binaries from GitHub Releases
 # and rename with the "rename-to:" tag
-zplug "junegunn/fzf-bin", \
+zplug "junegunn/fzf", \
   from:gh-r, \
   as:command, \
   rename-to:fzf, \
@@ -350,9 +350,6 @@ if [ "$TERM" != "linux" ]; then
   install_powerline_precmd
 fi
 
-source ~/.zsh/zsh-git-prompt/zshrc.sh
-PROMPT='%b$(git_super_status) %# '
-
 # Then, source plugins and add commands story searching with arrow keys
 bindkey '\eOA' history-substring-search-up
 bindkey '\eOB' history-substring-search-down
@@ -440,10 +437,10 @@ _python_argcomplete() {
   fi
 }
 
-export GCLOUD_PATH=/usr/local/share/google-cloud-sdk
-export PATH=$PATH:$GCLOUD_PATH/bin
-source $GCLOUD_PATH/completion.zsh.inc
-complete -o nospace -F _python_argcomplete "gcloud"
+#export GCLOUD_PATH=/usr/local/share/google-cloud-sdk
+#export PATH=$PATH:$GCLOUD_PATH/bin
+#source $GCLOUD_PATH/completion.zsh.inc
+#complete -o nospace -F _python_argcomplete "gcloud"
 
 _completer() {
   command=$1
@@ -468,8 +465,8 @@ _bq_completer() {
   _completer "CLOUDSDK_COMPONENT_MANAGER_DISABLE_UPDATE_CHECK=1 bq help | grep '^[^ ][^ ]*  ' | sed 's/ .*//'" bq
 }
 
-complete -F _bq_completer bq
-complete -o nospace -F _python_argcomplete gsutil
+#complete -F _bq_completer bq
+#complete -o nospace -F _python_argcomplete gsutil
 
 eval "$(direnv hook zsh)"
 export EDITOR=vim
@@ -532,3 +529,11 @@ export PATH="/usr/local/opt/libpq/bin:$PATH"
 # eval "$(zoxide init zsh)"
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
+
+# echo "source ~/.zsh/git-prompt.zsh/git-prompt.zsh" >> .zshrc
+source ~/.zsh/git-prompt.zsh/git-prompt.zsh
+
+if [ -f ~/.zsh/zsh-git-prompt/zshrc.sh ]; then
+  source ~/.zsh/zsh-git-prompt/zshrc.sh
+fi
+PROMPT='%b$(git_super_status) %# '
