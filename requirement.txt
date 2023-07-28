@@ -9,3 +9,7 @@ matplotlib
 
 # shell
 powerline-shell
+
+# Database
+mycli
+pgcli
