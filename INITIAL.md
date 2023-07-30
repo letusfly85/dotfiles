@@ -102,6 +102,14 @@ brew install tflint
 
 ```bash
 brew install --cask docker
+
+sudo mkdir -p /usr/local/lib/docker/cli-plugins
+
+sudo curl -SL https://github.com/docker/compose/releases/download/v2.14.2/docker-compose-darwin-aarch64 -o /usr/local/lib/docker/cli-plugins/docker-compose
+
+sudo chmod a+x /usr/local/lib/docker/cli-plugins/docker-compose
+
+docker compose -v
 ```
 
 ## Node
@@ -127,11 +135,18 @@ brew install direnv
 curl -s "https://get.sdkman.io" | bash
 ```
 
-### 
-
 ```bash
 source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 sdk install java $(sdk list java | grep -o "\b8\.[0-9]*\.[0-9]*\-tem" | head -1)
 sdk install sbt
+
+sdk install java 11.0.20-zulu
+```
+
+## Databases
+
+```bash
+brew install mysql-client
+pip install mycli
 ```

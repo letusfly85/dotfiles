@@ -252,11 +252,11 @@ zplug "k4rthik/git-cal", as:command, frozen:1
 
 # Grab binaries from GitHub Releases
 # and rename with the "rename-to:" tag
-zplug "junegunn/fzf", \
-  from:gh-r, \
-  as:command, \
-  rename-to:fzf, \
-  use:"*darwin*amd64*"
+#zplug "junegunn/fzf", \
+#  from:gh-r, \
+#  as:command, \
+#  rename-to:fzf, \
+#  use:"*darwin*amd64*"
 
 # Supports oh-my-zsh plugins and the like
 zplug "plugins/git", from:oh-my-zsh
@@ -299,10 +299,10 @@ zplug "b4b4r07/httpstat", \
 
 # Group dependencies
 # Load "emoji-cli" if "jq" is installed in this example
-zplug "stedolan/jq", \
-  from:gh-r, \
-  as:command, \
-  rename-to:jq
+#zplug "stedolan/jq", \
+#  from:gh-r, \
+#  as:command, \
+#  rename-to:jq
 zplug "b4b4r07/emoji-cli", \
   on:"stedolan/jq"
 # Note: To specify the order in which packages should be loaded, use the defer
@@ -541,3 +541,4 @@ PROMPT='%b$(git_super_status) %# '
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
