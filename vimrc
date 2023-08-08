@@ -506,8 +506,6 @@ autocmd FileType haskell setl tabstop=4 expandtab shiftwidth=4 softtabstop=4
 
 let g:rsenseUseOmniFunc = 1
 
-autocmd FocusGained * set transparency=220
-
 " ファイルが選択されたら、ウィンドウを閉じる
 :let g:proj_flags = "imstc"
 
@@ -546,12 +544,6 @@ autocmd InsertEnter * let g:IMState = &iminsert|set iminsert=0 imsearch=0
 set number
 set nocompatible
 
-
-"golint
-" exe "set rtp+=" . globpath($GOPATH, "src/github.com/golang/lint/misc/vim")
-" auto BufWritePre *.go Fmt
-
-
 "" unite.vim {{{
 " The prefix key.
 nnoremap    [unite]   <Nop>
@@ -575,7 +567,6 @@ nnoremap <silent> ,vcb :Unite build:!<CR>
 nnoremap <silent> ,vch :UniteBuildClearHighlight<CR>
 "" }}}
 
-" let g:copypath_copy_to_unnamed_register = 1
 
 "http://rcmdnk.github.io/blog/2013/11/17/computer-vim/
 " md as markdown, instead of modula2
@@ -599,10 +590,10 @@ endif
 set nocompatible
 
 " Set Dein base path (required)
-let s:dein_base = '/Users/letusfly85/.cache/dein'
+let s:dein_base = "$HOME/.cache/dein"
 
 " Set Dein source path (required)
-let s:dein_src = '/Users/letusfly85/.cache/dein/repos/github.com/Shougo/dein.vim'
+let s:dein_src = "$HOME/.cache/dein/repos/github.com/Shougo/dein.vim"
 
 " Set Dein runtime path (required)
 execute 'set runtimepath+=' . s:dein_src
@@ -631,11 +622,6 @@ if has('syntax')
   syntax on
 endif
 
-" Uncomment if you want to install not-installed plugins on startup.
-"if dein#check_install()
-" call dein#install()
-"endif
-
 " Required:
 set runtimepath+=$HOME/.cache/dein/repos/github.com/Shougo/dein.vim
 
@@ -646,10 +632,6 @@ if dein#load_state('$HOME/.cache/dein')
   " Let dein manage dein
   " Required:
   call dein#add('$HOME/.cache/dein/repos/github.com/Shougo/dein.vim')
-
-  " Add or remove your plugins here like this:
-  "call dein#add('Shougo/neosnippet.vim')
-  "call dein#add('Shougo/neosnippet-snippets')
 
   " Required:
   call dein#end()
@@ -692,8 +674,6 @@ call dein#add('gmarik/vundle')
 
 call dein#add('nsf/gocode', {'rtp': 'vim/'})
 
-call dein#add('elixir-lang/vim-elixir')
-
 call dein#add('alpaca-tc/alpaca_tags')
 call dein#add('AndrewRadev/switch.vim')
 
@@ -735,11 +715,9 @@ call dein#add('trevordmiller/nova-vim')
 call dein#add('vim-airline/vim-airline')
 call dein#add('vim-airline/vim-airline-themes')
 
-call dein#add('posva/vim-vue')
-
-call dein#add('hashivim/vim-terraform')
-
 call dein#add('altercation/vim-colors-solarized')
+
+call dein#add('editorconfig/editorconfig-vim')
 
 let g:solarized_termcolors=256
 syntax enable
@@ -834,15 +812,8 @@ let g:neocomplete#sources#omni#input_patterns = {
 \   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
 \}
 
-" With deoplete.nvim
-" let g:monster#completion#rcodetools#backend = "async_rct_complete"
-" let g:deoplete#sources#omni#input_patterns = {
-" \   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
-" \}
-
 
 function! CPPCodeCleanup()
-  " echo "Cleanup cpp code"
   let l:lines="all"
   let g:clang_format_fallback_style = 'Google'
   :pyf /usr/local/share/clang/clang-format.py
