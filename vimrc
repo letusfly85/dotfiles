@@ -475,12 +475,6 @@ autocmd FileType d setl enc=utf-8
 autocmd FileType d setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 autocmd FileType d setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
 
-autocmd FileType groovy setl autoindent
-autocmd FileType groovy setl fenc=utf-8
-autocmd FileType groovy setl enc=utf-8
-autocmd FileType groovy setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
-autocmd FileType groovy setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
-
 autocmd FileType Rakefile setl autoindent
 autocmd FileType Rakefile setl fenc=utf-8
 autocmd FileType Rakefile setl enc=utf-8
@@ -599,6 +593,49 @@ if &compatible
   set nocompatible               " Be iMproved
 endif
 
+
+" Ward off unexpected things that your distro might have made, as
+" well as sanely reset options when re-sourcing .vimrc
+set nocompatible
+
+" Set Dein base path (required)
+let s:dein_base = '/Users/letusfly85/.cache/dein'
+
+" Set Dein source path (required)
+let s:dein_src = '/Users/letusfly85/.cache/dein/repos/github.com/Shougo/dein.vim'
+
+" Set Dein runtime path (required)
+execute 'set runtimepath+=' . s:dein_src
+
+" Call Dein initialization (required)
+call dein#begin(s:dein_base)
+
+call dein#add(s:dein_src)
+
+" Your plugins go here:
+"call dein#add('Shougo/neosnippet.vim')
+"call dein#add('Shougo/neosnippet-snippets')
+
+" Finish Dein initialization (required)
+call dein#end()
+
+" Attempt to determine the type of a file based on its name and possibly its
+" contents. Use this to allow intelligent auto-indenting for each filetype,
+" and for plugins that are filetype specific.
+if has('filetype')
+  filetype indent plugin on
+endif
+
+" Enable syntax highlighting
+if has('syntax')
+  syntax on
+endif
+
+" Uncomment if you want to install not-installed plugins on startup.
+"if dein#check_install()
+" call dein#install()
+"endif
+
 " Required:
 set runtimepath+=$HOME/.cache/dein/repos/github.com/Shougo/dein.vim
 
@@ -663,7 +700,6 @@ call dein#add('AndrewRadev/switch.vim')
 call dein#add('mattn/emmet-vim')
 call dein#add('othree/html5.vim')
 call dein#add('othree/html5-syntax.vim')
-call dein#add('maksimr/vim-jsbeautify')
 
 " colors
 " mustang カラースキーム
@@ -753,9 +789,6 @@ endif
 autocmd FileType html setl tabstop=2 expandtab shiftwidth=2 softtabstop=2
 autocmd FileType js   setl tabstop=2 expandtab shiftwidth=2 softtabstop=2
 
-" autocmd BufWritePre *.js call JsBeautify()
-" autocmd BufWritePre *.html call HtmlBeautify()
-" autocmd BufWritePre *.css call CSSBeautify()
 
 " autopep 
 " original http://stackoverflow.com/questions/12374200/using-uncrustify-with-vim/15513829#15513829

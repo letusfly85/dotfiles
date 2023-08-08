@@ -98,6 +98,18 @@ brew install tfenv
 brew install tflint
 ```
 
+## Packer
+
+```bash
+brew install hashicorp/tap/packer
+```
+
+## pwgen
+
+```bash
+brew install pwgen
+```
+
 ## Docker
 
 ```bash
@@ -150,3 +162,13 @@ sdk install java 11.0.20-zulu
 brew install mysql-client
 pip install mycli
 ```
+
+## AWS
+
+```bash
+brew install awscli
+```
+
+### Install ssm plugin
+
+- https://docs.aws.amazon.com/ja_jp/systems-manager/latest/userguide/install-plugin-macos-overview.html
