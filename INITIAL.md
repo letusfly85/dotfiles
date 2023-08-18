@@ -172,3 +172,17 @@ brew install awscli
 ### Install ssm plugin
 
 - https://docs.aws.amazon.com/ja_jp/systems-manager/latest/userguide/install-plugin-macos-overview.html
+
+## Install anyenv
+
+```bash
+brew install anyenv
+```
+
+## install asdf
+
+```bash
+brew install coreutils
+
+brew install asdf
+```

@@ -542,3 +542,7 @@ PROMPT='%b$(git_super_status) %# '
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+
+eval "$(anyenv init -)"
+
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
