@@ -6,4 +6,5 @@ cargo install \
     jaq \
     atuin \
     just \
-    cargo-generate
+    cargo-generate \
+    hurl
