@@ -23,3 +23,6 @@ brew install tflint
 
 # Shell
 brew install shellcheck shfmt
+
+# hurl
+brew install hurl
