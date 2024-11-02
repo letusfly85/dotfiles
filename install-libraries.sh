@@ -26,3 +26,7 @@ brew install shellcheck shfmt
 
 # hurl
 brew install hurl
+
+# Mecab
+brew install mecab
+brew install mecab-ipadic
