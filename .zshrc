@@ -546,3 +546,8 @@ export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
 eval "$(anyenv init -)"
 
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
+
+eval "$(rbenv init - zsh)"
+
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
+export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
