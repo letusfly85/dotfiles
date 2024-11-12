@@ -1,8 +1,35 @@
 local wezterm = require 'wezterm'
 
+
 local scheme = wezterm.get_builtin_color_schemes()['Gruvbox Light']
 
 config = {
+  background = {
+    {
+	source = { File = "/Users/letusfly85/.config/wezterm/scala.png" },
+        opacity = 1.0, -- 透明度
+        vertical_align = "Middle", -- 垂直方向の画像位置
+        horizontal_align = "Right", -- 水平方向の画像位置
+        horizontal_offset = "0px", -- 水平方向のオフセット
+        repeat_x = "NoRepeat", -- 画像をx方向に繰り返すか
+        repeat_y = "NoRepeat", -- 画像をy方向に繰り返すか
+        width = "50%", -- 画像の幅 (%指定も可能)
+        height = "100%" -- 画像の高さ (%指定も可能),
+    },
+    {
+      source = {
+       Gradient = {
+         colors = { "#124354", "#001522" }, -- グラデーションのカラーセット
+         orientation = {
+           Linear = { angle = -50.0 }, -- グラデーションの方向と角度
+         },
+       },
+     },
+     opacity = 0.8, -- 透明度
+     width = "100%", -- 幅
+     height = "100%" -- 高さ
+    }
+  },
   color_schemes = {
     -- Override the builtin Gruvbox Light scheme with our modification.
     ['Gruvbox Light'] = scheme,
@@ -15,17 +42,24 @@ config = {
 
   font_size = 20.0,
   use_ime = true,
-  window_background_opacity = 0.9,
+  window_background_opacity = 0.8,
   macos_window_background_blur = 30,
+
+  window_background_gradient = {
+    colors = { "#000000", "#112c47", "#11385e", "#112c47","#000000" },  
+    orientation = "Vertical",
+    blend = "LinearRgb",
+  },
+  -- window_background_gradient = {
+  --  colors = { "#1b1b25" },
+  -- },
+
   window_decorations = "RESIZE",
   show_tabs_in_tab_bar = true,
   hide_tab_bar_if_only_one_tab = true,
   window_frame = {
     inactive_titlebar_bg = "none",
     active_titlebar_bg = "none",
-  },
-  window_background_gradient = {
-    colors = { "#1b1b25" },
   },
   show_new_tab_button_in_tab_bar = false,
   -- show_close_tab_button_in_tabs = false,
