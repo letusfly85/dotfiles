@@ -7,19 +7,20 @@ config = {
   background = {
     {
 	source = { File = "/Users/letusfly85/.config/wezterm/scala.png" },
+        attachment = { Parallax = 0.05 },
         opacity = 1.0, -- 透明度
         vertical_align = "Middle", -- 垂直方向の画像位置
         horizontal_align = "Right", -- 水平方向の画像位置
         horizontal_offset = "0px", -- 水平方向のオフセット
         repeat_x = "NoRepeat", -- 画像をx方向に繰り返すか
         repeat_y = "NoRepeat", -- 画像をy方向に繰り返すか
-        width = "50%", -- 画像の幅 (%指定も可能)
-        height = "100%" -- 画像の高さ (%指定も可能),
+        width = "512px", -- 画像の幅 (%指定も可能)
+        height = "512px" -- 画像の高さ (%指定も可能),
     },
     {
       source = {
        Gradient = {
-         colors = { "#124354", "#001522" }, -- グラデーションのカラーセット
+         colors = { "#090a0d", "#212326" }, -- グラデーションのカラーセット
          orientation = {
            Linear = { angle = -50.0 }, -- グラデーションの方向と角度
          },
@@ -46,7 +47,7 @@ config = {
   macos_window_background_blur = 30,
 
   window_background_gradient = {
-    colors = { "#000000", "#112c47", "#11385e", "#112c47","#000000" },  
+    colors = { "#000000", "#212326", "#0e1012", "#212326","#000000" },  
     orientation = "Vertical",
     blend = "LinearRgb",
   },
