@@ -1,6 +1,7 @@
 local wezterm = require 'wezterm'
 
 
+-- 宇宙火星風ファンタジーサイバーパンクテーマ
 local scheme = wezterm.get_builtin_color_schemes()['Gruvbox Light']
 
 config = {
@@ -20,13 +21,13 @@ config = {
     {
       source = {
        Gradient = {
-         colors = { "#090a0d", "#212326" }, -- グラデーションのカラーセット
+         colors = { "#000000", "#1A0F0A" }, -- 深宇宙の黒から暗い茶色へ
          orientation = {
            Linear = { angle = -50.0 }, -- グラデーションの方向と角度
          },
        },
      },
-     opacity = 0.8, -- 透明度
+     opacity = 0.65, -- 宇宙の透明度
      width = "100%", -- 幅
      height = "100%" -- 高さ
     }
@@ -39,15 +40,48 @@ config = {
     -- the default
     ['Gruvbox Red'] = scheme,
   },
-  -- color_scheme = 'Gruvbox Light',
+  -- カスタムカラースキームを定義
+  colors = {
+    foreground = "#E6D5B8",
+    background = "#0A0A0A",
+    
+    cursor_bg = "#FFD700",
+    cursor_fg = "#0A0A0A",
+    cursor_border = "#FF6600",
+    
+    selection_fg = "#0A0A0A",
+    selection_bg = "#00FFFF",
+    
+    -- ANSIカラー（宇宙火星風ファンタジーサイバーパンク）
+    ansi = {
+      "#0A0A0A", -- 黒（深宇宙）
+      "#B8460E", -- 赤（暗い火星の赤）
+      "#6B8E23", -- 緑（暗いファンタジーの自然）
+      "#DAA520", -- 黄色（暗いゴールド）
+      "#2E4BC6", -- 青（暗いサイバーブルー）
+      "#7A4FBF", -- マゼンタ（暗いネオンパープル）
+      "#008B8B", -- シアン（暗いサイバーシアン）
+      "#C0A080", -- 白（暗い砂色）
+    },
+    brights = {
+      "#8B4513", -- 明るい黒（赤茶色）
+      "#FF6600", -- 明るい赤（エレクトリックオレンジ）
+      "#ADFF2F", -- 明るい緑（ネオングリーン）
+      "#FFFF00", -- 明るい黄色（ネオンイエロー）
+      "#00BFFF", -- 明るい青（ディープスカイブルー）
+      "#DA70D6", -- 明るいマゼンタ（オーキッド）
+      "#00FFFF", -- 明るいシアン（アクア）
+      "#FFFAF0", -- 明るい白（フローラルホワイト）
+    },
+  },
 
   font_size = 20.0,
   use_ime = true,
-  window_background_opacity = 0.8,
-  macos_window_background_blur = 30,
+  window_background_opacity = 0.70,
+  macos_window_background_blur = 40,
 
   window_background_gradient = {
-    colors = { "#000000", "#212326", "#0e1012", "#212326","#000000" },  
+    colors = { "#000000", "#0A0A0A", "#1A0F0A", "#2D1B0E", "#4A2C1A" },  
     orientation = "Vertical",
     blend = "LinearRgb",
   },
@@ -78,12 +112,12 @@ local SOLID_LEFT_ARROW = wezterm.nerdfonts.ple_lower_right_triangle
 local SOLID_RIGHT_ARROW = wezterm.nerdfonts.ple_upper_left_triangle
 
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
-  local background = "#5c6d74"
-  local foreground = "#FFFFFF"
+  local background = "#2D1B0E" -- 暗い火星の土壌
+  local foreground = "#C0A080"
   local edge_background = "none"
   if tab.is_active then
-    background = "#ae8b2d"
-    foreground = "#FFFFFF"
+    background = "#4A2C1A" -- 暗い火星表面
+    foreground = "#00FFFF" -- サイバーシアン（明るく保持）
   end
   local edge_foreground = background
   local title = "   " .. wezterm.truncate_right(tab.active_pane.title, max_width - 1) .. "   "
