@@ -30,3 +30,6 @@ brew install hurl
 # Mecab
 brew install mecab
 brew install mecab-ipadic
+
+# starship
+brew install starship
