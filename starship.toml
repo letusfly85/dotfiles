@@ -1,0 +1,80 @@
+add_newline = true
+command_timeout = 2000
+
+# Powerline風のフォーマット
+format = """
+[](fg:#3B76F0)\
+$directory\
+[](fg:#3B76F0 bg:#FCF392)\
+$git_branch\
+$git_status\
+[](fg:#FCF392 bg:#FCA17D)\
+$nodejs\
+$python\
+$rust\
+$golang\
+$java\
+[](fg:#FCA17D bg:#86BBD8)\
+$cmd_duration\
+[](fg:#86BBD8)\
+$fill\
+$time\
+$line_break\
+$character
+"""
+
+# ディレクトリ（パワーライン風）
+[directory]
+style = "fg:#E4E4E7 bg:#3B76F0"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncate_to_repo = false
+
+# Git ブランチ（パワーライン風）
+[git_branch]
+symbol = ""
+style = "fg:#1C3A5E bg:#FCF392"
+format = "[ $symbol $branch ]($style)"
+
+# Git ステータス
+[git_status]
+style = "fg:#1C3A5E bg:#FCF392"
+format = "[$all_status$ahead_behind ]($style)"
+
+# プログラミング言語（パワーライン風）
+[nodejs]
+symbol = ""
+style = "fg:#FFFFFF bg:#FCA17D"
+format = "[ $symbol ($version) ]($style)"
+
+[python]
+symbol = ""
+style = "fg:#FFFFFF bg:#FCA17D"
+format = "[ $symbol ($version) ]($style)"
+
+[rust]
+symbol = ""
+style = "fg:#FFFFFF bg:#FCA17D"
+format = "[ $symbol ($version) ]($style)"
+
+# コマンド実行時間
+[cmd_duration]
+style = "fg:#FFFFFF bg:#86BBD8"
+format = "[ $duration ]($style)"
+min_time = 1000
+
+# 時刻表示
+[time]
+disabled = false
+time_format = "%R"
+style = "bold white"
+format = "🕙 [$time]($style)"
+
+# 行区切り
+[fill]
+symbol = " "
+
+# 文字設定
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
