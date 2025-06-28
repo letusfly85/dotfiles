@@ -23,9 +23,6 @@ log_file = ~/.mycli.log
 # and "DEBUG". "NONE" disables logging.
 log_level = INFO
 
-# Log every query and its results to a file. Enable this by uncommenting the
-# line below.
-# audit_log = ~/.mycli-audit.log
 
 # Timing of sql statments and table rendering.
 timing = True
@@ -85,37 +82,35 @@ keyword_casing = auto
 enable_pager = True
 
 # Custom colors for the completion menu, toolbar, etc.
+# 宇宙火星風ファンタジーサイバーパンクテーマ（明るめの配色でターミナルと区別）
 [colors]
-completion-menu.completion.current = 'bg:#ffffff #000000'
-completion-menu.completion = 'bg:#008888 #ffffff'
-completion-menu.meta.completion.current = 'bg:#44aaaa #000000'
-completion-menu.meta.completion = 'bg:#448888 #ffffff'
-completion-menu.multi-column-meta = 'bg:#aaffff #000000'
-scrollbar.arrow = 'bg:#003333'
-scrollbar = 'bg:#00aaaa'
-selected = '#ffffff bg:#6666aa'
-search = '#ffffff bg:#4444aa'
-search.current = '#ffffff bg:#44aa44'
-bottom-toolbar = 'bg:#222222 #aaaaaa'
-bottom-toolbar.off = 'bg:#222222 #888888'
-bottom-toolbar.on = 'bg:#222222 #ffffff'
+completion-menu.completion.current = 'bg:#00FFFF #0A0A0A'
+completion-menu.completion = 'bg:#4A2C1A #FFFAF0'
+completion-menu.meta.completion.current = 'bg:#FFD700 #0A0A0A'
+completion-menu.meta.completion = 'bg:#6B4E2A #FFFAF0'
+completion-menu.multi-column-meta = 'bg:#2D1B0E #FFFAF0'
+scrollbar.arrow = 'bg:#4A2C1A'
+scrollbar = 'bg:#6B4E2A'
+selected = '#FFFAF0 bg:#FF6600'
+search = '#FFFAF0 bg:#00BFFF'
+search.current = '#0A0A0A bg:#FFFF00'
+bottom-toolbar = 'bg:#1A0F0A #FFFAF0'
+bottom-toolbar.off = 'bg:#1A0F0A #C0A080'
+bottom-toolbar.on = 'bg:#1A0F0A #00FFFF'
 search-toolbar = 'noinherit bold'
 search-toolbar.text = 'nobold'
 system-toolbar = 'noinherit bold'
 arg-toolbar = 'noinherit bold'
 arg-toolbar.text = 'nobold'
-bottom-toolbar.transaction.valid = 'bg:#222222 #00ff5f bold'
-bottom-toolbar.transaction.failed = 'bg:#222222 #ff005f bold'
+bottom-toolbar.transaction.valid = 'bg:#1A0F0A #FFFF00 bold'
+bottom-toolbar.transaction.failed = 'bg:#1A0F0A #FF6600 bold'
 
 # style classes for colored table output
-output.header = "#00ff5f bold"
+output.header = "#FFFF00 bold"
 output.odd-row = ""
 output.even-row = ""
 
 # Favorite queries.
 [favorite_queries]
 
-# Use the -d option to reference a DSN.
-# Special characters in passwords and other strings can be escaped with URL encoding.
 [alias_dsn]
-# example_dsn = mysql://[user[:password]@][host][:port][/dbname]
