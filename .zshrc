@@ -107,3 +107,4 @@ export SDKMAN_DIR="$HOME/.sdkman"
 
 # starship
 eval "$(starship init zsh)"
+export DYLD_LIBRARY_PATH="$HOME/.local/lib:$DYLD_LIBRARY_PATH"
