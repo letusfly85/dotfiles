@@ -7,27 +7,26 @@ local scheme = wezterm.get_builtin_color_schemes()['Gruvbox Light']
 config = {
   background = {
     {
-	source = { File = "/Users/letusfly85/.config/wezterm/scala.png" },
-        attachment = { Parallax = 0.05 },
-        opacity = 1.0, -- 透明度
+	source = { File = "/Users/letusfly85/work/wonder-soft/dotfiles/mars.png" },
+        attachment = "Fixed", -- 画像を固定位置に配置（ウィンドウサイズに応じて見える範囲が変わる）
+        opacity = 0.55, -- 透明度
         vertical_align = "Middle", -- 垂直方向の画像位置
-        horizontal_align = "Right", -- 水平方向の画像位置
+        horizontal_align = "Center", -- 水平方向の画像位置
         horizontal_offset = "0px", -- 水平方向のオフセット
         repeat_x = "NoRepeat", -- 画像をx方向に繰り返すか
         repeat_y = "NoRepeat", -- 画像をy方向に繰り返すか
-        width = "512px", -- 画像の幅 (%指定も可能)
-        height = "512px" -- 画像の高さ (%指定も可能),
+        height = "100%" -- 高さだけ指定してアスペクト比を維持（球体が歪まない）
     },
     {
       source = {
        Gradient = {
-         colors = { "#000000", "#1A0F0A" }, -- 深宇宙の黒から暗い茶色へ
+         colors = { "#000814", "#000a14" }, -- 黒めで少しだけ青み
          orientation = {
            Linear = { angle = -50.0 }, -- グラデーションの方向と角度
          },
        },
      },
-     opacity = 0.65, -- 宇宙の透明度
+     opacity = 0.45, -- 黒めのオーバーレイ
      width = "100%", -- 幅
      height = "100%" -- 高さ
     }
@@ -134,5 +133,8 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
   }
 end)
 
+wezterm.on('bell', function(window, pane)
+  window:toast_notification('Claude Code', 'Task completed', nil, 4000)
+end)
 
 return config
