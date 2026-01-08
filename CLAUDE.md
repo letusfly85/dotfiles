@@ -62,6 +62,14 @@ sudo ln -s $PWD/.powerline-shell.json $HOME/.powerline-shell.json
 - MeCab（形態素解析）
 - Starship プロンプト
 
+### bun のインストール
+
+```bash
+./install-bun.sh
+```
+
+bun（JavaScript/TypeScript ランタイム）がインストールされます。
+
 ## アーキテクチャ
 
 ### 環境管理
@@ -86,12 +94,14 @@ sudo ln -s $PWD/.powerline-shell.json $HOME/.powerline-shell.json
 - `/opt/homebrew/opt/openjdk@17/bin`: OpenJDK 17
 - `$HOME/.cargo/bin`: Rust ツール
 - `$HOME/.local/bin`: Poetry など Python ツール
+- `$HOME/.bun/bin`: bun ランタイム
 
 ## 対応言語とツール
 
 - **Rust**: cargo、各種 Rust クレート
 - **Python**: pyenv、poetry
 - **Node.js**: nodenv
+- **JavaScript/TypeScript**: bun
 - **Java**: jenv、SDKMAN
 - **Scala**: Scala CLI
 - **Shell**: shellcheck、shfmt
