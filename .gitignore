@@ -1,2 +1,3 @@
-.entire/
-.claude/
+# .entire/ - managed by .entire/.gitignore (excludes tmp/, settings.local.json, metadata/, logs/)
+# .claude/ - settings.local.json is excluded below
+.claude/settings.local.json
