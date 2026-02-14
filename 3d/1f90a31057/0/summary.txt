@@ -1,0 +1,5 @@
+
+
+Jupyter config の PR が完了しました: https://github.com/letusfly85/dotfiles/pull/29
+
+残り 2つ（powerline-shell、requirement.txt）を待っています。
