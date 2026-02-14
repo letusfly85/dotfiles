@@ -27,7 +27,8 @@ zplug "jhawthorn/fzy", as:command, rename-to:fzy, hook-build:"make && sudo make 
 zplug "b4b4r07/enhancd", at:v1
 zplug "mollifier/anyframe", at:4c23cb60
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
-zplug "~/.zsh", from:local
+# git-prompt.zsh は不要（vcs_info でブランチ名を表示）
+# zplug "~/.zsh", from:local
 
 # プラグインのインストール
 if ! zplug check --verbose; then
