@@ -33,10 +33,11 @@ _gradient_dir() {
   local dir="${(%):-%~}"
   local -i len=${#dir}
   local -F step=$(( len > 1 ? 50.0 / len : 0 ))
+  local esc=$'\e'
   _PROMPT_DIR=""
   for (( i = 1; i <= len; i++ )); do
     _hue2rgb $(( fmod(_PROMPT_HUE + (i-1) * step, 360.0) ))
-    _PROMPT_DIR+="%{\e[38;2;${REPLY}m%}${dir[$i]}"
+    _PROMPT_DIR+="%{${esc}[38;2;${REPLY}m%}${dir[$i]}"
   done
   _PROMPT_DIR+="%f"
 }
