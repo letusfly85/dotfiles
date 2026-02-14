@@ -61,6 +61,7 @@ sudo ln -s $PWD/.powerline-shell.json $HOME/.powerline-shell.json
 - Shell 開発ツール（shellcheck、shfmt）
 - MeCab（形態素解析）
 - Starship プロンプト
+- Entire CLI（AIコーディングセッション管理）
 
 ### bun のインストール
 
@@ -106,3 +107,4 @@ bun（JavaScript/TypeScript ランタイム）がインストールされます�
 - **Scala**: Scala CLI
 - **Shell**: shellcheck、shfmt
 - **Infrastructure**: AWS CLI、kubectl、helm、terraform
+- **AI Tools**: Entire CLI（セッション管理）
