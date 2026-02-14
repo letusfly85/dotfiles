@@ -1,0 +1,17 @@
+{
+  "cli_version": "0.4.4",
+  "checkpoint_id": "21cee72652dd",
+  "strategy": "auto-commit",
+  "branch": "chore/remove-powerline-shell",
+  "checkpoints_count": 0,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/21/cee72652dd/0/metadata.json",
+      "transcript": "/21/cee72652dd/0/full.jsonl",
+      "context": "",
+      "content_hash": "/21/cee72652dd/0/content_hash.txt",
+      "prompt": ""
+    }
+  ]
+}
