@@ -74,7 +74,6 @@ function _ssh {
 # poetry
 export PATH="$HOME/.local/bin:$PATH"
 
-# starshipがプロンプト表示を担当するため、git-promptの設定は不要
 
 # Node.js (nodenv)
 if [ -d $HOME/.nodenv ]; then
@@ -96,7 +95,6 @@ export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
 
-# starshipがプロンプト表示を担当
 
 # SDKMAN
 export SDKMAN_DIR="$HOME/.sdkman"
@@ -105,8 +103,6 @@ export SDKMAN_DIR="$HOME/.sdkman"
 # asdf
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
 
-# starship
-eval "$(starship init zsh)"
 export DYLD_LIBRARY_PATH="$HOME/.local/lib:$DYLD_LIBRARY_PATH"
 
 # opencode
