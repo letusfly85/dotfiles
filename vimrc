@@ -700,7 +700,6 @@ call dein#add('therubymug/vim-pyte')
 call dein#add('tomasr/molokai')
 
 " python vim plugins
-call dein#add('davidhalter/jedi-vim')
 call dein#add('osyo-manga/vim-watchdogs')
 
 call dein#add('rust-lang/rust.vim')
@@ -832,7 +831,5 @@ set hidden
 let g:racer_cmd = '$HOME/.cargo/bin/racer'
 let g:racer_experimental_completer = 1
 let g:rustfmt_autosave = 1
-
-let g:jedi#auto_initialization = 0
 
 let g:python3_host_prog = $HOME/'.pyenv/shims/python3'
