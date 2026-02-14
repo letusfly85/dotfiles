@@ -3,6 +3,13 @@ export LANG=ja_JP.UTF-8
 export EDITOR=vim
 export SAVEHIST=100000
 
+# プロンプト設定（カレントディレクトリ + gitブランチ名のみ）
+autoload -Uz vcs_info
+precmd() { vcs_info }
+zstyle ':vcs_info:git:*' formats ' (%b)'
+setopt PROMPT_SUBST
+PROMPT='%~${vcs_info_msg_0_} $ '
+
 # To Enable Ctrl+a, Ctrl+e
 bindkey -e
 
