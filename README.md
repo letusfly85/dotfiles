@@ -21,10 +21,6 @@ sudo ln -s $PWD/.zshrc $HOME/.zshrc
 # tmux
 sudo ln -s $PWD/.tmux.conf $HOME/.tmux.conf
 
-# powerline
-sudo ln -s $PWD/.powerline-shell.json $HOME/.powerline-shell.json
-```
-
 ### Rust クレートのインストール
 
 ```bash

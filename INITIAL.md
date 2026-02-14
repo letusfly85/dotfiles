@@ -30,17 +30,6 @@ pyenv global 3.10.11
 eval "$(pyenv init -)"
 ```
 
-## PowerLine Shell
-
-```bash
-pip3 install powerline-shell
-
-brew tap sanemat/font
-brew install --with-powerline ricty
-cp -f /usr/local/opt/ricty/share/fonts/Ricty*.ttf ~/Library/Fonts/
-fc-cache -vf
-```
-
 ## Slack
 
 ```bash
