@@ -34,3 +34,7 @@ brew install mecab-ipadic
 # Entire CLI (AI coding session management)
 brew tap entireio/tap
 brew install entireio/tap/entire
+
+# Database CLI
+brew install mycli
+brew install pgcli
