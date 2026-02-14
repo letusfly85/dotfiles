@@ -47,11 +47,31 @@ zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:git:*' check-for-changes true
 zstyle ':vcs_info:git:*' stagedstr '%F{green}+'
 zstyle ':vcs_info:git:*' unstagedstr '%F{yellow}!'
-zstyle ':vcs_info:git:*' formats ' %F{cyan}(%F{blue}%b%c%u%m%F{cyan})%f'
-zstyle ':vcs_info:git:*' actionformats ' %F{cyan}(%F{blue}%b%F{cyan}|%F{red}%a%c%u%m%F{cyan})%f'
+zstyle ':vcs_info:git:*' formats ' %F{cyan}(%b%c%u%m%F{cyan})%f'
+zstyle ':vcs_info:git:*' actionformats ' %F{cyan}(%b%F{cyan}|%F{red}%a%c%u%m%F{cyan})%f'
+
+# vcs_info hooks: ブランチ色分け + untracked 検出
+zstyle ':vcs_info:git*+set-message:*' hooks git-branch-color git-untracked
+
+# conventional branch prefix でブランチ名の色を変える
++vi-git-branch-color() {
+  local branch="${hook_com[branch]}"
+  local color
+  case "$branch" in
+    feat/*|feature/*)   color="%F{green}" ;;
+    fix/*|bug/*)        color="%F{red}" ;;
+    hotfix/*)           color="%F{magenta}" ;;
+    docs/*)             color="%F{cyan}" ;;
+    chore/*)            color="%F{yellow}" ;;
+    refactor/*)         color="%F{blue}" ;;
+    test/*)             color="%F{white}" ;;
+    main|master|develop) color="%F{green}" ;;
+    *)                  color="%F{blue}" ;;
+  esac
+  hook_com[branch]="${color}${branch}"
+}
 
 # untracked ファイルの検出（? 表示）
-zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
 +vi-git-untracked() {
   if [[ $(command git rev-parse --is-inside-work-tree 2>/dev/null) == 'true' ]] \
      && command git status --porcelain 2>/dev/null | command grep -q '^??'; then
