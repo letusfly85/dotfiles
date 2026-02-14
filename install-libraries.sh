@@ -31,9 +31,6 @@ brew install hurl
 brew install mecab
 brew install mecab-ipadic
 
-# starship
-brew install starship
-
 # Entire CLI (AI coding session management)
 brew tap entireio/tap
 brew install entireio/tap/entire

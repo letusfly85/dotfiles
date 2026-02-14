@@ -4,13 +4,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## プロジェクト概要
 
-このリポジトリは、個人用の dotfiles 設定集です。Zsh、Vim、Wezterm、Starship、その他開発ツールの設定ファイルを管理しています。
+このリポジトリは、個人用の dotfiles 設定集です。Zsh、Vim、Wezterm、その他開発ツールの設定ファイルを管理しています。
 
 ## 主要な設定ファイル
 
 - `.zshrc`: Zsh の設定（zplug、キーバインド、各種言語環境）
 - `wezterm.lua`: Wezterm ターミナルエミュレータの設定（宇宙火星風テーマ）
-- `starship.toml`: Starship プロンプトの設定（Powerline風デザイン）
 - `vimrc`: Vim エディタの設定
 - `base_aliases`: シェルエイリアスの定義
 
@@ -60,7 +59,6 @@ sudo ln -s $PWD/.powerline-shell.json $HOME/.powerline-shell.json
 - tflint
 - Shell 開発ツール（shellcheck、shfmt）
 - MeCab（形態素解析）
-- Starship プロンプト
 - Entire CLI（AIコーディングセッション管理）
 
 ### bun のインストール
@@ -80,7 +78,6 @@ bun（JavaScript/TypeScript ランタイム）がインストールされます�
 
 ### シェル設定
 - zplug によるプラグイン管理
-- Starship によるモダンなプロンプト表示
 - atuin による高度な履歴管理
 
 ### ターミナル設定
