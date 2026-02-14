@@ -718,12 +718,11 @@ call dein#add('altercation/vim-colors-solarized')
 
 call dein#add('editorconfig/editorconfig-vim')
 
+call dein#end()
+
 let g:solarized_termcolors=256
-syntax enable
 set background=dark
 colorscheme solarized
-
-call dein#end()
 
 au BufNewFile,BufRead *.scala setf scala
 
