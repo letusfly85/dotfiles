@@ -21,6 +21,18 @@ sudo ln -s $PWD/.zshrc $HOME/.zshrc
 # tmux
 sudo ln -s $PWD/.tmux.conf $HOME/.tmux.conf
 
+# Vim
+sudo ln -s $PWD/vimrc $HOME/.vimrc
+```
+
+### Vim プラグインのインストール
+
+シンボリックリンク作成後、Vim を起動して以下のコマンドを実行してください：
+
+```vim
+:call dein#install()
+```
+
 ### Rust クレートのインストール
 
 ```bash
