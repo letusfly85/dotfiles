@@ -3,12 +3,69 @@ export LANG=ja_JP.UTF-8
 export EDITOR=vim
 export SAVEHIST=100000
 
-# プロンプト設定（カレントディレクトリ + gitブランチ名のみ）
-autoload -Uz vcs_info
-precmd() { vcs_info }
-zstyle ':vcs_info:git:*' formats ' (%b)'
+# プロンプト設定（グラデーション付きディレクトリ + git ブランチ/ステータス）
+zmodload zsh/mathfunc
+autoload -Uz vcs_info add-zsh-hook
+
+# タブごとにランダムな基準色を割り当て（0-360 の色相）
+_PROMPT_HUE=$((RANDOM % 360))
+
+# HSL の色相を truecolor エスケープ用 R;G;B に変換（S=70%, L=65% 固定）
+_hue2rgb() {
+  local -F h=$1 s=0.70 l=0.65
+  local -F c=$(( (1.0 - fabs(2.0 * l - 1.0)) * s ))
+  local -F hp=$(( h / 60.0 ))
+  local -F x=$(( c * (1.0 - fabs(fmod(hp, 2.0) - 1.0)) ))
+  local -F m=$(( l - c / 2.0 ))
+  local -F r=0 g=0 b=0
+  if   (( hp < 1 )); then r=$c; g=$x
+  elif (( hp < 2 )); then r=$x; g=$c
+  elif (( hp < 3 )); then g=$c; b=$x
+  elif (( hp < 4 )); then g=$x; b=$c
+  elif (( hp < 5 )); then r=$x; b=$c
+  else                     r=$c; b=$x
+  fi
+  REPLY="$(( int((r+m)*255) ));$(( int((g+m)*255) ));$(( int((b+m)*255) ))"
+}
+
+# ディレクトリ文字列をグラデーションで着色
+_gradient_dir() {
+  local dir="${(%):-%~}"
+  local -i len=${#dir}
+  local -F step=$(( len > 1 ? 50.0 / len : 0 ))
+  _PROMPT_DIR=""
+  for (( i = 1; i <= len; i++ )); do
+    _hue2rgb $(( fmod(_PROMPT_HUE + (i-1) * step, 360.0) ))
+    _PROMPT_DIR+="%{\e[38;2;${REPLY}m%}${dir[$i]}"
+  done
+  _PROMPT_DIR+="%f"
+}
+
+# vcs_info: git ブランチ名 + ステータス表示
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:git:*' check-for-changes true
+zstyle ':vcs_info:git:*' stagedstr '%F{green}+'
+zstyle ':vcs_info:git:*' unstagedstr '%F{yellow}!'
+zstyle ':vcs_info:git:*' formats ' %F{cyan}(%F{blue}%b%c%u%m%F{cyan})%f'
+zstyle ':vcs_info:git:*' actionformats ' %F{cyan}(%F{blue}%b%F{cyan}|%F{red}%a%c%u%m%F{cyan})%f'
+
+# untracked ファイルの検出（? 表示）
+zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
++vi-git-untracked() {
+  if [[ $(command git rev-parse --is-inside-work-tree 2>/dev/null) == 'true' ]] \
+     && command git status --porcelain 2>/dev/null | command grep -q '^??'; then
+    hook_com[misc]='%F{red}?'
+  fi
+}
+
+_prompt_precmd() {
+  vcs_info
+  _gradient_dir
+}
+add-zsh-hook precmd _prompt_precmd
+
 setopt PROMPT_SUBST
-PROMPT='%~${vcs_info_msg_0_} $ '
+PROMPT='${_PROMPT_DIR}${vcs_info_msg_0_} $ '
 
 # To Enable Ctrl+a, Ctrl+e
 bindkey -e
