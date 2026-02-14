@@ -1,0 +1,30 @@
+{
+  "cli_version": "0.4.4",
+  "checkpoint_id": "f48e459af9c1",
+  "session_id": "bbb2ab7c-1fac-494a-a91c-6a81baba52df",
+  "strategy": "manual-commit",
+  "created_at": "2026-02-14T09:36:46.360045Z",
+  "branch": "feat/track-entire-and-claude-settings",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".gitignore"
+  ],
+  "agent": "Claude Code",
+  "token_usage": {
+    "input_tokens": 655,
+    "cache_creation_tokens": 15240,
+    "cache_read_tokens": 439540,
+    "output_tokens": 236,
+    "api_call_count": 15
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-02-14T09:36:46.323598Z",
+    "agent_lines": 3,
+    "human_added": 92,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 95,
+    "agent_percentage": 3.1578947368421053
+  },
+  "transcript_path": ".claude/projects/-Users-letusfly85-work-wonder-soft-dotfiles/bbb2ab7c-1fac-494a-a91c-6a81baba52df.jsonl"
+}
