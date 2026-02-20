@@ -1,0 +1,29 @@
+{
+  "cli_version": "0.4.4",
+  "checkpoint_id": "a263ec2936cd",
+  "strategy": "manual-commit",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".zshrc",
+    "CLAUDE.md",
+    "README.md",
+    "install-libraries.sh"
+  ],
+  "sessions": [
+    {
+      "metadata": "/a2/63ec2936cd/0/metadata.json",
+      "transcript": "/a2/63ec2936cd/0/full.jsonl",
+      "context": "/a2/63ec2936cd/0/context.md",
+      "content_hash": "/a2/63ec2936cd/0/content_hash.txt",
+      "prompt": "/a2/63ec2936cd/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 14,
+    "cache_creation_tokens": 14747,
+    "cache_read_tokens": 407776,
+    "output_tokens": 544,
+    "api_call_count": 12
+  }
+}

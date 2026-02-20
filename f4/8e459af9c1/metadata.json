@@ -1,0 +1,26 @@
+{
+  "cli_version": "0.4.4",
+  "checkpoint_id": "f48e459af9c1",
+  "strategy": "manual-commit",
+  "branch": "feat/track-entire-and-claude-settings",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".gitignore"
+  ],
+  "sessions": [
+    {
+      "metadata": "/f4/8e459af9c1/0/metadata.json",
+      "transcript": "/f4/8e459af9c1/0/full.jsonl",
+      "context": "/f4/8e459af9c1/0/context.md",
+      "content_hash": "/f4/8e459af9c1/0/content_hash.txt",
+      "prompt": "/f4/8e459af9c1/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 655,
+    "cache_creation_tokens": 15240,
+    "cache_read_tokens": 439540,
+    "output_tokens": 236,
+    "api_call_count": 15
+  }
+}
