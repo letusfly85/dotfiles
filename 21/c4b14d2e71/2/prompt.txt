@@ -1,0 +1,1 @@
+brew で、 claude-code を upgrade してください。
