@@ -1,0 +1,31 @@
+{
+  "cli_version": "0.4.5",
+  "checkpoint_id": "21c4b14d2e71",
+  "session_id": "22948fc6-4fcc-464b-a5b1-6de0608e94ca",
+  "strategy": "manual-commit",
+  "created_at": "2026-02-20T06:29:11.264809Z",
+  "branch": "fix/wezterm-mars-background-path",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "wezterm.lua"
+  ],
+  "agent": "Claude Code",
+  "turn_id": "674a27d6843a",
+  "token_usage": {
+    "input_tokens": 695885,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 0,
+    "output_tokens": 5927,
+    "api_call_count": 22
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-02-20T06:29:11.077309Z",
+    "agent_lines": 1,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 1,
+    "agent_percentage": 100
+  },
+  "transcript_path": ".claude/projects/-Users-shunsukewada-work-letusfly85-dotfiles/22948fc6-4fcc-464b-a5b1-6de0608e94ca.jsonl"
+}

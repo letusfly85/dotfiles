@@ -1,0 +1,26 @@
+{
+  "cli_version": "0.4.5",
+  "checkpoint_id": "21c4b14d2e71",
+  "strategy": "manual-commit",
+  "branch": "fix/wezterm-mars-background-path",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "wezterm.lua"
+  ],
+  "sessions": [
+    {
+      "metadata": "/21/c4b14d2e71/0/metadata.json",
+      "transcript": "/21/c4b14d2e71/0/full.jsonl",
+      "context": "/21/c4b14d2e71/0/context.md",
+      "content_hash": "/21/c4b14d2e71/0/content_hash.txt",
+      "prompt": "/21/c4b14d2e71/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 695885,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 0,
+    "output_tokens": 5927,
+    "api_call_count": 22
+  }
+}
