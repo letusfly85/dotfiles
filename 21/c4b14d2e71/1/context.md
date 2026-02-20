@@ -16,3 +16,10 @@ PR作って、squash and merge して、local main を最新にしてくださ�
 
 `docs/commit-guideline.md`のルールを守ってコミットを行います。
 
+### Prompt 4
+
+# gh コマンドを利用して pr を作成する
+
+- gh コマンドが利用できるので、gh コマンドを利用してください。
+- pr のタイトルとボディは日本語で設定してください。
+
