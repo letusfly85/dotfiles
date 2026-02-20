@@ -7,7 +7,7 @@ local scheme = wezterm.get_builtin_color_schemes()['Gruvbox Light']
 config = {
   background = {
     {
-	source = { File = "/Users/letusfly85/work/wonder-soft/dotfiles/mars.png" },
+	source = { File = os.getenv("HOME") .. "/work/letusfly85/dotfiles/mars.png" },
         attachment = "Fixed", -- 画像を固定位置に配置（ウィンドウサイズに応じて見える範囲が変わる）
         opacity = 0.55, -- 透明度
         vertical_align = "Middle", -- 垂直方向の画像位置
