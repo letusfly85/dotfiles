@@ -5,10 +5,33 @@ export SAVEHIST=100000
 
 # プロンプト設定（グラデーション付きディレクトリ + git ブランチ/ステータス）
 zmodload zsh/mathfunc
+zmodload zsh/datetime
 autoload -Uz vcs_info add-zsh-hook
 
-# タブごとにランダムな基準色を割り当て（0-360 の色相）
-_PROMPT_HUE=$((RANDOM % 360))
+# 時間帯ベースの色相範囲（JST）
+# 朝(5-9): 暖かい朝焼け, 昼(9-13): 明るい黄緑,
+# 午後(13-17): 爽やかシアン, 夕方(17-20): 夕焼けマゼンタ, 夜(20-5): 深い青紫
+_prompt_time_hue() {
+  local hour_str
+  TZ=Asia/Tokyo strftime -s hour_str '%H' $EPOCHSECONDS
+  local -i hour=$(( 10#$hour_str ))
+  local -i hue_min hue_max
+  if (( hour >= 5 && hour < 9 )); then
+    hue_min=15; hue_max=55       # 朝焼けのオレンジ〜ピンク
+  elif (( hour >= 9 && hour < 13 )); then
+    hue_min=55; hue_max=140      # 陽光の黄色〜緑
+  elif (( hour >= 13 && hour < 17 )); then
+    hue_min=140; hue_max=210     # 午後の緑〜シアン
+  elif (( hour >= 17 && hour < 20 )); then
+    hue_min=300; hue_max=360     # 夕焼けの赤〜マゼンタ
+  else
+    hue_min=220; hue_max=300     # 夜空の青〜紫
+  fi
+  _PROMPT_HUE=$(( hue_min + RANDOM % (hue_max - hue_min + 1) ))
+}
+
+# 初回の色相設定
+_prompt_time_hue
 
 # HSL の色相を truecolor エスケープ用 R;G;B に変換（S=70%, L=65% 固定）
 _hue2rgb() {
@@ -28,16 +51,23 @@ _hue2rgb() {
   REPLY="$(( int((r+m)*255) ));$(( int((g+m)*255) ));$(( int((b+m)*255) ))"
 }
 
-# ディレクトリ文字列をグラデーションで着色
+# ディレクトリ文字列をグラデーションで着色（キラッと効果付き）
 _gradient_dir() {
   local dir="${(%):-%~}"
   local -i len=${#dir}
   local -F step=$(( len > 1 ? 50.0 / len : 0 ))
   local esc=$'\e'
+  # キラッと効果: 約30%の確率で1文字だけ高輝度に光る
+  local -i sparkle_pos=-1
+  (( RANDOM % 100 < 30 )) && sparkle_pos=$(( RANDOM % len + 1 ))
   _PROMPT_DIR=""
   for (( i = 1; i <= len; i++ )); do
-    _hue2rgb $(( fmod(_PROMPT_HUE + (i-1) * step, 360.0) ))
-    _PROMPT_DIR+="%{${esc}[38;2;${REPLY}m%}${dir[$i]}"
+    if (( i == sparkle_pos )); then
+      _PROMPT_DIR+="%{${esc}[1;38;2;255;255;230m%}${dir[$i]}%{${esc}[22m%}"
+    else
+      _hue2rgb $(( fmod(_PROMPT_HUE + (i-1) * step, 360.0) ))
+      _PROMPT_DIR+="%{${esc}[38;2;${REPLY}m%}${dir[$i]}"
+    fi
   done
   _PROMPT_DIR+="%f"
 }
@@ -51,7 +81,7 @@ zstyle ':vcs_info:git:*' formats ' %F{cyan}(%b%c%u%m%F{cyan})%f'
 zstyle ':vcs_info:git:*' actionformats ' %F{cyan}(%b%F{cyan}|%F{red}%a%c%u%m%F{cyan})%f'
 
 # vcs_info hooks: ブランチ色分け + untracked 検出
-zstyle ':vcs_info:git*+set-message:*' hooks git-branch-color git-untracked
+zstyle ':vcs_info:git*+set-message:*' hooks git-branch-color git-untracked git-remote-status
 
 # conventional branch prefix でブランチ名の色を変える
 +vi-git-branch-color() {
@@ -75,11 +105,23 @@ zstyle ':vcs_info:git*+set-message:*' hooks git-branch-color git-untracked
 +vi-git-untracked() {
   if [[ $(command git rev-parse --is-inside-work-tree 2>/dev/null) == 'true' ]] \
      && command git status --porcelain 2>/dev/null | command grep -q '^??'; then
-    hook_com[misc]='%F{red}?'
+    hook_com[misc]+='%F{red}?'
   fi
 }
 
+# リモートブランチとの差分（↑push待ち ↓pull待ち）
++vi-git-remote-status() {
+  local -i ahead behind
+  ahead=$(command git rev-list --count @{upstream}..HEAD 2>/dev/null) || return
+  behind=$(command git rev-list --count HEAD..@{upstream} 2>/dev/null) || return
+  local arrows=""
+  (( ahead > 0 )) && arrows+="%F{green}↑${ahead}"
+  (( behind > 0 )) && arrows+="%F{red}↓${behind}"
+  [[ -n "$arrows" ]] && hook_com[misc]+="${arrows}"
+}
+
 _prompt_precmd() {
+  _prompt_time_hue
   vcs_info
   _gradient_dir
 }
