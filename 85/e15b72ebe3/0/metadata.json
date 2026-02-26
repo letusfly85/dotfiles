@@ -1,0 +1,31 @@
+{
+  "cli_version": "0.4.4",
+  "checkpoint_id": "85e15b72ebe3",
+  "session_id": "3133fc6f-31a4-4e14-9a01-af1451f8dd30",
+  "strategy": "manual-commit",
+  "created_at": "2026-02-26T11:38:07.109425Z",
+  "branch": "feat/zshrc-prompt-enhancements",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".zshrc"
+  ],
+  "agent": "Claude Code",
+  "transcript_identifier_at_start": "3f828a85-e633-4e8c-b265-4b461a2a9f6e",
+  "token_usage": {
+    "input_tokens": 19,
+    "cache_creation_tokens": 32011,
+    "cache_read_tokens": 483424,
+    "output_tokens": 2935,
+    "api_call_count": 15
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-02-26T11:38:07.055179Z",
+    "agent_lines": 49,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 49,
+    "agent_percentage": 100
+  },
+  "transcript_path": ".claude/projects/-Users-letusfly85-work-letusfly85-dotfiles/3133fc6f-31a4-4e14-9a01-af1451f8dd30.jsonl"
+}
