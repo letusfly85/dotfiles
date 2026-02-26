@@ -141,6 +141,13 @@ add-zsh-hook precmd _prompt_precmd
 setopt PROMPT_SUBST
 PROMPT='${_PROMPT_DIR}${vcs_info_msg_0_} $ '
 
+# キラキラアニメーション: 1秒ごとにスパークル位置を更新して再描画
+TMOUT=1
+TRAPALRM() {
+  _gradient_dir
+  zle reset-prompt 2>/dev/null
+}
+
 # To Enable Ctrl+a, Ctrl+e
 bindkey -e
 
