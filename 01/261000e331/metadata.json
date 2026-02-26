@@ -1,0 +1,26 @@
+{
+  "cli_version": "0.4.4",
+  "checkpoint_id": "01261000e331",
+  "strategy": "manual-commit",
+  "branch": "feat/zshrc-prompt-enhancements",
+  "checkpoints_count": 6,
+  "files_touched": [
+    ".zshrc"
+  ],
+  "sessions": [
+    {
+      "metadata": "/01/261000e331/0/metadata.json",
+      "transcript": "/01/261000e331/0/full.jsonl",
+      "context": "/01/261000e331/0/context.md",
+      "content_hash": "/01/261000e331/0/content_hash.txt",
+      "prompt": "/01/261000e331/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 58,
+    "cache_creation_tokens": 43570,
+    "cache_read_tokens": 2894791,
+    "output_tokens": 18638,
+    "api_call_count": 36
+  }
+}
