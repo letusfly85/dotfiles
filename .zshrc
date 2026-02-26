@@ -33,9 +33,9 @@ _prompt_time_hue() {
 # 初回の色相設定
 _prompt_time_hue
 
-# HSL の色相を truecolor エスケープ用 R;G;B に変換
-_hue2rgb_hsl() {
-  local -F h=$1 s=$2 l=$3
+# HSL の色相を truecolor エスケープ用 R;G;B に変換（S=70%, L=65% 固定）
+_hue2rgb() {
+  local -F h=$1 s=0.70 l=0.65
   local -F c=$(( (1.0 - fabs(2.0 * l - 1.0)) * s ))
   local -F hp=$(( h / 60.0 ))
   local -F x=$(( c * (1.0 - fabs(fmod(hp, 2.0) - 1.0)) ))
@@ -51,34 +51,16 @@ _hue2rgb_hsl() {
   REPLY="$(( int((r+m)*255) ));$(( int((g+m)*255) ));$(( int((b+m)*255) ))"
 }
 
-# 通常のグラデーション色（S=70%, L=65%）
-_hue2rgb() { _hue2rgb_hsl $1 0.70 0.65 }
-
-# キラッとグロー用（S=25%, L=88%: 白寄りの明るい色）
-_hue2rgb_glow() { _hue2rgb_hsl $1 0.25 0.88 }
-
-# ディレクトリ文字列をグラデーションで着色（キラッと効果付き）
+# ディレクトリ文字列をグラデーションで着色
 _gradient_dir() {
   local dir="${(%):-%~}"
   local -i len=${#dir}
   local -F step=$(( len > 1 ? 50.0 / len : 0 ))
   local esc=$'\e'
-  # キラッと効果: 約30%の確率で3文字幅のグロー（中心=ゴールド, 両脇=明るく）
-  local -i sparkle_pos=0
-  (( RANDOM % 100 < 30 && len >= 3 )) && sparkle_pos=$(( RANDOM % (len - 2) + 2 ))
   _PROMPT_DIR=""
   for (( i = 1; i <= len; i++ )); do
-    if (( sparkle_pos > 0 && i == sparkle_pos )); then
-      # 中心: bold + 鮮やかなゴールド
-      _PROMPT_DIR+="%{${esc}[1;38;2;255;215;60m%}${dir[$i]}%{${esc}[22m%}"
-    elif (( sparkle_pos > 0 && (i == sparkle_pos - 1 || i == sparkle_pos + 1) )); then
-      # 両脇: グロー（白寄りの明るい色）
-      _hue2rgb_glow $(( fmod(_PROMPT_HUE + (i-1) * step, 360.0) ))
-      _PROMPT_DIR+="%{${esc}[38;2;${REPLY}m%}${dir[$i]}"
-    else
-      _hue2rgb $(( fmod(_PROMPT_HUE + (i-1) * step, 360.0) ))
-      _PROMPT_DIR+="%{${esc}[38;2;${REPLY}m%}${dir[$i]}"
-    fi
+    _hue2rgb $(( fmod(_PROMPT_HUE + (i-1) * step, 360.0) ))
+    _PROMPT_DIR+="%{${esc}[38;2;${REPLY}m%}${dir[$i]}"
   done
   _PROMPT_DIR+="%f"
 }
@@ -140,13 +122,6 @@ add-zsh-hook precmd _prompt_precmd
 
 setopt PROMPT_SUBST
 PROMPT='${_PROMPT_DIR}${vcs_info_msg_0_} $ '
-
-# キラキラアニメーション: 1秒ごとにスパークル位置を更新して再描画
-TMOUT=1
-TRAPALRM() {
-  _gradient_dir
-  zle reset-prompt 2>/dev/null
-}
 
 # To Enable Ctrl+a, Ctrl+e
 bindkey -e
