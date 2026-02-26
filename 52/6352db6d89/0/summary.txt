@@ -1,0 +1,5 @@
+
+
+Powerline-shell の PR も完了しました: https://github.com/letusfly85/dotfiles/pull/30
+
+squash and merge しますか？

@@ -1,0 +1,33 @@
+{
+  "cli_version": "0.4.4",
+  "checkpoint_id": "a263ec2936cd",
+  "session_id": "90894686-7e50-4461-b1ed-c0694acacae6",
+  "strategy": "manual-commit",
+  "created_at": "2026-02-14T09:31:44.807898Z",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".zshrc",
+    "CLAUDE.md",
+    "README.md",
+    "install-libraries.sh"
+  ],
+  "agent": "Claude Code",
+  "token_usage": {
+    "input_tokens": 14,
+    "cache_creation_tokens": 14747,
+    "cache_read_tokens": 407776,
+    "output_tokens": 544,
+    "api_call_count": 12
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-02-14T09:31:44.75159Z",
+    "agent_lines": 2,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 2,
+    "agent_percentage": 100
+  },
+  "transcript_path": ".claude/projects/-Users-letusfly85-work-wonder-soft-dotfiles/90894686-7e50-4461-b1ed-c0694acacae6.jsonl"
+}
