@@ -103,7 +103,7 @@ config = {
     tab_bar = {
       inactive_tab_edge = "none"
     },
-    scrollbar_thumb = "#C0C0C0", -- 銀色のスクロールバー
+    scrollbar_thumb = "rgba(0, 255, 255, 0.35)", -- サイバーシアンの半透明スクロールバー
   },
 
   -- スクロールバーの幅（右パディングで制御）
