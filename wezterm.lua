@@ -4,6 +4,8 @@ local wezterm = require 'wezterm'
 -- 宇宙火星風ファンタジーサイバーパンクテーマ
 local scheme = wezterm.get_builtin_color_schemes()['Gruvbox Light']
 
+local act = wezterm.action
+
 config = {
   background = {
     {
@@ -102,7 +104,28 @@ config = {
       inactive_tab_edge = "none"
     }
   },
-  font = wezterm.font('Cica', { weight = 'DemiBold' })
+  font = wezterm.font('Cica', { weight = 'DemiBold' }),
+
+  -- スクロール性能の改善
+  max_fps = 120,
+  front_end = "WebGpu",
+  scrollback_lines = 10000,
+
+  -- マウスホイールスクロールを固定行数にしてガクガクを防止
+  mouse_bindings = {
+    {
+      event = { Down = { streak = 1, button = { WheelUp = 1 } } },
+      mods = 'NONE',
+      action = act.ScrollByLine(-3),
+      alt_screen = false,
+    },
+    {
+      event = { Down = { streak = 1, button = { WheelDown = 1 } } },
+      mods = 'NONE',
+      action = act.ScrollByLine(3),
+      alt_screen = false,
+    },
+  },
 }
 
 -- タブの左側の装飾
