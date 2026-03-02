@@ -100,9 +100,18 @@ config = {
   show_new_tab_button_in_tab_bar = false,
   -- show_close_tab_button_in_tabs = false,
   colors = {
-      tab_bar = {
+    tab_bar = {
       inactive_tab_edge = "none"
-    }
+    },
+    scrollbar_thumb = "rgba(0, 255, 255, 0.35)", -- サイバーシアンの半透明スクロールバー
+  },
+
+  -- スクロールバーの幅（右パディングで制御）
+  window_padding = {
+    left = 0,
+    right = '1.5cell',
+    top = 0,
+    bottom = 0,
   },
   font = wezterm.font('Cica', { weight = 'DemiBold' }),
 
