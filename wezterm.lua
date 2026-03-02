@@ -108,7 +108,6 @@ config = {
 
   -- スクロール性能の改善
   max_fps = 120,
-  front_end = "WebGpu",
   scrollback_lines = 10000,
   enable_scroll_bar = true,
 
