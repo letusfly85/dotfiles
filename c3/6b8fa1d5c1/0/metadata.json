@@ -1,0 +1,31 @@
+{
+  "cli_version": "0.4.4",
+  "checkpoint_id": "c36b8fa1d5c1",
+  "session_id": "b5931829-0853-4ea4-9fc7-5065d124a98b",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-02T05:51:31.187918Z",
+  "branch": "fix/wezterm-smooth-scroll",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "wezterm.lua"
+  ],
+  "agent": "Claude Code",
+  "transcript_identifier_at_start": "9435c6ef-32a9-4a5b-bd7a-ceeb62068c45",
+  "token_usage": {
+    "input_tokens": 17,
+    "cache_creation_tokens": 21434,
+    "cache_read_tokens": 740043,
+    "output_tokens": 1532,
+    "api_call_count": 15
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-02T05:51:31.13667Z",
+    "agent_lines": 24,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 24,
+    "agent_percentage": 100
+  },
+  "transcript_path": ".claude/projects/-Users-letusfly85-work-letusfly85-dotfiles/b5931829-0853-4ea4-9fc7-5065d124a98b.jsonl"
+}
