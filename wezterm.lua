@@ -110,6 +110,7 @@ config = {
   max_fps = 120,
   front_end = "WebGpu",
   scrollback_lines = 10000,
+  enable_scroll_bar = true,
 
   -- マウスホイールスクロールを固定行数にしてガクガクを防止
   mouse_bindings = {
