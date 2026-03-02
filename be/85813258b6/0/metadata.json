@@ -1,0 +1,33 @@
+{
+  "cli_version": "0.4.4",
+  "checkpoint_id": "be85813258b6",
+  "session_id": "b5931829-0853-4ea4-9fc7-5065d124a98b",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-02T06:33:52.467557Z",
+  "branch": "feat/wezterm-scrollbar-style",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "wezterm.lua"
+  ],
+  "agent": "Claude Code",
+  "transcript_identifier_at_start": "ba367c83-11a9-4785-a725-f1749ca75927",
+  "checkpoint_transcript_start": 87,
+  "transcript_lines_at_start": 87,
+  "token_usage": {
+    "input_tokens": 15,
+    "cache_creation_tokens": 6084,
+    "cache_read_tokens": 689208,
+    "output_tokens": 490,
+    "api_call_count": 11
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-02T06:33:52.397073Z",
+    "agent_lines": 11,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 11,
+    "agent_percentage": 100
+  },
+  "transcript_path": ".claude/projects/-Users-letusfly85-work-letusfly85-dotfiles/b5931829-0853-4ea4-9fc7-5065d124a98b.jsonl"
+}

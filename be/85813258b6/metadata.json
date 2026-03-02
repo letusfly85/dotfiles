@@ -1,0 +1,26 @@
+{
+  "cli_version": "0.4.4",
+  "checkpoint_id": "be85813258b6",
+  "strategy": "manual-commit",
+  "branch": "feat/wezterm-scrollbar-style",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "wezterm.lua"
+  ],
+  "sessions": [
+    {
+      "metadata": "/be/85813258b6/0/metadata.json",
+      "transcript": "/be/85813258b6/0/full.jsonl",
+      "context": "/be/85813258b6/0/context.md",
+      "content_hash": "/be/85813258b6/0/content_hash.txt",
+      "prompt": "/be/85813258b6/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 15,
+    "cache_creation_tokens": 6084,
+    "cache_read_tokens": 689208,
+    "output_tokens": 490,
+    "api_call_count": 11
+  }
+}
