@@ -6,7 +6,14 @@ local scheme = wezterm.get_builtin_color_schemes()['Gruvbox Light']
 
 local act = wezterm.action
 
+-- macOS/Linux 両対応: zsh をデフォルトシェルに
+local zsh_path = '/bin/zsh'
+if wezterm.target_triple:find('apple') then
+  zsh_path = '/bin/zsh'
+end
+
 config = {
+  default_prog = { zsh_path, '-l' },
   background = {
     {
 	source = { File = os.getenv("HOME") .. "/work/letusfly85/dotfiles/mars.png" },
@@ -122,6 +129,7 @@ config = {
 
   -- マウスホイールスクロールを固定行数にしてガクガクを防止
   mouse_bindings = {
+    -- マウスホイールスクロール
     {
       event = { Down = { streak = 1, button = { WheelUp = 1 } } },
       mods = 'NONE',
@@ -133,6 +141,18 @@ config = {
       mods = 'NONE',
       action = act.ScrollByLine(3),
       alt_screen = false,
+    },
+    -- 選択範囲をクリップボードにコピー（左ボタンを離した時）
+    {
+      event = { Up = { streak = 1, button = 'Left' } },
+      mods = 'NONE',
+      action = act.CompleteSelectionOrOpenLinkAtMouseCursor('ClipboardAndPrimarySelection'),
+    },
+    -- 右クリックでクリップボードからペースト
+    {
+      event = { Down = { streak = 1, button = 'Right' } },
+      mods = 'NONE',
+      action = act.PasteFrom('Clipboard'),
     },
   },
 }

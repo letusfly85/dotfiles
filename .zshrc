@@ -185,7 +185,9 @@ fi
 export PATH=${0:A:h}/bin:$PATH
 
 # direnv
-eval "$(direnv hook zsh)"
+if command -v direnv &>/dev/null; then
+  eval "$(direnv hook zsh)"
+fi
 
 # SSH補完
 function _ssh {
@@ -202,19 +204,26 @@ if [ -d $HOME/.nodenv ]; then
   eval "$(nodenv init -)"
 fi
 
+# wezterm shell integration
+if [ -f /etc/profile.d/wezterm.sh ]; then
+  source /etc/profile.d/wezterm.sh
+fi
+
 # atuin (シェル履歴管理)
 if [ -f $HOME/.cargo/bin/atuin ]; then
   eval "$(atuin init zsh)"
 fi
 
 # パス設定
-export PATH="/usr/local/opt/libpq/bin:$PATH"
-export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
-export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
+[ -d "/usr/local/opt/libpq/bin" ] && export PATH="/usr/local/opt/libpq/bin:$PATH"
+[ -d "/opt/homebrew/opt/mysql-client/bin" ] && export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+[ -d "/opt/homebrew/opt/openjdk@17/bin" ] && export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
 
 # jenv
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
+if [ -d "$HOME/.jenv" ]; then
+  export PATH="$HOME/.jenv/bin:$PATH"
+  eval "$(jenv init -)"
+fi
 
 
 # SDKMAN
@@ -222,9 +231,16 @@ export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 # asdf
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
+if [ -f /opt/homebrew/opt/asdf/libexec/asdf.sh ]; then
+  . /opt/homebrew/opt/asdf/libexec/asdf.sh
+elif [ -f "$HOME/.asdf/asdf.sh" ]; then
+  . "$HOME/.asdf/asdf.sh"
+fi
 
-export DYLD_LIBRARY_PATH="$HOME/.local/lib:$DYLD_LIBRARY_PATH"
+# macOS only
+if [[ "$OSTYPE" == darwin* ]]; then
+  export DYLD_LIBRARY_PATH="$HOME/.local/lib:$DYLD_LIBRARY_PATH"
+fi
 
 # opencode
 export PATH="$HOME/.opencode/bin:$PATH"
@@ -237,8 +253,13 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 # Google Cloud SDK
-source "/opt/homebrew/share/google-cloud-sdk/path.zsh.inc"
-source "/opt/homebrew/share/google-cloud-sdk/completion.zsh.inc"
+if [ -f "/opt/homebrew/share/google-cloud-sdk/path.zsh.inc" ]; then
+  source "/opt/homebrew/share/google-cloud-sdk/path.zsh.inc"
+  source "/opt/homebrew/share/google-cloud-sdk/completion.zsh.inc"
+elif [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then
+  source "$HOME/google-cloud-sdk/path.zsh.inc"
+  source "$HOME/google-cloud-sdk/completion.zsh.inc"
+fi
 
 # claude-mem (memory service for Claude Code)
 alias claude-mem="$BUN_INSTALL/bin/bun $HOME/.claude/plugins/marketplaces/thedotmack/plugin/scripts/worker-service.cjs"
