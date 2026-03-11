@@ -24,6 +24,10 @@ sudo ln -s $PWD/.zshrc $HOME/.zshrc
 # tmux
 sudo ln -s $PWD/.tmux.conf $HOME/.tmux.conf
 
+# Wezterm
+ln -s $PWD/wezterm.lua $HOME/.wezterm.lua
+```
+
 ### Rust クレートのインストール
 
 ```bash
