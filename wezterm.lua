@@ -120,7 +120,7 @@ config = {
     top = 0,
     bottom = 0,
   },
-  font = wezterm.font('Cica', { weight = 'DemiBold' }),
+  font = wezterm.font('Cica', { weight = 'Regular' }),
 
   -- スクロール性能の改善
   max_fps = 120,
