@@ -204,9 +204,16 @@ if [ -d $HOME/.nodenv ]; then
   eval "$(nodenv init -)"
 fi
 
-# wezterm shell integration
+# wezterm shell integration (OSC 7 でカレントディレクトリをターミナルに通知)
 if [ -f /etc/profile.d/wezterm.sh ]; then
   source /etc/profile.d/wezterm.sh
+elif [ -n "$WEZTERM_EXECUTABLE" ]; then
+  # macOS: wezterm shell integration を直接設定
+  _wezterm_osc7() {
+    printf '\e]7;file://%s%s\e\\' "${HOST}" "${PWD}"
+  }
+  add-zsh-hook chpwd _wezterm_osc7
+  _wezterm_osc7
 fi
 
 # atuin (シェル履歴管理)

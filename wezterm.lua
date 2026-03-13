@@ -12,8 +12,13 @@ if wezterm.target_triple:find('apple') then
   zsh_path = '/bin/zsh'
 end
 
+-- デフォルトの作業ディレクトリを設定
+local default_cwd = wezterm.home_dir
+local work_dir = wezterm.home_dir .. '/work'
+
 config = {
   default_prog = { zsh_path, '-l' },
+  default_cwd = work_dir,
   background = {
     {
 	source = { File = os.getenv("HOME") .. "/work/letusfly85/dotfiles/mars.png" },
