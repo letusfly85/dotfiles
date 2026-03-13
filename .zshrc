@@ -1,4 +1,5 @@
 # 基本設定
+export PATH="$HOME/bin:$PATH"
 export LANG=ja_JP.UTF-8
 export EDITOR=vim
 export SAVEHIST=100000
@@ -270,3 +271,8 @@ fi
 
 # claude-mem (memory service for Claude Code)
 alias claude-mem="$BUN_INSTALL/bin/bun $HOME/.claude/plugins/marketplaces/thedotmack/plugin/scripts/worker-service.cjs"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+nvm use default --silent > /dev/null 2>&1
