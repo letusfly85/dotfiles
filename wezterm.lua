@@ -88,7 +88,6 @@ config = {
     },
   },
 
-  font_size = 20.0,
   use_ime = true,
   window_background_opacity = 0.70,
   macos_window_background_blur = 40,
@@ -125,7 +124,11 @@ config = {
     top = 0,
     bottom = 0,
   },
-  font = wezterm.font('Cica', { weight = 'Regular' }),
+  -- フォント設定: macOS は Cica Bold + 大きめ、Linux は Cica Regular + 小さめ
+  font = wezterm.target_triple:find('apple')
+    and wezterm.font('Cica', { weight = 'Bold' })
+    or wezterm.font('Cica', { weight = 'Regular' }),
+  font_size = wezterm.target_triple:find('apple') and 20.0 or 16.0,
 
   -- スクロール性能の改善
   max_fps = 120,
