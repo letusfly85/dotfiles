@@ -1,0 +1,33 @@
+{
+  "cli_version": "0.4.4",
+  "checkpoint_id": "29d08d3d5238",
+  "session_id": "8666b9a8-e2ba-43cf-9e25-24e5be1b18a8",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-13T23:39:03.926843Z",
+  "branch": "feat/wezterm-font-per-os",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "wezterm.lua"
+  ],
+  "agent": "Claude Code",
+  "transcript_identifier_at_start": "2703f373-d81d-4804-b1f0-ae582de94dd3",
+  "checkpoint_transcript_start": 45,
+  "transcript_lines_at_start": 45,
+  "token_usage": {
+    "input_tokens": 15,
+    "cache_creation_tokens": 5543,
+    "cache_read_tokens": 383231,
+    "output_tokens": 1750,
+    "api_call_count": 11
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-13T23:39:03.866629Z",
+    "agent_lines": 5,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 5,
+    "agent_percentage": 100
+  },
+  "transcript_path": ".claude/projects/-Users-letusfly85-work-letusfly85-dotfiles/8666b9a8-e2ba-43cf-9e25-24e5be1b18a8.jsonl"
+}
