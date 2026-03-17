@@ -1,0 +1,32 @@
+{
+  "cli_version": "0.4.4",
+  "checkpoint_id": "b99ee9e6425d",
+  "session_id": "a678cd9d-3a59-444c-a849-88d94c23d01a",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-17T11:02:11.364006Z",
+  "branch": "feat/ssh-spaceship-theme",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".zshrc",
+    "wezterm.lua"
+  ],
+  "agent": "Claude Code",
+  "transcript_identifier_at_start": "dd1afb10-e727-4945-828b-47b02356f8ed",
+  "token_usage": {
+    "input_tokens": 14,
+    "cache_creation_tokens": 26780,
+    "cache_read_tokens": 291955,
+    "output_tokens": 4518,
+    "api_call_count": 10
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-17T11:02:11.274127Z",
+    "agent_lines": 62,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 62,
+    "agent_percentage": 100
+  },
+  "transcript_path": ".claude/projects/-Users-letusfly85-work-letusfly85-dotfiles/a678cd9d-3a59-444c-a849-88d94c23d01a.jsonl"
+}
