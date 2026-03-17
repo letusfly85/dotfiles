@@ -125,7 +125,7 @@ setopt PROMPT_SUBST
 
 # SSH接続検出: 他の宇宙船に乗り込んだ感を演出
 if [[ -n "$SSH_CONNECTION" ]]; then
-  # SSH先ではプロンプトの色相をエイリアン宇宙船風（青紫〜シアン）に固定
+  # SSH先ではプロンプトの色相をエイリアン宇宙船風（青紫〜シアン: 200-280）にランダム変化
   _prompt_time_hue() { _PROMPT_HUE=$(( 200 + RANDOM % 80 )); }
   _prompt_time_hue
   # ホスト名をネオンシアンで表示 + 宇宙船アイコン

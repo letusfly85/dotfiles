@@ -248,19 +248,30 @@ local theme_alien = {
   scrollbar    = { 100, 100, 255, 0.35 },
 }
 
--- トランジション状態管理
-local transition_state = {
-  current = 'mars',   -- 現在のテーマ
-  step = 0,           -- 現在のステップ (0 = 完了)
-}
+-- トランジション状態管理（ウィンドウ単位で管理し、複数ウィンドウの干渉を防ぐ）
+local transition_states = {}  -- window_id -> { current, generation }
 local TRANSITION_STEPS = 8
 local TRANSITION_INTERVAL = 0.05  -- 各ステップ間隔（秒） → 合計 ~400ms
 
+local function get_win_state(window)
+  local wid = tostring(window:window_id())
+  if not transition_states[wid] then
+    transition_states[wid] = { current = 'mars', generation = 0 }
+  end
+  return transition_states[wid], wid
+end
+
 -- t (0.0=mars, 1.0=alien) に基づいて中間テーマを適用
+-- 既存の per-window override を保持しつつ、テーマ関連キーのみ更新する
 local function apply_interpolated_theme(window, t)
+  local overrides = window:get_config_overrides() or {}
+
   if t <= 0.001 then
-    -- 完全に火星テーマ → オーバーライド解除で元のconfigに戻す
-    window:set_config_overrides({})
+    -- 完全に火星テーマ → テーマ関連キーを削除して元のconfigに戻す
+    overrides.window_background_gradient = nil
+    overrides.background = nil
+    overrides.colors = nil
+    window:set_config_overrides(overrides)
     return
   end
 
@@ -286,60 +297,63 @@ local function apply_interpolated_theme(window, t)
     math.floor(lerp(from.scrollbar[3], to.scrollbar[3], t)),
     lerp(from.scrollbar[4], to.scrollbar[4], t))
 
-  window:set_config_overrides({
-    window_background_gradient = {
-      colors = grad,
-      orientation = 'Vertical',
-      blend = 'LinearRgb',
-    },
-    background = {
-      {
-        source = { File = mars_img },
-        attachment = 'Fixed',
-        opacity = lerp(from.img_opacity, to.img_opacity, t),
-        vertical_align = 'Middle',
-        horizontal_align = 'Center',
-        horizontal_offset = '0px',
-        repeat_x = 'NoRepeat',
-        repeat_y = 'NoRepeat',
-        height = '100%',
-        hsb = {
-          hue = lerp(from.img_hue, to.img_hue, t),
-          saturation = lerp(from.img_sat, to.img_sat, t),
-          brightness = lerp(from.img_bright, to.img_bright, t),
-        },
-      },
-      {
-        source = {
-          Gradient = {
-            colors = ovr,
-            orientation = { Linear = { angle = -50.0 } },
-          },
-        },
-        opacity = lerp(from.ovr_opacity, to.ovr_opacity, t),
-        width = '100%',
-        height = '100%',
+  overrides.window_background_gradient = {
+    colors = grad,
+    orientation = 'Vertical',
+    blend = 'LinearRgb',
+  }
+  overrides.background = {
+    {
+      source = { File = mars_img },
+      attachment = 'Fixed',
+      opacity = lerp(from.img_opacity, to.img_opacity, t),
+      vertical_align = 'Middle',
+      horizontal_align = 'Center',
+      horizontal_offset = '0px',
+      repeat_x = 'NoRepeat',
+      repeat_y = 'NoRepeat',
+      height = '100%',
+      hsb = {
+        hue = lerp(from.img_hue, to.img_hue, t),
+        saturation = lerp(from.img_sat, to.img_sat, t),
+        brightness = lerp(from.img_bright, to.img_bright, t),
       },
     },
-    colors = {
-      tab_bar = { inactive_tab_edge = 'none' },
-      scrollbar_thumb = sb,
+    {
+      source = {
+        Gradient = {
+          colors = ovr,
+          orientation = { Linear = { angle = -50.0 } },
+        },
+      },
+      opacity = lerp(from.ovr_opacity, to.ovr_opacity, t),
+      width = '100%',
+      height = '100%',
     },
-  })
+  }
+  overrides.colors = {
+    tab_bar = { inactive_tab_edge = 'none' },
+    scrollbar_thumb = sb,
+  }
+  window:set_config_overrides(overrides)
 end
 
--- フェードトランジションを開始
+-- フェードトランジションを開始（世代番号で旧コールバックを無効化）
 local function start_transition(window, target)
-  if transition_state.current == target then return end
-  transition_state.current = target
-  transition_state.step = 1
+  local state = get_win_state(window)
+  if state.current == target then return end
+  state.current = target
+  state.generation = state.generation + 1
+  local my_gen = state.generation
 
+  local step = 1
   local function step_fn()
-    local s = transition_state.step
-    if s > TRANSITION_STEPS then return end
+    -- 世代が変わっていたら旧トランジション → 何もしない
+    if state.generation ~= my_gen then return end
+    if step > TRANSITION_STEPS then return end
 
     -- イーズイン・アウト (smoothstep) で滑らかに
-    local raw_t = s / TRANSITION_STEPS
+    local raw_t = step / TRANSITION_STEPS
     local t = raw_t * raw_t * (3 - 2 * raw_t)
 
     -- mars→alien なら t をそのまま、alien→mars なら反転
@@ -347,8 +361,8 @@ local function start_transition(window, target)
 
     apply_interpolated_theme(window, t)
 
-    transition_state.step = s + 1
-    if s < TRANSITION_STEPS then
+    step = step + 1
+    if step <= TRANSITION_STEPS then
       wezterm.time.call_after(TRANSITION_INTERVAL, step_fn)
     end
   end
@@ -356,6 +370,8 @@ local function start_transition(window, target)
   step_fn()
 end
 
+-- ローカルpane上の前景プロセスが ssh の場合にテーマを切り替える
+-- 注: multiplexer pane や wezterm ssh ドメインでは検出不可
 wezterm.on('update-status', function(window, pane)
   local proc = pane:get_foreground_process_name() or ''
   if proc:find('ssh$') then
