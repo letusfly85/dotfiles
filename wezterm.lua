@@ -249,14 +249,15 @@ local theme_alien = {
 }
 
 -- トランジション状態管理（ウィンドウ単位で管理し、複数ウィンドウの干渉を防ぐ）
-local transition_states = {}  -- window_id -> { current, generation }
+-- current_t: 現在の補間位置 (0.0=mars, 1.0=alien) を保持し、途中反転時のジャンプを防ぐ
+local transition_states = {}  -- window_id -> { current, generation, current_t, last_proc }
 local TRANSITION_STEPS = 8
 local TRANSITION_INTERVAL = 0.05  -- 各ステップ間隔（秒） → 合計 ~400ms
 
 local function get_win_state(window)
   local wid = tostring(window:window_id())
   if not transition_states[wid] then
-    transition_states[wid] = { current = 'mars', generation = 0 }
+    transition_states[wid] = { current = 'mars', generation = 0, current_t = 0.0, last_proc = '' }
   end
   return transition_states[wid], wid
 end
@@ -344,12 +345,17 @@ local function apply_interpolated_theme(window, t)
 end
 
 -- フェードトランジションを開始（世代番号で旧コールバックを無効化）
+-- current_t を保持し、途中反転時は現在位置から補間を開始する
 local function start_transition(window, target)
   local state = get_win_state(window)
   if state.current == target then return end
   state.current = target
   state.generation = state.generation + 1
   local my_gen = state.generation
+
+  -- 途中反転対応: 現在の t を起点にする
+  local start_t = state.current_t
+  local end_t = (target == 'alien') and 1.0 or 0.0
 
   local step = 1
   local function step_fn()
@@ -359,11 +365,12 @@ local function start_transition(window, target)
 
     -- イーズイン・アウト (smoothstep) で滑らかに
     local raw_t = step / TRANSITION_STEPS
-    local t = raw_t * raw_t * (3 - 2 * raw_t)
+    local eased = raw_t * raw_t * (3 - 2 * raw_t)
 
-    -- mars→alien なら t をそのまま、alien→mars なら反転
-    if target == 'mars' then t = 1.0 - t end
+    -- start_t から end_t へ補間（途中反転でも現在位置から滑らかに遷移）
+    local t = start_t + (end_t - start_t) * eased
 
+    state.current_t = t
     apply_interpolated_theme(window, t)
 
     step = step + 1
@@ -377,14 +384,22 @@ end
 
 -- ローカルpane上の前景プロセスが ssh の場合にテーマを切り替える
 -- 注: multiplexer pane や wezterm ssh ドメインでは検出不可
-wezterm.on('update-status', function(window, pane)
-  local proc = pane:get_foreground_process_name() or ''
-  if proc:find('ssh$') then
-    start_transition(window, 'alien')
-  else
-    start_transition(window, 'mars')
-  end
-end)
+-- wezterm.time が利用可能な場合のみフェードトランジションを有効化
+if wezterm.time then
+  wezterm.on('update-status', function(window, pane)
+    local proc = pane:get_foreground_process_name() or ''
+    -- ポーリングコスト軽減: プロセス名が変わっていない場合はスキップ
+    local state = get_win_state(window)
+    if proc == state.last_proc then return end
+    state.last_proc = proc
+
+    if proc:find('ssh$') then
+      start_transition(window, 'alien')
+    else
+      start_transition(window, 'mars')
+    end
+  end)
+end
 
 wezterm.on('bell', function(window, pane)
   window:toast_notification('Claude Code', 'Task completed', nil, 4000)
