@@ -250,20 +250,14 @@ local theme_alien = {
 
 -- トランジション状態管理（ウィンドウ単位で管理し、複数ウィンドウの干渉を防ぐ）
 -- current_t: 現在の補間位置 (0.0=mars, 1.0=alien) を保持し、途中反転時のジャンプを防ぐ
+-- stale entry は wezterm プロセス再起動で自然消滅するため、明示的な掃除は行わない
 local transition_states = {}  -- window_id -> { current, generation, current_t, last_proc }
-local MAX_CACHED_WINDOWS = 20  -- stale entry 蓄積防止の上限
 local TRANSITION_STEPS = 8
 local TRANSITION_INTERVAL = 0.05  -- 各ステップ間隔（秒） → 合計 ~400ms
 
 local function get_win_state(window)
   local wid = tostring(window:window_id())
   if not transition_states[wid] then
-    -- stale entry が溜まりすぎたらテーブルをリセット
-    local count = 0
-    for _ in pairs(transition_states) do count = count + 1 end
-    if count >= MAX_CACHED_WINDOWS then
-      transition_states = {}
-    end
     transition_states[wid] = { current = 'mars', generation = 0, current_t = 0.0, last_proc = '' }
   end
   return transition_states[wid], wid
@@ -391,7 +385,7 @@ end
 
 -- ローカルpane上の前景プロセスが ssh の場合にテーマを切り替える
 -- 注: multiplexer pane や wezterm ssh ドメインでは検出不可
-local has_time = (wezterm.time ~= nil)
+local has_time = (type(wezterm.time) == 'table' and type(wezterm.time.call_after) == 'function')
 
 wezterm.on('update-status', function(window, pane)
   local proc = pane:get_foreground_process_name() or ''
