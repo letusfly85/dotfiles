@@ -193,6 +193,57 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
   }
 end)
 
+-- SSH接続検出: 他の宇宙船に乗り込んだ演出
+-- 現在の火星テーマから、冷たい青紫のエイリアン宇宙船風に切り替え
+wezterm.on('update-status', function(window, pane)
+  local proc = pane:get_foreground_process_name() or ''
+  if proc:find('ssh$') then
+    window:set_config_overrides({
+      -- エイリアン宇宙船の背景グラデーション
+      window_background_gradient = {
+        colors = { '#000010', '#0A0A2E', '#0F1A3A', '#162050', '#1A1A4A' },
+        orientation = 'Vertical',
+        blend = 'LinearRgb',
+      },
+      -- 背景画像のオーバーレイを暗い青紫に
+      background = {
+        {
+          source = { File = os.getenv('HOME') .. '/work/letusfly85/dotfiles/mars.png' },
+          attachment = 'Fixed',
+          opacity = 0.25,
+          vertical_align = 'Middle',
+          horizontal_align = 'Center',
+          horizontal_offset = '0px',
+          repeat_x = 'NoRepeat',
+          repeat_y = 'NoRepeat',
+          height = '100%',
+          -- 青いティントで火星画像を異星感に
+          hsb = { hue = 0.6, saturation = 1.5, brightness = 0.4 },
+        },
+        {
+          source = {
+            Gradient = {
+              colors = { '#000020', '#0A0A3E' },
+              orientation = { Linear = { angle = -50.0 } },
+            },
+          },
+          opacity = 0.55,
+          width = '100%',
+          height = '100%',
+        },
+      },
+      colors = {
+        tab_bar = {
+          inactive_tab_edge = 'none',
+        },
+        scrollbar_thumb = 'rgba(100, 100, 255, 0.35)',
+      },
+    })
+  else
+    window:set_config_overrides({})
+  end
+end)
+
 wezterm.on('bell', function(window, pane)
   window:toast_notification('Claude Code', 'Task completed', nil, 4000)
 end)

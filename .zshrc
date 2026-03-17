@@ -122,7 +122,17 @@ _prompt_precmd() {
 add-zsh-hook precmd _prompt_precmd
 
 setopt PROMPT_SUBST
-PROMPT='${_PROMPT_DIR}${vcs_info_msg_0_} $ '
+
+# SSH接続検出: 他の宇宙船に乗り込んだ感を演出
+if [[ -n "$SSH_CONNECTION" ]]; then
+  # SSH先ではプロンプトの色相をエイリアン宇宙船風（青紫〜シアン）に固定
+  _prompt_time_hue() { _PROMPT_HUE=$(( 200 + RANDOM % 80 )); }
+  _prompt_time_hue
+  # ホスト名をネオンシアンで表示 + 宇宙船アイコン
+  PROMPT='%F{51}⟐ %m%f ${_PROMPT_DIR}${vcs_info_msg_0_} %F{51}▸%f '
+else
+  PROMPT='${_PROMPT_DIR}${vcs_info_msg_0_} $ '
+fi
 
 # To Enable Ctrl+a, Ctrl+e
 bindkey -e
