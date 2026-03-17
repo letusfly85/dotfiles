@@ -193,54 +193,175 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
   }
 end)
 
--- SSH接続検出: 他の宇宙船に乗り込んだ演出
--- 現在の火星テーマから、冷たい青紫のエイリアン宇宙船風に切り替え
+-- === SSH接続検出: 他の宇宙船に乗り込んだ演出（フェードトランジション付き） ===
+
+local mars_img = os.getenv('HOME') .. '/work/letusfly85/dotfiles/mars.png'
+
+-- hex色をR,G,Bに分解
+local function hex2rgb(hex)
+  hex = hex:gsub('#', '')
+  return tonumber(hex:sub(1, 2), 16),
+         tonumber(hex:sub(3, 4), 16),
+         tonumber(hex:sub(5, 6), 16)
+end
+
+-- R,G,Bをhex色に変換
+local function rgb2hex(r, g, b)
+  return string.format('#%02x%02x%02x',
+    math.max(0, math.min(255, math.floor(r + 0.5))),
+    math.max(0, math.min(255, math.floor(g + 0.5))),
+    math.max(0, math.min(255, math.floor(b + 0.5))))
+end
+
+-- 2つのhex色を t (0.0〜1.0) で線形補間
+local function lerp_color(c1, c2, t)
+  local r1, g1, b1 = hex2rgb(c1)
+  local r2, g2, b2 = hex2rgb(c2)
+  return rgb2hex(
+    r1 + (r2 - r1) * t,
+    g1 + (g2 - g1) * t,
+    b1 + (b2 - b1) * t)
+end
+
+-- 数値を線形補間
+local function lerp(a, b, t) return a + (b - a) * t end
+
+-- 火星テーマ（通常）とエイリアン宇宙船テーマ（SSH）の定義
+local theme_mars = {
+  gradient = { '#000000', '#0A0A0A', '#1A0F0A', '#2D1B0E', '#4A2C1A' },
+  overlay  = { '#000814', '#000a14' },
+  img_opacity  = 0.55,
+  img_hue      = 1.0,
+  img_sat      = 1.0,
+  img_bright   = 1.0,
+  ovr_opacity  = 0.45,
+  scrollbar    = { 0, 255, 255, 0.35 },
+}
+local theme_alien = {
+  gradient = { '#000010', '#0A0A2E', '#0F1A3A', '#162050', '#1A1A4A' },
+  overlay  = { '#000020', '#0A0A3E' },
+  img_opacity  = 0.25,
+  img_hue      = 0.6,
+  img_sat      = 1.5,
+  img_bright   = 0.4,
+  ovr_opacity  = 0.55,
+  scrollbar    = { 100, 100, 255, 0.35 },
+}
+
+-- トランジション状態管理
+local transition_state = {
+  current = 'mars',   -- 現在のテーマ
+  step = 0,           -- 現在のステップ (0 = 完了)
+}
+local TRANSITION_STEPS = 8
+local TRANSITION_INTERVAL = 0.05  -- 各ステップ間隔（秒） → 合計 ~400ms
+
+-- t (0.0=mars, 1.0=alien) に基づいて中間テーマを適用
+local function apply_interpolated_theme(window, t)
+  if t <= 0.001 then
+    -- 完全に火星テーマ → オーバーライド解除で元のconfigに戻す
+    window:set_config_overrides({})
+    return
+  end
+
+  local from = theme_mars
+  local to = theme_alien
+
+  -- グラデーション色の補間
+  local grad = {}
+  for i = 1, 5 do
+    grad[i] = lerp_color(from.gradient[i], to.gradient[i], t)
+  end
+
+  -- オーバーレイ色の補間
+  local ovr = {}
+  for i = 1, 2 do
+    ovr[i] = lerp_color(from.overlay[i], to.overlay[i], t)
+  end
+
+  -- スクロールバー色の補間
+  local sb = string.format('rgba(%d, %d, %d, %.2f)',
+    math.floor(lerp(from.scrollbar[1], to.scrollbar[1], t)),
+    math.floor(lerp(from.scrollbar[2], to.scrollbar[2], t)),
+    math.floor(lerp(from.scrollbar[3], to.scrollbar[3], t)),
+    lerp(from.scrollbar[4], to.scrollbar[4], t))
+
+  window:set_config_overrides({
+    window_background_gradient = {
+      colors = grad,
+      orientation = 'Vertical',
+      blend = 'LinearRgb',
+    },
+    background = {
+      {
+        source = { File = mars_img },
+        attachment = 'Fixed',
+        opacity = lerp(from.img_opacity, to.img_opacity, t),
+        vertical_align = 'Middle',
+        horizontal_align = 'Center',
+        horizontal_offset = '0px',
+        repeat_x = 'NoRepeat',
+        repeat_y = 'NoRepeat',
+        height = '100%',
+        hsb = {
+          hue = lerp(from.img_hue, to.img_hue, t),
+          saturation = lerp(from.img_sat, to.img_sat, t),
+          brightness = lerp(from.img_bright, to.img_bright, t),
+        },
+      },
+      {
+        source = {
+          Gradient = {
+            colors = ovr,
+            orientation = { Linear = { angle = -50.0 } },
+          },
+        },
+        opacity = lerp(from.ovr_opacity, to.ovr_opacity, t),
+        width = '100%',
+        height = '100%',
+      },
+    },
+    colors = {
+      tab_bar = { inactive_tab_edge = 'none' },
+      scrollbar_thumb = sb,
+    },
+  })
+end
+
+-- フェードトランジションを開始
+local function start_transition(window, target)
+  if transition_state.current == target then return end
+  transition_state.current = target
+  transition_state.step = 1
+
+  local function step_fn()
+    local s = transition_state.step
+    if s > TRANSITION_STEPS then return end
+
+    -- イーズイン・アウト (smoothstep) で滑らかに
+    local raw_t = s / TRANSITION_STEPS
+    local t = raw_t * raw_t * (3 - 2 * raw_t)
+
+    -- mars→alien なら t をそのまま、alien→mars なら反転
+    if target == 'mars' then t = 1.0 - t end
+
+    apply_interpolated_theme(window, t)
+
+    transition_state.step = s + 1
+    if s < TRANSITION_STEPS then
+      wezterm.time.call_after(TRANSITION_INTERVAL, step_fn)
+    end
+  end
+
+  step_fn()
+end
+
 wezterm.on('update-status', function(window, pane)
   local proc = pane:get_foreground_process_name() or ''
   if proc:find('ssh$') then
-    window:set_config_overrides({
-      -- エイリアン宇宙船の背景グラデーション
-      window_background_gradient = {
-        colors = { '#000010', '#0A0A2E', '#0F1A3A', '#162050', '#1A1A4A' },
-        orientation = 'Vertical',
-        blend = 'LinearRgb',
-      },
-      -- 背景画像のオーバーレイを暗い青紫に
-      background = {
-        {
-          source = { File = os.getenv('HOME') .. '/work/letusfly85/dotfiles/mars.png' },
-          attachment = 'Fixed',
-          opacity = 0.25,
-          vertical_align = 'Middle',
-          horizontal_align = 'Center',
-          horizontal_offset = '0px',
-          repeat_x = 'NoRepeat',
-          repeat_y = 'NoRepeat',
-          height = '100%',
-          -- 青いティントで火星画像を異星感に
-          hsb = { hue = 0.6, saturation = 1.5, brightness = 0.4 },
-        },
-        {
-          source = {
-            Gradient = {
-              colors = { '#000020', '#0A0A3E' },
-              orientation = { Linear = { angle = -50.0 } },
-            },
-          },
-          opacity = 0.55,
-          width = '100%',
-          height = '100%',
-        },
-      },
-      colors = {
-        tab_bar = {
-          inactive_tab_edge = 'none',
-        },
-        scrollbar_thumb = 'rgba(100, 100, 255, 0.35)',
-      },
-    })
+    start_transition(window, 'alien')
   else
-    window:set_config_overrides({})
+    start_transition(window, 'mars')
   end
 end)
 
