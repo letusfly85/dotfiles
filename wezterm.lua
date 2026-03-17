@@ -251,12 +251,19 @@ local theme_alien = {
 -- トランジション状態管理（ウィンドウ単位で管理し、複数ウィンドウの干渉を防ぐ）
 -- current_t: 現在の補間位置 (0.0=mars, 1.0=alien) を保持し、途中反転時のジャンプを防ぐ
 local transition_states = {}  -- window_id -> { current, generation, current_t, last_proc }
+local MAX_CACHED_WINDOWS = 20  -- stale entry 蓄積防止の上限
 local TRANSITION_STEPS = 8
 local TRANSITION_INTERVAL = 0.05  -- 各ステップ間隔（秒） → 合計 ~400ms
 
 local function get_win_state(window)
   local wid = tostring(window:window_id())
   if not transition_states[wid] then
+    -- stale entry が溜まりすぎたらテーブルをリセット
+    local count = 0
+    for _ in pairs(transition_states) do count = count + 1 end
+    if count >= MAX_CACHED_WINDOWS then
+      transition_states = {}
+    end
     transition_states[wid] = { current = 'mars', generation = 0, current_t = 0.0, last_proc = '' }
   end
   return transition_states[wid], wid
@@ -384,22 +391,30 @@ end
 
 -- ローカルpane上の前景プロセスが ssh の場合にテーマを切り替える
 -- 注: multiplexer pane や wezterm ssh ドメインでは検出不可
--- wezterm.time が利用可能な場合のみフェードトランジションを有効化
-if wezterm.time then
-  wezterm.on('update-status', function(window, pane)
-    local proc = pane:get_foreground_process_name() or ''
-    -- ポーリングコスト軽減: プロセス名が変わっていない場合はスキップ
-    local state = get_win_state(window)
-    if proc == state.last_proc then return end
-    state.last_proc = proc
+local has_time = (wezterm.time ~= nil)
 
-    if proc:find('ssh$') then
-      start_transition(window, 'alien')
-    else
-      start_transition(window, 'mars')
-    end
-  end)
-end
+wezterm.on('update-status', function(window, pane)
+  local proc = pane:get_foreground_process_name() or ''
+  -- ポーリングコスト軽減: プロセス名が変わっていない場合はスキップ
+  local state = get_win_state(window)
+  if proc == state.last_proc then return end
+  state.last_proc = proc
+
+  local is_ssh = (proc:find('ssh$') ~= nil)
+  local target = is_ssh and 'alien' or 'mars'
+
+  if has_time then
+    -- フェードトランジション付き
+    start_transition(window, target)
+  else
+    -- wezterm.time が利用不可の場合は即時切替（フォールバック）
+    if state.current == target then return end
+    state.current = target
+    local t = is_ssh and 1.0 or 0.0
+    state.current_t = t
+    apply_interpolated_theme(window, t)
+  end
+end)
 
 wezterm.on('bell', function(window, pane)
   window:toast_notification('Claude Code', 'Task completed', nil, 4000)
