@@ -267,10 +267,15 @@ local function apply_interpolated_theme(window, t)
   local overrides = window:get_config_overrides() or {}
 
   if t <= 0.001 then
-    -- 完全に火星テーマ → テーマ関連キーを削除して元のconfigに戻す
+    -- 完全に火星テーマ → テーマ関連キーのみ削除して元のconfigに戻す
     overrides.window_background_gradient = nil
     overrides.background = nil
-    overrides.colors = nil
+    -- colors は他のキーを保持し、テーマ関連キーのみ削除
+    if overrides.colors then
+      overrides.colors.tab_bar = nil
+      overrides.colors.scrollbar_thumb = nil
+      if not next(overrides.colors) then overrides.colors = nil end
+    end
     window:set_config_overrides(overrides)
     return
   end
@@ -331,10 +336,10 @@ local function apply_interpolated_theme(window, t)
       height = '100%',
     },
   }
-  overrides.colors = {
-    tab_bar = { inactive_tab_edge = 'none' },
-    scrollbar_thumb = sb,
-  }
+  -- colors は既存キーを保持しつつテーマ関連キーのみ更新
+  overrides.colors = overrides.colors or {}
+  overrides.colors.tab_bar = { inactive_tab_edge = 'none' }
+  overrides.colors.scrollbar_thumb = sb
   window:set_config_overrides(overrides)
 end
 
