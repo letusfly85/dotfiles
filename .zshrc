@@ -286,6 +286,3 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 nvm use default --silent > /dev/null 2>&1
-
-# Entire CLI shell completion
-autoload -Uz compinit && compinit && source <(entire completion zsh)
