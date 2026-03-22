@@ -171,7 +171,7 @@ zplug load
 # 補完システム初期化（fpath 設定・zplug load の後に実行）
 # 日次でキャッシュ再構築し、それ以外は -C で高速化
 autoload -Uz compinit
-if [[ -n "$HOME/.zcompdump"(#qN.mh+24) ]]; then
+if [[ ! -f "$HOME/.zcompdump" ]] || [[ -n "$HOME/.zcompdump"(#qN.mh+24) ]]; then
   compinit
 else
   compinit -C
