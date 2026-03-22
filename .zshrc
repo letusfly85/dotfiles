@@ -4,6 +4,13 @@ export LANG=ja_JP.UTF-8
 export EDITOR=vim
 export SAVEHIST=100000
 
+# just (タスクランナー) の補完
+fpath=(${0:A:h}/zsh/completions $fpath)
+autoload -Uz compinit && compinit
+# 補完メニューを矢印キー/Tabで選択可能にする
+zstyle ':completion:*' menu select
+zstyle ':completion:*:just:*' list-colors '=(#b)(*)=0=36'
+
 # プロンプト設定（グラデーション付きディレクトリ + git ブランチ/ステータス）
 zmodload zsh/mathfunc
 zmodload zsh/datetime
