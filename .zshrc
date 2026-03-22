@@ -171,10 +171,10 @@ zplug load
 # 補完システム初期化（fpath 設定・zplug load の後に実行）
 # 日次でキャッシュ再構築し、それ以外は -C で高速化
 autoload -Uz compinit
-if [[ -z "$HOME/.zcompdump"(#qN.mh+24) ]]; then
-  compinit -C
-else
+if [[ -n "$HOME/.zcompdump"(#qN.mh+24) ]]; then
   compinit
+else
+  compinit -C
 fi
 # 補完メニューを矢印キー/Tabで選択可能にする（zplug load 後に配置し上書きされないようにする）
 zstyle ':completion:*' menu select
