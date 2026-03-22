@@ -1,4 +1,6 @@
 #compdef just
+# 自動生成: just --completions zsh
+# 手動編集禁止 — 更新時は just --completions zsh > zsh/completions/_just で再生成すること
 
 autoload -U is-at-least
 

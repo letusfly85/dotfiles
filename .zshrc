@@ -4,8 +4,8 @@ export LANG=ja_JP.UTF-8
 export EDITOR=vim
 export SAVEHIST=100000
 
-# just (タスクランナー) 補完用 fpath（compinit は zplug load 後に実行）
-fpath=(${0:A:h}/zsh/completions $fpath)
+# just (タスクランナー) 補完用 fpath（シンボリックリンク前提、compinit は zplug load 後に実行）
+[[ -d ${0:A:h}/zsh/completions ]] && fpath=(${0:A:h}/zsh/completions $fpath)
 
 # プロンプト設定（グラデーション付きディレクトリ + git ブランチ/ステータス）
 zmodload zsh/mathfunc
@@ -168,9 +168,9 @@ fi
 
 zplug load
 
-# 補完システム初期化（fpath 設定・zplug load の後に実行）
-autoload -Uz compinit && compinit
-# 補完メニューを矢印キー/Tabで選択可能にする
+# 補完システム初期化（fpath 設定・zplug load の後に実行。-C でキャッシュ利用し高速化）
+autoload -Uz compinit && compinit -C
+# 補完メニューを矢印キー/Tabで選択可能にする（zplug load 後に配置し上書きされないようにする）
 zstyle ':completion:*' menu select
 
 # キーバインド設定
