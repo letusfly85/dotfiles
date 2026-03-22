@@ -4,12 +4,8 @@ export LANG=ja_JP.UTF-8
 export EDITOR=vim
 export SAVEHIST=100000
 
-# just (タスクランナー) の補完
+# just (タスクランナー) 補完用 fpath（compinit は zplug load 後に実行）
 fpath=(${0:A:h}/zsh/completions $fpath)
-autoload -Uz compinit && compinit
-# 補完メニューを矢印キー/Tabで選択可能にする
-zstyle ':completion:*' menu select
-zstyle ':completion:*:just:*' list-colors '=(#b)(*)=0=36'
 
 # プロンプト設定（グラデーション付きディレクトリ + git ブランチ/ステータス）
 zmodload zsh/mathfunc
@@ -171,6 +167,11 @@ if ! zplug check --verbose; then
 fi
 
 zplug load
+
+# 補完システム初期化（fpath 設定・zplug load の後に実行）
+autoload -Uz compinit && compinit
+# 補完メニューを矢印キー/Tabで選択可能にする
+zstyle ':completion:*' menu select
 
 # キーバインド設定
 bindkey '\eOA' history-substring-search-up
