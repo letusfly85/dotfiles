@@ -4,8 +4,17 @@ export LANG=ja_JP.UTF-8
 export EDITOR=vim
 export SAVEHIST=100000
 
+# dotfiles ディレクトリの解決（$HOME/.zshrc のシンボリックリンク先から特定）
+# $0 はシェル起動方法で値が変わる（-zsh, zsh 等）ため、シンボリックリンクを直接解決する
+if [[ -L "$HOME/.zshrc" ]]; then
+  DOTFILES_DIR="${HOME}/.zshrc"
+  DOTFILES_DIR="${DOTFILES_DIR:A:h}"
+else
+  DOTFILES_DIR="${0:A:h}"
+fi
+
 # just (タスクランナー) 補完用 fpath（シンボリックリンク前提、compinit は zplug load 後に実行）
-[[ -d ${0:A:h}/zsh/completions ]] && fpath=(${0:A:h}/zsh/completions $fpath)
+[[ -d ${DOTFILES_DIR}/zsh/completions ]] && fpath=(${DOTFILES_DIR}/zsh/completions $fpath)
 
 # プロンプト設定（グラデーション付きディレクトリ + git ブランチ/ステータス）
 zmodload zsh/mathfunc
@@ -207,7 +216,7 @@ if [ -d $HOME/.pyenv ]; then
   export PATH="$HOME/.pyenv/shims:$PATH"
 fi
 
-export PATH=${0:A:h}/bin:$PATH
+export PATH=${DOTFILES_DIR}/bin:$PATH
 
 # direnv
 if command -v direnv &>/dev/null; then
