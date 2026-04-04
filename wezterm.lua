@@ -191,8 +191,8 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
   local is_ssh = ssh_panes[pane_id]
 
   if is_ssh then
-    background = "#CC0000" -- 赤背景
-    foreground = "#FFFFFF" -- 白文字
+    background = "#8B1A1A" -- 深宇宙の暗い赤（火星の岩肌）
+    foreground = "#FFD0C0" -- 星明かりのような淡いピンクホワイト
   elseif tab.is_active then
     background = "#4A2C1A" -- 暗い火星表面
     foreground = "#00FFFF" -- サイバーシアン（明るく保持）
