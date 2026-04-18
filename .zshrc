@@ -255,6 +255,16 @@ if [ -f $HOME/.cargo/bin/atuin ]; then
   eval "$(atuin init zsh)"
 fi
 
+# zoxide (smarter cd)
+if command -v zoxide &> /dev/null; then
+  eval "$(zoxide init zsh)"
+fi
+
+# fzf (fuzzy finder)
+if command -v fzf &> /dev/null; then
+  eval "$(fzf --zsh)"
+fi
+
 # パス設定
 [ -d "/usr/local/opt/libpq/bin" ] && export PATH="/usr/local/opt/libpq/bin:$PATH"
 [ -d "/opt/homebrew/opt/mysql-client/bin" ] && export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
