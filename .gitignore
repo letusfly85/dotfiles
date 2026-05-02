@@ -1,2 +1,5 @@
 # .claude/ - settings.local.json is excluded below
 .claude/settings.local.json
+
+# install-libraries.sh が配置する kustomize バイナリ
+/kustomize
