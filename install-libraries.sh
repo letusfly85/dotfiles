@@ -103,8 +103,11 @@ case "$(uname -s)" in
     Linux)
         if [ -f /etc/os-release ] && grep -qiE 'ubuntu|debian' /etc/os-release; then
             # Ubuntu の apt には yazi が無いため cargo でインストール
+            # yazi 26.x 以降は yazi-fm / yazi-cli を個別に install できず、
+            # メタクレート yazi-build 経由でまとめてビルドする必要がある。
+            # https://yazi-rs.github.io/docs/installation
             if command -v cargo &> /dev/null; then
-                cargo install --locked yazi-fm yazi-cli
+                cargo install --force yazi-build
             else
                 echo "cargo が必要です。./install-crate.sh を先に実行するか rustup を導入してください" >&2
             fi
