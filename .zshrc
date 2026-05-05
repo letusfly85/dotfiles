@@ -261,6 +261,7 @@ if command -v zoxide &> /dev/null; then
 fi
 
 # fzf (fuzzy finder)
+[ -d "$HOME/.fzf/bin" ] && export PATH="$HOME/.fzf/bin:$PATH"
 if command -v fzf &> /dev/null; then
   eval "$(fzf --zsh)"
 fi
