@@ -1,0 +1,64 @@
+#compdef scp
+# 手書き補完: zsh 同梱の _scp (実体は /usr/share/zsh/*/functions/_ssh) は
+#   '-i' の候補を `_files -g "*(-.^AR)"` でフィルタしており、
+#   group/other に読み取り権限が残っている鍵 (chmod 忘れの 644 .pem 等) が
+#   候補から無言で除外され、`scp <src> -i <TAB>` で補完が効かないように見える。
+# このファイルは fpath 経由で読み込まれ、システム同梱版より優先される。
+# 構造は同梱の _ssh の scp 分岐をベースに、'-i' のみ素の _files に差し替えた。
+
+_scp() {
+  local curcontext="$curcontext" state line expl suf ret=1
+  typeset -A opt_args
+
+  local -a common common_transfer
+  common=(
+    '(-6)-4[force ssh to use IPv4 addresses only]'
+    '(-4)-6[force ssh to use IPv6 addresses only]'
+    '-A[enable forwarding of the authentication agent connection]'
+    '-C[compress data]'
+    '-c+[select encryption cipher]:encryption cipher'
+    '-F+[specify alternate config file]:config file:_files'
+    '*-i+[select identity file]:SSH identity file:_files'
+    '*-o+[specify extra options]:option string'
+  )
+  common_transfer=(
+    '-J+[connect via a jump host]:jump host:_user_at_host'
+    '-l+[limit used bandwidth]:bandwidth (Kbit/s)'
+    '-P+[specify port on remote host]:port number on remote host'
+    '-p[preserve modification times, access times and modes]'
+    '-q[disable progress meter and warnings]'
+    '-r[recursively copy directories (follows symbolic links)]'
+    '-S+[specify ssh program]:path to ssh:_command_names -e'
+    '-v[verbose mode]'
+  )
+
+  _arguments -C -s \
+    '-3[copy through local host, not directly between the remote hosts]' \
+    '-B[batch mode (do not ask for passphrases)]' \
+    '-D[invoke sftp server directly]' \
+    '-O[use the legacy scp protocol]' \
+    '-R[copy between two remote hosts is performed by the remote host]' \
+    '-T[disable strict filename checking]' \
+    '-X+[specify sftp protocol option]:sftp option' \
+    '*:file:->file' "$common[@]" "$common_transfer[@]" && ret=0
+
+  case $state in
+    file)
+      if compset -P 1 '[^./][^/]#:'; then
+        _remote_files -- ssh ${(kv)~opt_args[(I)-[FP1246]]/-P/-p} && ret=0
+      elif compset -P 1 '*@'; then
+        suf=( -S '' )
+        compset -S ':*' || suf=( -r: -S: )
+        _wanted hosts expl 'remote host name' _ssh_hosts $suf && ret=0
+      else
+        _alternative \
+          'files:: _files' \
+          'hosts:remote host name:_ssh_hosts -r: -S:' && ret=0
+      fi
+      ;;
+  esac
+
+  return ret
+}
+
+_scp "$@"
