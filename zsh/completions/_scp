@@ -1,0 +1,65 @@
+#compdef scp
+# 手書き補完: zsh 同梱の _scp (実体は /usr/share/zsh/*/functions/_ssh) は
+#   '-i' の候補を `_files -g "*(-.^AR)"` でフィルタしており、
+#   group/other に読み取り権限が残っている鍵 (chmod 忘れの 644 .pem 等) が
+#   候補から無言で除外され、`scp <src> -i <TAB>` で補完が効かないように見える。
+# このファイルは fpath 経由で読み込まれ、システム同梱版より優先される。
+# scp の新規オプションに追従する場合は OpenSSH の man scp(1) を参照。
+
+_scp() {
+  local curcontext="$curcontext" state line ret=1 suf
+  typeset -A opt_args
+
+  _arguments -C -s \
+    '-3[相手ホスト同士の中継をローカルで行う]' \
+    '(-6)-4[IPv4 のみを使用]' \
+    '(-4)-6[IPv6 のみを使用]' \
+    '-A[認証エージェント転送を有効化]' \
+    '-B[バッチモード (パスフレーズを尋ねない)]' \
+    '-C[圧縮を有効化]' \
+    '-c+[暗号方式を指定]:cipher:' \
+    '-D[sftp サーバを直接呼び出す]' \
+    '-F+[ssh_config を指定]:config file:_files' \
+    '*-i+[認証鍵ファイル]:identity file:->identity' \
+    '-J+[踏み台ホスト]:jump host:_user_at_host' \
+    '-l+[帯域制限 (Kbit/s)]:bandwidth:' \
+    '-O[従来 scp プロトコルを使用]' \
+    '*-o+[ssh オプション]:option:' \
+    '-P+[リモートポート]:port:' \
+    '-p[属性 (mtime/atime/mode) を保持]' \
+    '-q[静音モード]' \
+    '-R[Remote-to-remote コピーを直接行う]' \
+    '-r[再帰コピー]' \
+    '-S+[ssh プログラム]:program:_command_names -e' \
+    '-T[厳格ファイル名チェックを無効化]' \
+    '-v[詳細ログ]' \
+    '-X+[sftp プロトコルオプション]:sftp option:' \
+    '*:file:->files' && ret=0
+
+  case $state in
+    identity)
+      # ~/.ssh 配下の鍵候補を優先表示しつつ、任意のパスも辿れるようにする。
+      # *.pub / known_hosts / config / authorized_keys 等の付随ファイルは除外。
+      _alternative \
+        'keys:SSH key:_files -W ~/.ssh -g "^(*.pub|known_hosts*|config|authorized_keys|environment)(-.)"' \
+        'files:file:_files' && ret=0
+      ;;
+    files)
+      if compset -P 1 '[^./][^/]#:'; then
+        _remote_files -- ssh ${(kv)~opt_args[(I)-[FP1246]]/-P/-p} && ret=0
+      elif compset -P 1 '*@'; then
+        suf=( -S '' )
+        compset -S ':*' || suf=( -r: -S: )
+        _wanted hosts expl 'remote host name' _ssh_hosts $suf && ret=0
+      else
+        _alternative \
+          'files:: _files' \
+          'hosts:remote host name:_ssh_hosts -r: -S:' && ret=0
+      fi
+      ;;
+  esac
+
+  return ret
+}
+
+_scp "$@"
