@@ -185,6 +185,12 @@ if [[ ! -f "$HOME/.zcompdump" ]] || [[ -n "$HOME/.zcompdump"(#qN.mh+24) ]]; then
 else
   compinit -C
 fi
+
+# 自前補完の上書き（compinit 後に登録しないとシステム同梱版に負ける）
+# 例: /usr/share/zsh/*/functions/_ssh は `#compdef ssh slogin=ssh scp ...` を持つため、
+# dotfiles 側 _scp が fpath で先に来ていても compinit 処理順で _ssh に上書きされる。
+[[ -r ${DOTFILES_DIR}/zsh/completions/_scp ]] && compdef _scp scp
+
 # 補完メニューを矢印キー/Tabで選択可能にする（zplug load 後に配置し上書きされないようにする）
 zstyle ':completion:*' menu select
 
