@@ -4,6 +4,11 @@ export LANG=ja_JP.UTF-8
 export EDITOR=vim
 export SAVEHIST=100000
 
+# Terraform: プロバイダプラグインを 1 箇所に共有キャッシュ（リポジトリごとの .terraform 重複を防ぐ）
+# 初回 terraform init 以降、各 .terraform/ はキャッシュへのハードリンク/参照になりディスクを大幅節約
+export TF_PLUGIN_CACHE_DIR="${HOME}/.terraform.d/plugin-cache"
+[[ -d "${TF_PLUGIN_CACHE_DIR}" ]] || mkdir -p "${TF_PLUGIN_CACHE_DIR}"
+
 # dotfiles ディレクトリの解決（$HOME/.zshrc のシンボリックリンク先から特定）
 # $0 はシェル起動方法で値が変わる（-zsh, zsh 等）ため、シンボリックリンクを直接解決する
 if [[ -L "$HOME/.zshrc" ]]; then
