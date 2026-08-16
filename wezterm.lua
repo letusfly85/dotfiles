@@ -19,6 +19,30 @@ local work_dir = wezterm.home_dir .. '/work'
 -- タブ移動のモディファイア: macOS は Option を IME に譲るため CMD+CTRL を使う
 local tab_move_mods = wezterm.target_triple:find('apple') and 'CMD|CTRL' or 'CTRL|SHIFT'
 
+-- アクティブなタブを左右に移動する（端まで来たら反対側へ回り込む）
+-- 標準の MoveTabRelative は端で止まる (clamp) 実装なので、
+-- MoveTab に 0 始まりの絶対インデックスを渡して自前でラップさせる
+local function move_tab_wrapping(delta)
+  return wezterm.action_callback(function(window, pane)
+    local tabs = window:mux_window():tabs_with_info()
+    local count = #tabs
+    if count < 2 then
+      return
+    end
+
+    local active = 0
+    for _, item in ipairs(tabs) do
+      if item.is_active then
+        active = item.index -- index は 0 始まり
+        break
+      end
+    end
+
+    -- Lua の % は床剰余なので負数でも正しく回り込む ((-1) % 3 == 2)
+    window:perform_action(act.MoveTab((active + delta) % count), pane)
+  end)
+end
+
 config = {
   default_prog = { zsh_path, '-l' },
   default_cwd = work_dir,
@@ -141,17 +165,18 @@ config = {
   -- タブの並べ替え
   -- WezTerm はタブバー上でのドラッグ&ドロップによる並べ替えに未対応のため
   -- (https://github.com/wezterm/wezterm/issues/549)、キーバインドで代替する。
-  -- macOS: CMD+CTRL+←/→ 、それ以外: CTRL+SHIFT+←/→ でアクティブなタブを左右に移動
+  -- macOS: CMD+CTRL+←/→ 、それ以外: CTRL+SHIFT+←/→ でアクティブなタブを左右に移動。
+  -- 右端で更に右へ送ると左端へ、左端で更に左へ送ると右端へ回り込む。
   keys = {
     {
       key = 'LeftArrow',
       mods = tab_move_mods,
-      action = act.MoveTabRelative(-1),
+      action = move_tab_wrapping(-1),
     },
     {
       key = 'RightArrow',
       mods = tab_move_mods,
-      action = act.MoveTabRelative(1),
+      action = move_tab_wrapping(1),
     },
   },
 
