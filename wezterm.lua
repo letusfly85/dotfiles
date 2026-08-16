@@ -16,6 +16,9 @@ end
 local default_cwd = wezterm.home_dir
 local work_dir = wezterm.home_dir .. '/work'
 
+-- タブ移動のモディファイア: macOS は Option を IME に譲るため CMD+CTRL を使う
+local tab_move_mods = wezterm.target_triple:find('apple') and 'CMD|CTRL' or 'CTRL|SHIFT'
+
 config = {
   default_prog = { zsh_path, '-l' },
   default_cwd = work_dir,
@@ -134,6 +137,23 @@ config = {
   max_fps = 120,
   scrollback_lines = 10000,
   enable_scroll_bar = true,
+
+  -- タブの並べ替え
+  -- WezTerm はタブバー上でのドラッグ&ドロップによる並べ替えに未対応のため
+  -- (https://github.com/wezterm/wezterm/issues/549)、キーバインドで代替する。
+  -- macOS: CMD+CTRL+←/→ 、それ以外: CTRL+SHIFT+←/→ でアクティブなタブを左右に移動
+  keys = {
+    {
+      key = 'LeftArrow',
+      mods = tab_move_mods,
+      action = act.MoveTabRelative(-1),
+    },
+    {
+      key = 'RightArrow',
+      mods = tab_move_mods,
+      action = act.MoveTabRelative(1),
+    },
+  },
 
   -- マウスホイールスクロールを固定行数にしてガクガクを防止
   mouse_bindings = {
