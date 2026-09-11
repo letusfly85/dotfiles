@@ -46,6 +46,8 @@ end
 config = {
   default_prog = { zsh_path, '-l' },
   default_cwd = work_dir,
+  -- ベルはトースト通知（下部の on('bell') ハンドラ）だけで扱い、システム警告音は鳴らさない
+  audible_bell = 'Disabled',
   background = {
     {
 	source = { File = os.getenv("HOME") .. "/work/letusfly85/dotfiles/mars.png" },
@@ -263,8 +265,46 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
   }
 end)
 
+-- WezTerm の window:toast_notification() は非推奨の NSUserNotification を使っており
+-- macOS Sonoma 以降では配信されない（通知センターに一切残らない）ため osascript を使う
+
+-- Claude Code がタイトル先頭に付けるスピナー記号。マルチバイトだが
+-- Lua のパターンはバイト単位で素直に照合されるので ^ 固定なら安全に落とせる
+local spinner_glyphs = { '✳', '✻', '✽', '✶', '✢', '✻', '◐', '◑', '◒', '◓', '·', '∗' }
+
 wezterm.on('bell', function(window, pane)
-  window:toast_notification('Claude Code', 'Task completed', nil, 4000)
+  -- ベルは開いている GUI ウィンドウの数だけ配送される。ウィンドウごとに Lua
+  -- コンテキストが別なので、跨って共有される wezterm.GLOBAL で同一秒を弾く
+  local key = tostring(pane:pane_id())
+  local now = os.time()
+  local seen = wezterm.GLOBAL.bell_seen or {}
+  if seen[key] == now then
+    return
+  end
+  seen[key] = now
+  wezterm.GLOBAL.bell_seen = seen
+
+  -- AppleScript の文字列リテラルを壊す文字を除去
+  local title = (pane:get_title() or ''):gsub('[\\"]', '')
+  for _, glyph in ipairs(spinner_glyphs) do
+    title = title:gsub('^' .. glyph .. '%s*', '')
+  end
+  if title == '' then
+    title = 'Task completed'
+  end
+
+  wezterm.background_child_process({
+    '/usr/bin/osascript', '-e',
+    'display notification "' .. title .. '" with title "Claude Code"',
+  })
+
+  -- 通知に紐づく音（display notification の sound name）は macOS の「警告音の音量」に
+  -- 従うため、そこが 0 だと無音になる。afplay は通常の出力音量で鳴るのでこちらを使う。
+  -- 音源は Slack の confirm_delivery を dotfiles にコピーしたもの
+  -- （アプリ内を直接参照すると Slack のアップデートで消えるため）
+  wezterm.background_child_process({
+    '/usr/bin/afplay', os.getenv('HOME') .. '/work/letusfly85/dotfiles/sounds/notify.mp3',
+  })
 end)
 
 return config

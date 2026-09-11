@@ -3,3 +3,7 @@
 
 # install-libraries.sh が配置する kustomize バイナリ
 /kustomize
+
+# 通知音。Slack.app から複製した Slack 社の著作物なので公開リポジトリには置かない。
+# install-notify-sound.sh で各マシンに配置する。
+/sounds/

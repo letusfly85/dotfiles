@@ -65,6 +65,16 @@ sudo ln -s $PWD/vimrc $HOME/.vimrc
 - Shell 開発ツール（shellcheck、shfmt）
 - MeCab（形態素解析）
 
+### 通知音のインストール
+
+```bash
+./install-notify-sound.sh
+```
+
+Wezterm のベル（Claude Code のタスク完了時など）で鳴らす通知音を `sounds/notify.mp3` に配置します。
+音源は Slack.app から複製するため、リポジトリには含めていません（Slack 社の著作物であり、このリポジトリは公開されているため）。
+別の音を使いたい場合は、任意の mp3 を `sounds/notify.mp3` として置いてください。
+
 ## アーキテクチャ
 
 ### 環境管理
