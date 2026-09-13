@@ -7,4 +7,5 @@ cargo install \
     atuin \
     just \
     cargo-generate \
+    cargo-pretty-build \
     hurl

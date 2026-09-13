@@ -41,6 +41,7 @@ ln -s $PWD/wezterm.lua $HOME/.wezterm.lua
 - atuin（履歴管理）
 - just（タスクランナー）
 - cargo-generate
+- cargo-pretty-build（cargo pretty：ビルド/テストの進捗表示）
 - hurl（HTTPクライアント）
 
 ### 外部ライブラリのインストール

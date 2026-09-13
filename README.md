@@ -46,6 +46,7 @@ sudo ln -s $PWD/vimrc $HOME/.vimrc
 - atuin（履歴管理）
 - just（タスクランナー）
 - cargo-generate
+- cargo-pretty-build（cargo pretty：ビルド/テストの進捗表示）
 - hurl（HTTPクライアント）
 
 ### 外部ライブラリのインストール
