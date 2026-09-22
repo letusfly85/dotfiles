@@ -5,4 +5,4 @@ alias tf='terraform'
 
 # shortcuts
 alias q='exit'
-alias cy='claude --dangerously-skip-permissions'
+alias cy='claude --dangerously-skip-permissions --model sonnet'
